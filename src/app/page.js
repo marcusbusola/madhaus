@@ -82,7 +82,7 @@ const FlipCard = () => {
                 This study moves beyond problem identification to explore potential innovations and policy approaches that could transform Lagos into a more equitable, sustainable, and vibrant urban center for all its inhabitants.
               </p>
               <p className="text-base mb-10 leading-relaxed">
-                The Living in Lagos Study serves as a foundational resource for policymakers, social entrepreneurs, and community leaders working to address the city's complex challenges through collaborative, systems-based approaches.
+                The Living in Lagos Study serves as a foundational resource for policymakers, social entrepreneurs, and community leaders working to address the city&apos;s complex challenges through collaborative, systems-based approaches.
               </p>
             </div>
           </div>
@@ -310,7 +310,7 @@ export default function Home() {
               <p className="text-base leading-relaxed mb-4 text-[20px]">
                 Madhaus helps foster these ideas and the community of thinkers, that create impact.
                 The overall goal is to drive a value-driven, profit-aware mindset rather than a
-                profit-driven, value-aware mindset which characterizes the Silicon Valley model. It's
+                profit-driven, value-aware mindset which characterizes the Silicon Valley model. It&apos;s
                 the audacity to want to do things differently that makes us madmen, and our workspace
                 a Madhaus.
               </p>
