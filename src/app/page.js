@@ -63,10 +63,10 @@ const FlipCard = () => {
               </h2>
               <div className="w-full h-[1px] bg-gray-600 mb-8"></div>
               <p className="text-base mb-6 leading-relaxed">
-                Our comprehensive research into urban life in Africa's largest metropolis examines the tensions between opportunity and inequality, innovation and infrastructure limitations.
+                Our comprehensive research into urban life in Africa&apos;s largest metropolis examines the tensions between opportunity and inequality, innovation and infrastructure limitations.
               </p>
               <p className="text-base mb-6 leading-relaxed">
-                Through interviews with over 1,000 residents across socioeconomic backgrounds, we've captured insights that reveal the complexity of navigating Lagos as a resident, entrepreneur, or policymaker.
+                Through interviews with over 1,000 residents across socioeconomic backgrounds, we&apos;ve captured insights that reveal the complexity of navigating Lagos as a resident, entrepreneur, or policymaker.
               </p>
             </div>
 
@@ -152,7 +152,7 @@ const FlipCard = () => {
             <h2 className="text-4xl font-bold mb-8 mt-8">Media That Matters</h2>
             <div className="w-full h-[1px] bg-gray-600 mb-8"></div>
             <p className="text-base mb-6 leading-relaxed">
-              At Madhaus, we're reimagining African media through a lens of social innovation and systems thinking. Our content goes beyond entertainment to foster understanding and catalyze change.
+              At Madhaus, we&apos;re reimagining African media through a lens of social innovation and systems thinking. Our content goes beyond entertainment to foster understanding and catalyze change.
             </p>
             <p className="text-base mb-6 leading-relaxed">
               Our productions range from documentary series examining urban challenges to podcasts featuring thought leaders across the continent. We believe in the power of storytelling to shift paradigms and inspire action.
@@ -281,7 +281,7 @@ export default function Home() {
               href="/contact"
               className="light-border bg-[#EDE7DE] text-black px-6 py-2 rounded-full text-sm hover:bg-gray-200 transition-all duration-300 ease-in-out relative overflow-hidden"
             >
-              Let"s Talk →
+              Let&apos;s Talk →
             </a>
           </div>
         </div>
