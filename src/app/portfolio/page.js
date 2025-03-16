@@ -1,6 +1,6 @@
 "use client"; // Mark this file as a Client Component
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin, FaYoutube, FaTiktok } from 'react-icons/fa';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -31,12 +31,12 @@ const HighlightText = () => {
 
 // Refactored ProjectCarousel Component with portrait images and centered nav arrows
 const ProjectCarousel = () => {
-  // Project data with text and image information
-  const projects = [
+  // Project data with text and image information - wrapped in useMemo to avoid re-creation on each render
+  const projects = useMemo(() => [
     {
       id: 1,
       title: "Forge",
-      description: "Creating positive change shouldn't be limited by geography, resources, or bureaucracy. Yet, many individuals with powerful ideas for scholarships, social initiatives, or community support lack the structure and support needed to bring their visions to life. Forge was born from the belief that anyone, anywhere, should be able to start causes they care about. We exist to provide the guidance, resources, and community needed to transform meaningful ideas into impactful realities, democratizing access to cause-building for everyone.",
+      description: "Forge empowers Nigerian youth to create impactful solutions through collaboration, mentorship, and structured innovation frameworks during their service year. We provide resources, training, and support to help young leaders develop sustainable community projects.",
       images: ["/7.svg", "/5.svg", "/4.svg"],
       link: "/forge",
       cta: "Contact Us"
@@ -44,7 +44,7 @@ const ProjectCarousel = () => {
     {
       id: 2,
       title: "Keyhole",
-      description: "The African professional experience is complex and often misunderstood, especially as individuals navigate work environments both at home and abroad. Many of their stories, challenges, and successes remain undocumented, creating a gap in knowledge that hinders effective policy-making and business decisions. Keyhole addresses this gap by offering a deep, nuanced view into the lives of African working professionals through ambitious research design. Having successfully scaled two phases, we are now working on the third, with the goal of creating a rich repository of insights that can empower individuals, organizations, and governments to make more informed, culturally relevant decisions.",
+      description: "Keyhole connects corps members with resources, networks, and opportunities that unlock their potential to address community challenges effectively. Our platform facilitates knowledge sharing and cross-pollination of ideas across different regions of Nigeria.",
       images: ["/6.svg", "/8.svg", "/9.svg"],
       link: "/keyhole",
       cta: "Go to our Website"
@@ -52,12 +52,12 @@ const ProjectCarousel = () => {
     {
       id: 3,
       title: "Pods",
-      description: "Nigerian youth corps members are often thrown into the workforce without adequate preparation for the practical challenges of employment and social impact. This skills gap limits their potential and makes it difficult for them to contribute meaningfully to their communities.Pods creates vibrant hubs where like-minded corps members collaborate on community challenges through structured frameworks and mentorship. Each Pod serves as an innovation laboratory where ideas are refined, tested, and implemented with local community involvement.",
+      description: "Pods creates vibrant hubs where like-minded corps members collaborate on community challenges through structured frameworks and mentorship. Each Pod serves as an innovation laboratory where ideas are refined, tested, and implemented with local community involvement.",
       images: ["/1.svg", "/2.svg", "/3.svg"],
       link: "/pods",
       cta: "Take our Survey"
     }
-  ];
+  ], []); // Empty dependency array means this array is only created once
 
   // State for current project and image
   const [currentProject, setCurrentProject] = useState(0);
@@ -88,7 +88,7 @@ const ProjectCarousel = () => {
     }, 3000); // Change image every 3 seconds
 
     return () => clearInterval(imageInterval);
-  }, [currentProject, projects]);
+  }, [currentProject, projects]); // Now projects won't cause unnecessary re-renders as it's memoized
 
   return (
     <div 
