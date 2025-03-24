@@ -103,14 +103,14 @@ const ProjectAccordion = () => {
       id: 1,
       title: "Pods",
       description: "With Pods, we're creating a new model for youth-led social innovation across Nigeria",
-      image: "/2.svg",
+      image: "/1.svg",
       link: "/pods"
     },
     {
       id: 2,
       title: "Forge",
       description: "With Pods, we're creating a new model for youth-led social innovation across Nigeria",
-      image: "/4.svg",
+      image: "/7.svg",
       link: "/forge"
     },
     {
@@ -271,7 +271,7 @@ const CompletePods = () => {
                 <FaTwitter size={18} />
               </a>
               <a
-                href="https://https://www.linkedin.com/company/madhaus-africa"
+                href="https://linkedin.com"
                 aria-label="LinkedIn"
                 className="bg-[#EDE7DE] text-black rounded-full w-8 h-8 md:w-10 md:h-10 flex items-center justify-center"
               >
