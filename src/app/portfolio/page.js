@@ -271,7 +271,7 @@ const CompletePods = () => {
                 <FaTwitter size={18} />
               </a>
               <a
-                href="https://linkedin.com"
+                href="https://https://www.linkedin.com/company/madhaus-africa"
                 aria-label="LinkedIn"
                 className="bg-[#EDE7DE] text-black rounded-full w-8 h-8 md:w-10 md:h-10 flex items-center justify-center"
               >
