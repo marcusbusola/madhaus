@@ -278,7 +278,7 @@ export default function Home() {
               LINKED IN →
             </a>
             <a
-              href="/contact"
+              href="mailto:pr@madhaus.africa"
               className="light-border bg-[#EDE7DE] text-black px-6 py-2 rounded-full text-sm hover:bg-gray-200 transition-all duration-300 ease-in-out relative overflow-hidden"
             >
               Let&apos;s Talk →
@@ -464,7 +464,7 @@ export default function Home() {
                   { icon: <FaFacebook size={18} />, href: 'https://facebook.com' },
                   { icon: <FaInstagram size={18} />, href: 'https://instagram.com' },
                   { icon: <FaTwitter size={18} />, href: 'https://twitter.com' },
-                  { icon: <FaLinkedin size={18} />, href: 'https://linkedin.com' },
+                  { icon: <FaLinkedin size={18} />, href: 'https://www.linkedin.com/company/madhaus-africa' },
                   { icon: <FaYoutube size={18} />, href: 'https://youtube.com' },
                   { icon: <FaTiktok size={18} />, href: 'https://tiktok.com' },
                 ].map((social, index) => (
