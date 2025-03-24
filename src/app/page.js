@@ -91,7 +91,7 @@ const FlipCard = () => {
           <div className="flex justify-end items-center gap-4 mb-8">
             <span className="text-base">Our Blog</span>
             <Link
-              href="/work"
+              href="https://madhaus.substack.com/"
               className="flex items-center gap-2 bg-[#f2ece3] py-2 px-4 md:py-3 md:px-6 rounded-md"
             >
               <motion.span
