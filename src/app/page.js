@@ -242,13 +242,13 @@ const FlipCard = () => {
   );
 };
 
-// Home Page Component
+
 export default function Home() {
   const secondSectionRef = useRef(null);
   const isSecondSectionInView = useInView(secondSectionRef, { once: false, amount: 0.2 });
   const [isFlashing, setIsFlashing] = useState(false);
 
-  // Toggle flashing effect
+
   useEffect(() => {
     const interval = setInterval(() => {
       setIsFlashing(prev => !prev);
@@ -265,7 +265,7 @@ export default function Home() {
           <Image src="/MH.svg" alt="Madhaus Logo" width={120} height={40} />
         </div>
 
-        {/* Highlight Text Animation */}
+        
         <HighlightText />
 
         
