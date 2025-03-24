@@ -103,7 +103,7 @@ const ProjectAccordion = () => {
       id: 1,
       title: "Pods",
       description: "With Pods, we're creating a new model for youth-led social innovation across Nigeria",
-      image: "/1.svg",
+      image: "/2.svg",
       link: "/pods"
     },
     {
