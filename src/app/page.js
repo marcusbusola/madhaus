@@ -394,7 +394,7 @@ export default function Home() {
                 }}
               />
               <Image 
-                src="/Keyhole.svg" 
+                src="/keyhole.svg" 
                 alt="Keyhole"
                 width={180}
                 height={90}
