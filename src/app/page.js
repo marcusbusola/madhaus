@@ -268,11 +268,11 @@ export default function Home() {
         {/* Highlight Text Animation */}
         <HighlightText />
 
-        {/* LinkedIn and Let's Talk Buttons */}
+        
         <div className="w-full flex justify-end pb-12">
           <div className="flex gap-4 rounded-full border border-[#EDE7DE] py-1.5 px-1.5">
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/company/madhaus-africa"
               className="light-border border border-white text-[#EDE7DE] px-6 py-2 rounded-full text-sm hover:#EDE7DE hover:text-black transition-all duration-300 ease-in-out relative overflow-hidden"
             >
               LINKED IN →
