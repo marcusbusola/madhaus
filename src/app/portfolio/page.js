@@ -76,7 +76,7 @@ const SystemsThinking = () => {
             initiatives.
           </p>
           <div className="flex justify-end items-center gap-4">
-            <span className="text-base">Let's Talk</span>
+            <span className="text-base">Let&apos;s Talk</span>
             <Link
               href="/work"
               className="flex items-center gap-2 bg-[#f2ece3] py-2 px-4 md:py-3 md:px-6 rounded-md"
