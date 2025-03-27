@@ -76,7 +76,7 @@ const SystemsThinking = () => {
             initiatives.
           </p>
           <div className="flex justify-end items-center gap-4">
-            <span className="text-base">Let&apos;s Talk</span>
+            <span className="text-base">Let's Talk</span>
             <Link
               href="/work"
               className="flex items-center gap-2 bg-[#f2ece3] py-2 px-4 md:py-3 md:px-6 rounded-md"
@@ -95,7 +95,7 @@ const SystemsThinking = () => {
   );
 };
 
-// ProjectAccordion Component
+// ProjectAccordion Component - REFACTORED TO MATCH IMAGE
 const ProjectAccordion = () => {
   // Project data with text and image information
   const projects = useMemo(() => [
@@ -103,14 +103,14 @@ const ProjectAccordion = () => {
       id: 1,
       title: "Pods",
       description: "With Pods, we're creating a new model for youth-led social innovation across Nigeria",
-      image: "/2.svg",
+      image: "/1.svg", // You might want to replace these with your actual high-contrast images
       link: "/pods"
     },
     {
       id: 2,
       title: "Forge",
       description: "With Pods, we're creating a new model for youth-led social innovation across Nigeria",
-      image: "/4.svg",
+      image: "/7.svg",
       link: "/forge"
     },
     {
@@ -137,34 +137,34 @@ const ProjectAccordion = () => {
   return (
     <div className="min-h-screen py-20">
       <div className="max-w-7xl mx-auto px-4">
-        {/* Accordion Container */}
-        <div className="flex flex-col">
+        {/* Accordion Container - Now a grid layout */}
+        <div className="grid grid-cols-1 gap-0">
           {projects.map((project) => (
-            <div key={project.id} className="mb-8 last:mb-0">
+            <div key={project.id} className="mb-0 border-b border-gray-200 last:border-b-0">
               {/* Accordion Item */}
               <div className="w-full">
-                {/* Accordion Header */}
-                <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 py-6">
-                  {/* Left side - Image */}
-                  <div className="w-full aspect-[3/2] relative">
+                {/* Accordion Header - Now a true two-column layout with high contrast */}
+                <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-0">
+                  {/* Left side - High contrast Image */}
+                  <div className="w-full aspect-video relative bg-black overflow-hidden">
                     <Image
                       src={project.image}
                       alt={project.title}
                       fill
-                      className="object-cover"
+                      className="object-cover filter contrast-200 brightness-50 grayscale"
                       priority
                     />
                   </div>
                   
                   {/* Right side - Text and expand button */}
-                  <div className="flex flex-col justify-end items-center text-center h-full">
-                    <div className="mt-auto">
-                      <h3 className="text-2xl font-light mb-2">{project.title}</h3>
-                      <p className="text-lg mb-4">{project.description}</p>
+                  <div className="flex flex-col justify-center items-center text-center bg-white p-10 h-full relative">
+                    <div className="max-w-md">
+                      <h3 className="text-xl font-light mb-4">{project.title}</h3>
+                      <p className="text-lg mb-8">{project.description}</p>
                     </div>
                     <button
                       onClick={() => toggleItem(project.id)}
-                      className="border border-black rounded-full w-8 h-8 flex items-center justify-center focus:outline-none"
+                      className="border border-black rounded-full w-10 h-10 flex items-center justify-center focus:outline-none absolute bottom-8"
                       aria-label={openItem === project.id ? "Collapse content" : "Expand content"}
                     >
                       {openItem === project.id ? "-" : "+"}
