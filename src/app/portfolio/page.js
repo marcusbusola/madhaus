@@ -336,21 +336,21 @@ const CompletePods = () => {
                 <FaFacebook size={18} />
               </a>
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/madhausafrica/"
                 aria-label="Instagram"
                 className="bg-[#EDE7DE] text-black rounded-full w-8 h-8 md:w-10 md:h-10 flex items-center justify-center"
               >
                 <FaInstagram size={18} />
               </a>
               <a
-                href="https://twitter.com"
+                href="https://x.com/Madhaus_Africa"
                 aria-label="Twitter"
                 className="bg-[#EDE7DE] text-black rounded-full w-8 h-8 md:w-10 md:h-10 flex items-center justify-center"
               >
                 <FaTwitter size={18} />
               </a>
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/company/madhaus-africa"
                 aria-label="LinkedIn"
                 className="bg-[#EDE7DE] text-black rounded-full w-8 h-8 md:w-10 md:h-10 flex items-center justify-center"
               >
@@ -364,7 +364,7 @@ const CompletePods = () => {
                 <FaYoutube size={18} />
               </a>
               <a
-                href="https://tiktok.com"
+                href="http://www.tiktok.com/@madhaus.africa"
                 aria-label="TikTok"
                 className="bg-[#EDE7DE] text-black rounded-full w-8 h-8 md:w-10 md:h-10 flex items-center justify-center"
               >
