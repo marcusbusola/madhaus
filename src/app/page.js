@@ -462,11 +462,11 @@ export default function Home() {
               <div className="flex gap-6 mt-5">
                 {[
                   { icon: <FaFacebook size={18} />, href: 'https://facebook.com' },
-                  { icon: <FaInstagram size={18} />, href: 'https://instagram.com' },
-                  { icon: <FaTwitter size={18} />, href: 'https://twitter.com' },
+                  { icon: <FaInstagram size={18} />, href: 'https://www.instagram.com/madhausafrica/' },
+                  { icon: <FaTwitter size={18} />, href: 'https://x.com/Madhaus_Africa' },
                   { icon: <FaLinkedin size={18} />, href: 'https://www.linkedin.com/company/madhaus-africa' },
                   { icon: <FaYoutube size={18} />, href: 'https://youtube.com' },
-                  { icon: <FaTiktok size={18} />, href: 'https://tiktok.com' },
+                  { icon: <FaTiktok size={18} />, href: 'http://www.tiktok.com/@madhaus.africa' },
                 ].map((social, index) => (
                   <a
                     key={index}
