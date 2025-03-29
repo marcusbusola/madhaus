@@ -9,9 +9,39 @@ import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
 const HighlightText = () => {
   const words = ['From', 'content', 'to', 'consciousness', 'to', 'change!'];
+  const containerRef = useRef(null);
+  const [pathLength, setPathLength] = useState(0);
+  const [textPositions, setTextPositions] = useState({
+    content: { x: 0, y: 0 },
+    consciousness: { x: 0, y: 0 },
+    change: { x: 0, y: 0 }
+  });
+
+  // Set up text positions after render
+  useEffect(() => {
+    if (containerRef.current) {
+      const spanElements = containerRef.current.querySelectorAll('span');
+      const positions = {};
+      
+      spanElements.forEach(span => {
+        const text = span.textContent.toLowerCase();
+        if (text === 'content' || text === 'consciousness' || text === 'change!') {
+          const rect = span.getBoundingClientRect();
+          const containerRect = containerRef.current.getBoundingClientRect();
+          positions[text.replace('!', '')] = { 
+            x: rect.left - containerRect.left + rect.width / 2, 
+            y: rect.top - containerRect.top + rect.height / 2 
+          };
+        }
+      });
+
+      setTextPositions(positions);
+      setPathLength(1);
+    }
+  }, []);
 
   return (
-    <div className="w-full flex items-center justify-end max-w-4xl ml-auto text-right min-h-[80vh]">
+    <div className="w-full flex items-center justify-end max-w-4xl ml-auto text-right min-h-[80vh] relative" ref={containerRef}>
       <h1 className="font-light leading-tight text-[30px]">
         {words.map((word, index) => (
           <motion.span
@@ -25,6 +55,8 @@ const HighlightText = () => {
           </motion.span>
         ))}
       </h1>
+      
+      {/* Squiggly line removed */}
     </div>
   );
 };
@@ -95,7 +127,7 @@ const SystemsThinking = () => {
   );
 };
 
-// ProjectAccordion Component - REFACTORED TO MATCH IMAGE
+// ProjectAccordion Component - REFACTORED WITH UPDATED STYLING
 const ProjectAccordion = () => {
   // Project data with text and image information
   const projects = useMemo(() => [
@@ -135,16 +167,16 @@ const ProjectAccordion = () => {
   };
 
   return (
-    <div className="min-h-screen py-20">
+    <div className="min-h-screen py-20 bg-black">
       <div className="max-w-7xl mx-auto px-4">
-        {/* Accordion Container - Now a grid layout */}
-        <div className="grid grid-cols-1 gap-0">
+        {/* Accordion Container - Now with increased margins between items */}
+        <div className="grid grid-cols-1 gap-8">
           {projects.map((project) => (
-            <div key={project.id} className="mb-0 border-b border-gray-200 last:border-b-0">
+            <div key={project.id} className="mb-0">
               {/* Accordion Item */}
               <div className="w-full">
-                {/* Accordion Header - Now a true two-column layout with high contrast */}
-                <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-0">
+                {/* Accordion Header - Removed white border */}
+                <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-0 relative">
                   {/* Left side - High contrast Image */}
                   <div className="w-full aspect-video relative bg-black overflow-hidden">
                     <Image
@@ -214,6 +246,47 @@ const ProjectAccordion = () => {
 
 const CompletePods = () => {
   const { scrollYProgress } = useScroll();
+  const consciousnessRef = useRef(null);
+  const secondSectionRef = useRef(null);
+  const [linePathPoints, setLinePathPoints] = useState({
+    start: { x: 0, y: 0 },
+    end: { x: 0, y: 0 },
+    height: 0
+  });
+
+  // Effect to calculate and update line path based on scroll position
+  useEffect(() => {
+    const updateLinePath = () => {
+      if (consciousnessRef.current && secondSectionRef.current) {
+        const consciousnessRect = consciousnessRef.current.getBoundingClientRect();
+        const secondSectionRect = secondSectionRef.current.getBoundingClientRect();
+        
+        setLinePathPoints({
+          start: {
+            x: consciousnessRef.current.offsetLeft + (consciousnessRef.current.offsetWidth / 2),
+            y: consciousnessRef.current.offsetTop + consciousnessRef.current.offsetHeight
+          },
+          end: {
+            x: window.innerWidth / 2,
+            y: secondSectionRect.top + (secondSectionRect.height * 0.1) // 10% down into second section
+          },
+          height: secondSectionRect.top - (consciousnessRef.current.offsetTop + consciousnessRef.current.offsetHeight)
+        });
+      }
+    };
+
+    // Initial calculation
+    updateLinePath();
+    
+    // Update on scroll and resize
+    window.addEventListener('scroll', updateLinePath);
+    window.addEventListener('resize', updateLinePath);
+    
+    return () => {
+      window.removeEventListener('scroll', updateLinePath);
+      window.removeEventListener('resize', updateLinePath);
+    };
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen overflow-hidden">
@@ -221,11 +294,17 @@ const CompletePods = () => {
         <div className="absolute top-8 left-8 z-10">
           <Image src="/MH.svg" alt="Madhaus Logo" width={120} height={40} />
         </div>
+        
         <HighlightText />
+        
+        {/* Reference div to get position of "consciousness" */}
+        <div ref={consciousnessRef} className="invisible absolute" style={{ top: '50%', left: '50%' }} />
       </section>
       
-      {/* SystemsThinking is now in section two position */}
-      <SystemsThinking />
+      {/* SystemsThinking is now in section two position with ref for line ending */}
+      <section ref={secondSectionRef} className="w-full">
+        <SystemsThinking />
+      </section>
       
       {/* ProjectAccordion is now in section three position */}
       <ProjectAccordion />
