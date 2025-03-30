@@ -134,7 +134,7 @@ const ProjectAccordion = () => {
     {
       id: 1,
       title: "Pods",
-      description: "With Pods, we're creating a new model for youth-led social innovation across Nigeria",
+      description: "At Pods, we believe in the power of experiential learning. Designed for NYSC members, Pods is a dynamic space where young changemakers can explore social innovation, build impactful projects, and connect with like-minded peers.",
       image: "/5.svg", // You might want to replace these with your actual high-contrast images
       link: "/pods"
     },
