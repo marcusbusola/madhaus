@@ -342,7 +342,7 @@ export default function Home() {
                 }}
               />
               <Image 
-                src="/pod.svg" 
+                src="/5.svg" 
                 alt="Pods"
                 width={220}
                 height={100}
@@ -368,7 +368,7 @@ export default function Home() {
                 }}
               />
                             <Image 
-                src="/forge.svg" 
+                src="/4.svg" 
                 alt="Forge"
                 width={220}
                 height={100}
@@ -394,7 +394,7 @@ export default function Home() {
                 }}
               />
               <Image 
-                src="/keyhole.svg" 
+                src="/6.svg" 
                 alt="Keyhole"
                 width={180}
                 height={90}
