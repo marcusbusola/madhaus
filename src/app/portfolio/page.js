@@ -141,14 +141,14 @@ const ProjectAccordion = () => {
     {
       id: 2,
       title: "Forge",
-      description: "With Pods, we're creating a new model for youth-led social innovation across Nigeria",
+      description: "Forge is our advanced incubation program that transforms promising ideas into sustainable initiatives through mentorship, resources, and strategic partnerships across Africa.",
       image: "/4.svg",
       link: "/forge"
     },
     {
       id: 3,
       title: "Keyhole",
-      description: "With Pods, we're creating a new model for youth-led social innovation across Nigeria",
+      description: "Keyhole offers critical insights and research on African issues, unlocking new perspectives that inform policy, drive innovation, and create pathways for meaningful societal change.",
       image: "/6.svg",
       link: "/keyhole"
     }
@@ -215,8 +215,10 @@ const ProjectAccordion = () => {
                       className="overflow-hidden bg-[#f2ece3] w-full p-6"
                     >
                       <div className="pb-4">
-                        <p className="mb-4">
-                          About Pods
+                        {project.id === 1 && (
+                          <>
+                            <p className="mb-4">
+                              About Pods
 Pods is a structured learning and collaboration space designed to help NYSC members engage meaningfully with social innovation during their service year. Recognizing that this period presents a unique opportunity for young professionals to immerse themselves in different communities and industries, Pods provides a framework for structured experimentation, hands-on learning, and impactful project development.
 
 The program is built around the idea that innovation is best cultivated through real-world problem-solving. Participants work on initiatives that address pressing societal challenges across various sectors, including education, sustainability, technology, and economic development. By combining practical work with mentorship and strategic guidance, Pods ensures that every project is not just an idea but a step toward tangible impact.
@@ -225,14 +227,66 @@ A core component of Pods is its emphasis on skill-building. Through a series of 
 
 Mentorship is also a key part of the Pods experience. Participants engage with experienced professionals, industry leaders, and social entrepreneurs who provide insights, guidance, and feedback throughout the process. This exchange of knowledge ensures that ideas are not developed in isolation but are informed by real-world expertise and best practices.
 
-Beyond individual skill-building, Pods fosters a strong sense of community. Participants work together, exchanging ideas and resources while learning from one another’s experiences. This collaborative approach strengthens networks and creates an environment where innovation is not just encouraged but actively supported.
+Beyond individual skill-building, Pods fosters a strong sense of community. Participants work together, exchanging ideas and resources while learning from one another's experiences. This collaborative approach strengthens networks and creates an environment where innovation is not just encouraged but actively supported.
 
 By the end of the program, participants leave with more than just a project—they gain a deeper understanding of problem-solving, the confidence to implement their ideas, and a network of peers and mentors who continue to support their growth. Pods is not just about working on social innovation during the service year; it is about developing the mindset and tools to engage with impactful work long after the program ends.
-                        </p>
-                        <p className="mb-4">
-                          Through collaboration, mentorship, and structured innovation frameworks, 
-                          we enable young leaders to develop sustainable projects.
-                        </p>
+                            </p>
+                            <p className="mb-4">
+                              Through collaboration, mentorship, and structured innovation frameworks, 
+                              we enable young leaders to develop sustainable projects.
+                            </p>
+                          </>
+                        )}
+                        
+                        {project.id === 2 && (
+                          <>
+                            <p className="mb-4">
+                              About Forge
+Forge is our intensive incubation program designed to transform promising ideas into sustainable initiatives. We believe that great ideas need more than just enthusiasm—they require resources, strategic guidance, and a supportive ecosystem to truly flourish. 
+
+At Forge, we provide a comprehensive suite of resources for visionary leaders and organizations working on high-impact projects across Africa. Our program offers access to funding opportunities, technical expertise, and operational support tailored to each initiative's unique needs and challenges.
+
+A cornerstone of Forge is our strategic partnership approach. We connect innovators with a diverse network of organizations, from local community groups to international institutions, creating powerful collaborations that amplify impact and reach. These partnerships not only provide additional resources but also open doors to new markets, audiences, and implementation opportunities.
+
+The Forge curriculum is built around proven innovation methodologies and practical business strategies. Participants engage in targeted workshops, receive personalized coaching, and benefit from regular feedback sessions with industry experts. This rigorous process ensures that ideas are thoroughly tested, refined, and positioned for long-term success.
+
+What sets Forge apart is our commitment to contextually relevant innovation. We recognize that challenges in African communities require solutions that honor local knowledge, culture, and systems. Our approach emphasizes deep community engagement, participatory design, and solutions that build upon existing strengths and resources.
+
+The Forge experience extends beyond the program duration through our active alumni network. Graduates continue to receive support, access to resources, and opportunities for collaboration, creating a growing ecosystem of innovators driving positive change across the continent.
+
+Through Forge, we're not just supporting individual projects—we're building a movement of strategic, sustainable, and impactful initiatives that address some of Africa's most pressing challenges.
+                            </p>
+                            <p className="mb-4">
+                              With deep mentorship, resource provision, and strategic partnerships, 
+                              Forge transforms promising concepts into viable, sustainable enterprises.
+                            </p>
+                          </>
+                        )}
+                        
+                        {project.id === 3 && (
+                          <>
+                            <p className="mb-4">
+                              About Keyhole
+Keyhole is our research and knowledge-sharing initiative focused on providing critical insights into complex African challenges. Named for its ability to unlock new perspectives, Keyhole produces thoughtful analysis that bridges the gap between academic knowledge and practical application in policy and innovation spaces.
+
+Our research process begins with identifying key issues where better understanding can drive meaningful change. We engage with diverse stakeholders—from community members to policymakers—to ensure that our investigations are relevant, contextually grounded, and capable of informing real-world decisions.
+
+Keyhole employs a mix of methodologies, combining rigorous data analysis with qualitative approaches that capture the rich context and lived experiences shaping African realities. This multi-dimensional approach allows us to produce findings that are both empirically sound and genuinely insightful about the human dimensions of the issues we explore.
+
+A defining feature of Keyhole is its commitment to accessibility. We translate complex findings into engaging, accessible formats—from policy briefs and visual reports to interactive digital content and community conversations. This ensures that valuable insights reach those who can apply them, regardless of their technical background.
+
+Keyhole also serves as a platform for African researchers, thinkers, and practitioners to share their expertise and perspectives. By amplifying local knowledge production, we contribute to a more balanced and authentic knowledge ecosystem around African development and innovation.
+
+Strategic dissemination is central to Keyhole's approach. We actively engage with policymakers, media outlets, educational institutions, and community organizations to ensure our research informs key conversations and decision-making processes across multiple levels.
+
+Through Keyhole, we're not just producing research—we're creating pathways for knowledge to catalyze action, inform better decisions, and ultimately contribute to more effective and equitable solutions to African challenges.
+                            </p>
+                            <p className="mb-4">
+                              Through careful research and strategic dissemination, 
+                              Keyhole provides critical insights that inform policy and drive innovation.
+                            </p>
+                          </>
+                        )}
                         <div className="flex justify-end">
                           <Link 
                             href={project.link}
