@@ -227,7 +227,7 @@ A core component of Pods is its emphasis on skill-building. Through a series of 
 
 Mentorship is also a key part of the Pods experience. Participants engage with experienced professionals, industry leaders, and social entrepreneurs who provide insights, guidance, and feedback throughout the process. This exchange of knowledge ensures that ideas are not developed in isolation but are informed by real-world expertise and best practices.
 
-Beyond individual skill-building, Pods fosters a strong sense of community. Participants work together, exchanging ideas and resources while learning from one another's experiences. This collaborative approach strengthens networks and creates an environment where innovation is not just encouraged but actively supported.
+Beyond individual skill-building, Pods fosters a strong sense of community. Participants work together, exchanging ideas and resources while learning from one another&apos;s experiences. This collaborative approach strengthens networks and creates an environment where innovation is not just encouraged but actively supported.
 
 By the end of the program, participants leave with more than just a project—they gain a deeper understanding of problem-solving, the confidence to implement their ideas, and a network of peers and mentors who continue to support their growth. Pods is not just about working on social innovation during the service year; it is about developing the mindset and tools to engage with impactful work long after the program ends.
                             </p>
@@ -244,7 +244,7 @@ By the end of the program, participants leave with more than just a project—th
                               About Forge
 Forge is our intensive incubation program designed to transform promising ideas into sustainable initiatives. We believe that great ideas need more than just enthusiasm—they require resources, strategic guidance, and a supportive ecosystem to truly flourish. 
 
-At Forge, we provide a comprehensive suite of resources for visionary leaders and organizations working on high-impact projects across Africa. Our program offers access to funding opportunities, technical expertise, and operational support tailored to each initiative's unique needs and challenges.
+At Forge, we provide a comprehensive suite of resources for visionary leaders and organizations working on high-impact projects across Africa. Our program offers access to funding opportunities, technical expertise, and operational support tailored to each initiative&apos;s unique needs and challenges.
 
 A cornerstone of Forge is our strategic partnership approach. We connect innovators with a diverse network of organizations, from local community groups to international institutions, creating powerful collaborations that amplify impact and reach. These partnerships not only provide additional resources but also open doors to new markets, audiences, and implementation opportunities.
 
@@ -254,7 +254,7 @@ What sets Forge apart is our commitment to contextually relevant innovation. We 
 
 The Forge experience extends beyond the program duration through our active alumni network. Graduates continue to receive support, access to resources, and opportunities for collaboration, creating a growing ecosystem of innovators driving positive change across the continent.
 
-Through Forge, we're not just supporting individual projects—we're building a movement of strategic, sustainable, and impactful initiatives that address some of Africa's most pressing challenges.
+Through Forge, we&apos;re not just supporting individual projects—we&apos;re building a movement of strategic, sustainable, and impactful initiatives that address some of Africa&apos;s most pressing challenges.
                             </p>
                             <p className="mb-4">
                               With deep mentorship, resource provision, and strategic partnerships, 
@@ -277,9 +277,9 @@ A defining feature of Keyhole is its commitment to accessibility. We translate c
 
 Keyhole also serves as a platform for African researchers, thinkers, and practitioners to share their expertise and perspectives. By amplifying local knowledge production, we contribute to a more balanced and authentic knowledge ecosystem around African development and innovation.
 
-Strategic dissemination is central to Keyhole's approach. We actively engage with policymakers, media outlets, educational institutions, and community organizations to ensure our research informs key conversations and decision-making processes across multiple levels.
+Strategic dissemination is central to Keyhole&aposs approach. We actively engage with policymakers, media outlets, educational institutions, and community organizations to ensure our research informs key conversations and decision-making processes across multiple levels.
 
-Through Keyhole, we're not just producing research—we're creating pathways for knowledge to catalyze action, inform better decisions, and ultimately contribute to more effective and equitable solutions to African challenges.
+Through Keyhole, we&apos;re not just producing research—we&apos;re creating pathways for knowledge to catalyze action, inform better decisions, and ultimately contribute to more effective and equitable solutions to African challenges.
                             </p>
                             <p className="mb-4">
                               Through careful research and strategic dissemination, 
