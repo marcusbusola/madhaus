@@ -1,4 +1,3 @@
-
 "use client"; // Add this line at the top
 
 import { useState, useRef, useEffect } from 'react';
@@ -317,7 +316,7 @@ export default function Home() {
             </div>
           </motion.section>
 
-          {/* Pods, Funds, Key Hole Section with Fade In */}
+          {/* Pods, Funds, Key Hole Section with Fade In - REFACTORED */}
           <motion.section 
             ref={secondSectionRef}
             initial={{ opacity: 0, y: 30 }}
@@ -326,7 +325,7 @@ export default function Home() {
             className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-30 mt-30"
           >
             <motion.div 
-              className="bg-[#f2ece3] p-12 md:p-25 flex items-center justify-center rounded-md overflow-hidden relative"
+              className="bg-[#f2ece3] p-12 md:p-12 flex flex-col items-center justify-center rounded-md overflow-hidden relative"
               whileHover={{ y: -10, transition: { duration: 0.3 } }}
             >
               <motion.div
@@ -341,17 +340,20 @@ export default function Home() {
                   repeatDelay: 3
                 }}
               />
-              <Image 
-                src="/5.svg" 
-                alt="Pods"
-                width={220}
-                height={100}
-                className="relative z-10"
-              />
-              <h3 className="text-xl font-normal relative z-10">Project Pods</h3>
+              <div className="w-full h-32 flex items-center justify-center mb-4">
+                <Image 
+                  src="/5.svg" 
+                  alt="Pods"
+                  width={160}
+                  height={80}
+                  className="relative z-10 object-contain"
+                />
+              </div>
+              <h3 className="text-xl font-normal relative z-10 mt-2">Project Pods</h3>
             </motion.div>
+            
             <motion.div 
-              className="bg-[#f2ece3] p-6 md:p-12 flex items-center justify-center rounded-md overflow-hidden relative"
+              className="bg-[#f2ece3] p-12 md:p-12 flex flex-col items-center justify-center rounded-md overflow-hidden relative"
               whileHover={{ y: -10, transition: { duration: 0.3 } }}
             >
               <motion.div
@@ -367,17 +369,20 @@ export default function Home() {
                   delay: 1
                 }}
               />
-                            <Image 
-                src="/4.svg" 
-                alt="Forge"
-                width={220}
-                height={100}
-                className="relative z-10"
-              />
-              <h3 className="text-xl font-normal relative z-10"> The Forge</h3>
+              <div className="w-full h-32 flex items-center justify-center mb-4">
+                <Image 
+                  src="/4.svg" 
+                  alt="Forge"
+                  width={160}
+                  height={80}
+                  className="relative z-10 object-contain"
+                />
+              </div>
+              <h3 className="text-xl font-normal relative z-10 mt-2">The Forge</h3>
             </motion.div>
+            
             <motion.div 
-              className="bg-[#f2ece3] p-6 md:p-12 flex items-center justify-center rounded-md overflow-hidden relative"
+              className="bg-[#f2ece3] p-12 md:p-12 flex flex-col items-center justify-center rounded-md overflow-hidden relative"
               whileHover={{ y: -10, transition: { duration: 0.3 } }}
             >
               <motion.div
@@ -393,14 +398,16 @@ export default function Home() {
                   delay: 2
                 }}
               />
-              <Image 
-                src="/6.svg" 
-                alt="Keyhole"
-                width={180}
-                height={90}
-                className="relative z-10"
-              />
-              <h3 className="text-xl font-normal relative z-10">Project Key Hole</h3>
+              <div className="w-full h-32 flex items-center justify-center mb-4">
+                <Image 
+                  src="/6.svg" 
+                  alt="Keyhole"
+                  width={160}
+                  height={80}
+                  className="relative z-10 object-contain"
+                />
+              </div>
+              <h3 className="text-xl font-normal relative z-10 mt-2">Project Key Hole</h3>
             </motion.div>
           </motion.section>
 
