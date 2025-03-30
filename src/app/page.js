@@ -342,7 +342,7 @@ export default function Home() {
               />
               <div className="w-full h-32 flex items-center justify-center mb-4">
                 <Image 
-                  src="/5.svg" 
+                  src="/pod.svg" 
                   alt="Pods"
                   width={160}
                   height={80}
@@ -371,7 +371,7 @@ export default function Home() {
               />
               <div className="w-full h-32 flex items-center justify-center mb-4">
                 <Image 
-                  src="/4.svg" 
+                  src="/forge.svg" 
                   alt="Forge"
                   width={160}
                   height={80}
@@ -400,7 +400,7 @@ export default function Home() {
               />
               <div className="w-full h-32 flex items-center justify-center mb-4">
                 <Image 
-                  src="/6.svg" 
+                  src="/keyhole.svg" 
                   alt="Keyhole"
                   width={160}
                   height={80}
