@@ -216,8 +216,18 @@ const ProjectAccordion = () => {
                     >
                       <div className="pb-4">
                         <p className="mb-4">
-                          More detailed information about {project.title}. Our initiative focuses on 
-                          empowering youth across Nigeria to create meaningful change in their communities.
+                          About Pods
+Pods is a structured learning and collaboration space designed to help NYSC members engage meaningfully with social innovation during their service year. Recognizing that this period presents a unique opportunity for young professionals to immerse themselves in different communities and industries, Pods provides a framework for structured experimentation, hands-on learning, and impactful project development.
+
+The program is built around the idea that innovation is best cultivated through real-world problem-solving. Participants work on initiatives that address pressing societal challenges across various sectors, including education, sustainability, technology, and economic development. By combining practical work with mentorship and strategic guidance, Pods ensures that every project is not just an idea but a step toward tangible impact.
+
+A core component of Pods is its emphasis on skill-building. Through a series of curated workshops, hands-on projects, and knowledge-sharing sessions, participants develop expertise in leadership, entrepreneurship, and project management. These skills are not just theoretical—they are applied in real-time, allowing members to test solutions, adapt to challenges, and refine their approaches in a collaborative setting.
+
+Mentorship is also a key part of the Pods experience. Participants engage with experienced professionals, industry leaders, and social entrepreneurs who provide insights, guidance, and feedback throughout the process. This exchange of knowledge ensures that ideas are not developed in isolation but are informed by real-world expertise and best practices.
+
+Beyond individual skill-building, Pods fosters a strong sense of community. Participants work together, exchanging ideas and resources while learning from one another’s experiences. This collaborative approach strengthens networks and creates an environment where innovation is not just encouraged but actively supported.
+
+By the end of the program, participants leave with more than just a project—they gain a deeper understanding of problem-solving, the confidence to implement their ideas, and a network of peers and mentors who continue to support their growth. Pods is not just about working on social innovation during the service year; it is about developing the mindset and tools to engage with impactful work long after the program ends.
                         </p>
                         <p className="mb-4">
                           Through collaboration, mentorship, and structured innovation frameworks, 
