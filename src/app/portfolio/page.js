@@ -183,7 +183,7 @@ const ProjectAccordion = () => {
                       src={project.image}
                       alt={project.title}
                       fill
-                      className="object-cover"
+                      className="object-cover filter brightness-125 saturate-0"
                       priority
                     />
                   </div>
