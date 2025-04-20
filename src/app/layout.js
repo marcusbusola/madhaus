@@ -1,5 +1,7 @@
 import { Manrope } from "next/font/google";
 import "./globals.css";
+import Script from "next/script";
+
 
 const manrope = Manrope({
   variable: "--font-manrope",
