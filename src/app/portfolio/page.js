@@ -61,7 +61,7 @@ const HighlightText = () => {
   );
 };
 
-// SystemsThinking Component - Moved from section three to section two
+// SystemsThinking Component
 const SystemsThinking = () => {
   const steps = ['Problem?', 'Research', 'Inform', 'Discuss'];
   
