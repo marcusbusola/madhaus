@@ -17,7 +17,7 @@ const HighlightText = () => {
     change: { x: 0, y: 0 }
   });
 
-  // Set up text positions after render
+  // Set up text position after render
   useEffect(() => {
     if (containerRef.current) {
       const spanElements = containerRef.current.querySelectorAll('span');
