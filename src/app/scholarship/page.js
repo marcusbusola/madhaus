@@ -1,4 +1,5 @@
 // pages/scholarship.js
+import Image from "next/image";
 import React from "react";
 
 const ScholarshipPage = () => {
@@ -6,6 +7,13 @@ const ScholarshipPage = () => {
     <div className="min-h-screen bg-gray-100 text-gray-800">
       <div className="container mx-auto p-4 max-w-[900px] ">
         <header className="text-center mb-12">
+          <Image
+            src="/memorial.jpeg"
+            alt=""
+            width={550}
+            height={550}
+            className="mx-auto my-[32px] "
+          />
           <h1 className="text-4xl font-bold ">
             Herbert Olufunso Marcus Memorial Scholarship
           </h1>
