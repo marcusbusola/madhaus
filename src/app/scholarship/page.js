@@ -2,6 +2,12 @@
 import Image from "next/image";
 import React from "react";
 
+export const metadata = {
+  title: "HOMM Scholarship",
+  description:
+    "The Herbert Olufunso Marcus Memorial Scholarship supports Nigerian secondary and university students by providing financial aid and honoring a legacy of generosity, education, and belief in young potential",
+};
+
 const ScholarshipPage = () => {
   return (
     <div className="min-h-screen bg-gray-100 text-gray-800">
@@ -10,8 +16,8 @@ const ScholarshipPage = () => {
           <Image
             src="/memorial.jpeg"
             alt=""
-            width={550}
-            height={550}
+            width={450}
+            height={450}
             className="mx-auto my-[32px] "
           />
           <h1 className="text-4xl font-bold ">
