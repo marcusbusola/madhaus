@@ -30,24 +30,13 @@ export default function RootLayout({ children }) {
           src="https://www.googletagmanager.com/gtag/js?id=G-FSEDXP0GJ6"
           strategy="afterInteractive"
         />
-        <Script
-          id="google-analytics"
-          strategy="afterInteractive"
-          onLoad={() => {
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-              window.dataLayer.push(arguments);
-            }
-            gtag("js", new Date());
-            gtag("config", "G-FSEDXP0GJ6");
-          }}
-        >
-          {/* {`
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-FSEDXP0GJ6');
-          `} */}
+          `}
         </Script>
         {children}
       </body>
