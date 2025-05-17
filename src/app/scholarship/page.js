@@ -35,7 +35,7 @@ const ScholarshipPage = () => {
             pursuit of becoming one’s best self.
           </p>
           <p className="text-lg mt-4">
-            Thank you to all who applied. This scholarship is now closed.
+            Thank you to all who applied. This scholarship is now closed. Recipients will be notified via email.
           </p>
         </section>
       </div>
