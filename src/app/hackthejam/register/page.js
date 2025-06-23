@@ -81,7 +81,7 @@ export default function HackTheJamRegister() {
               </div>
               <h2 className="text-2xl font-bold text-white mb-2">Thank You!</h2>
               <p className="text-gray-300 mb-4">
-                Your registration for Hack the Jam has been received successfully. We'll be in touch soon with more details about the event.
+                Your registration for Hack the Jam has been received successfully. We&apos;ll be in touch soon with more details about the event.
               </p>
             </div>
             <button
@@ -175,7 +175,7 @@ export default function HackTheJamRegister() {
                     required
                     className="w-auto m-0"
                   />
-                  <label htmlFor="noIdea" className="text-sm">No, I'm looking for ideas</label>
+                  <label htmlFor="noIdea" className="text-sm">No, I&apos;m looking for ideas</label>
                 </div>
               </div>
             </div>
@@ -235,7 +235,7 @@ export default function HackTheJamRegister() {
                   className="w-auto m-0"
                 />
                 <label htmlFor="takeSurvey" className="text-white text-sm">
-                  I'd like to take the NYSC survey
+                  I&apos;d like to take the NYSC survey
                 </label>
               </div>
             </div>

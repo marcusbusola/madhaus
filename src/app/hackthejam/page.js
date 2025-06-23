@@ -35,7 +35,7 @@ export default function HackTheJamPage() {
             real-world challenges.
           </p>
           <p className="text-lg mt-4">
-            Whether you're a seasoned developer or someone with a great idea and the passion to learn, 
+            Whether you&apos;re a seasoned developer or someone with a great idea and the passion to learn, 
             Hack the Jam welcomes all skill levels. This is your opportunity to turn concepts into 
             reality while connecting with like-minded innovators.
           </p>
@@ -95,16 +95,16 @@ export default function HackTheJamPage() {
             <div>
               <h3 className="text-xl font-semibold mb-2">Do I need to have a team before registering?</h3>
               <p className="text-lg">
-                No! While you can register with a pre-formed team, we'll also have team formation 
+                No! While you can register with a pre-formed team, we&apos;ll also have team formation 
                 sessions at the beginning of the event to help solo participants find teammates.
               </p>
             </div>
 
             <div>
-              <h3 className="text-xl font-semibold mb-2">What if I don't have coding experience?</h3>
+              <h3 className="text-xl font-semibold mb-2">What if I don&apos;t have coding experience?</h3>
               <p className="text-lg">
                 Hack the Jam welcomes participants of all skill levels. Teams need diverse skills 
-                including design, business strategy, and user research. We'll also have beginner-friendly 
+                including design, business strategy, and user research. We&apos;ll also have beginner-friendly 
                 workshops and mentors to help you contribute meaningfully.
               </p>
             </div>
@@ -112,7 +112,7 @@ export default function HackTheJamPage() {
             <div>
               <h3 className="text-xl font-semibold mb-2">What should I bring?</h3>
               <p className="text-lg">
-                Bring your laptop, chargers, and any development tools you prefer. We'll provide 
+                Bring your laptop, chargers, and any development tools you prefer. We&apos;ll provide 
                 meals, snacks, and a collaborative workspace. Enthusiasm and creativity are the 
                 most important things to pack!
               </p>
@@ -139,7 +139,7 @@ export default function HackTheJamPage() {
               <h3 className="text-xl font-semibold mb-2">What happens after the hackathon?</h3>
               <p className="text-lg">
                 Outstanding projects may receive continued mentorship, potential funding opportunities, 
-                or invitations to showcase at industry events. We're committed to helping great 
+                or invitations to showcase at industry events. We&apos;re committed to helping great 
                 ideas continue beyond the weekend.
               </p>
             </div>
