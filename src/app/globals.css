@@ -142,3 +142,44 @@ body {
     stroke-opacity: 0.2;
   }
 }
+
+/* Pillar Cards */
+.pillar-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+}
+
+.pillar-card .hidden-content {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.pillar-card:hover .hidden-content {
+  opacity: 1;
+}
+
+/* Sneak reveal content that animates with light sweep */
+.sneak-content {
+  animation: contentPeek 2s ease-in-out infinite;
+}
+
+@keyframes contentPeek {
+  0%, 40% {
+    opacity: 0;
+  }
+  48%, 52% {
+    opacity: 0.4;
+  }
+  60%, 100% {
+    opacity: 0;
+  }
+}
+
+/* Glassmorphism fallback for browsers without backdrop-filter */
+@supports not (backdrop-filter: blur(10px)) {
+  .pillar-card {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+}

@@ -15,6 +15,7 @@ import Image from "next/image";
 import HighlightText from "./components/HighlightText";
 import FlipCard from "./components/FlipCard";
 import Marquee from "./components/Marquee";
+import Pillars from "./components/Pillars";
 
 export default function Home() {
   const [isFlashing, setIsFlashing] = useState(false);
@@ -62,29 +63,26 @@ export default function Home() {
             initial={{ opacity: 0 }} // Start invisible
             animate={{ opacity: 1 }} // Fade in
             transition={{ delay: 0.5, duration: 1.5, ease: "easeInOut" }} // Slower and smoother
-            className="grid grid-cols-1 gap-8 mb-50 mt-50"
+            className="mb-50 mt-50"
           >
-            <div>
-              <p className="text-base leading-relaxed mb-4 font-bold text-[30px]">
-                Madhaus is a media company meets social innovation lab. The
-                majority of its work involves disseminating systems thinking
-                content on social problems so Africans gain the collective
-                consciousness to become part of the solution, whether through
-                YouTube, white papers, or short-form engagement.
-              </p>
-            </div>
+            <h3 className="text-3xl font-bold mb-12">We&apos;re early, and that&apos;s exciting</h3>
 
-            <div className="max-w-[500px] ml-auto text-right">
-              <p className="text-base leading-relaxed mb-4 text-[20px]">
-                Madhaus helps foster these ideas and the community of thinkers,
-                that create impact. The overall goal is to drive a value-driven,
-                profit-aware mindset rather than a profit-driven, value-aware
-                mindset which characterizes the Silicon Valley model. It&apos;s
-                the audacity to want to do things differently that makes us
-                madmen, and our workspace a Madhaus.
-              </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <p className="text-base leading-relaxed">
+                  Most African media treats social problems like news cycles—report the crisis, move on, repeat. Meanwhile, the same systems keep producing the same outcomes: broken infrastructure, inequality, governance failures.
+                </p>
+              </div>
+
+              <div>
+                <p className="text-base leading-relaxed">
+                  Madhaus is a media company meets social innovation lab. We use systems thinking to help Africans understand not just what&apos;s broken, but why it&apos;s broken—and more importantly, how to fix it.
+                </p>
+              </div>
             </div>
           </motion.section>
+
+          <Pillars />
 
           <FlipCard />
         </main>
