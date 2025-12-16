@@ -28,14 +28,11 @@ const StickyScrollSection = () => {
       id: "what",
       title: "What We Do",
       type: "list",
-      subtitle: "Six ways we help Africa understand and solve systemic challenges.",
+      subtitle: "Three ways we help Africa understand and solve systemic challenges.",
       items: [
         { number: "01", title: "Systems Media", subtitle: "See the whole picture, not just the headlines." },
         { number: "02", title: "Research Lab", subtitle: "Data-driven insights for real-world impact." },
-        { number: "03", title: "Community Studio", subtitle: "Solutions built with people, not for them." },
-        { number: "04", title: "Policy Design", subtitle: "Turning research into actionable change." },
-        { number: "05", title: "Documentary", subtitle: "Stories that move systems, not just emotions." },
-        { number: "06", title: "Education", subtitle: "Teaching systems thinking across the continent." }
+        { number: "03", title: "Community Studio", subtitle: "Solutions built with people, not for them." }
       ]
     },
     {
@@ -126,7 +123,7 @@ const StickyScrollSection = () => {
           </div>
 
           {/* RIGHT COLUMN: Scrolling Content */}
-          <div className="space-y-32 py-24">
+          <div className="relative py-24">
 
             {contentBlocks.map((block, blockIndex) => {
               const isLastBlock = blockIndex === contentBlocks.length - 1;
@@ -138,7 +135,11 @@ const StickyScrollSection = () => {
                   initial="hidden"
                   animate={visibleBlocks[blockIndex] ? "visible" : "hidden"}
                   variants={blockVariants}
-                  className="min-h-[80vh] flex flex-col justify-center"
+                  className="sticky top-[50vh] min-h-[100vh] flex flex-col justify-center bg-white"
+                  style={{
+                    zIndex: blockIndex + 1,
+                    marginBottom: blockIndex === contentBlocks.length - 1 ? 0 : '100vh'
+                  }}
                 >
                   {/* Block Title */}
                   <h3 className="text-2xl font-bold mb-2">{block.title}</h3>
@@ -153,35 +154,88 @@ const StickyScrollSection = () => {
                   {/* Conditional Content Rendering */}
                   {block.type === "list" ? (
                     // LIST LAYOUT (What We Do)
-                    <div className="space-y-2">
-                      {block.items.map((item, idx) => (
+                    <div className="relative space-y-2">
+                      {/* Black overlay that appears on hover */}
+                      {hoveredItem !== null && (
                         <motion.div
-                          key={idx}
-                          custom={idx}
-                          initial="hidden"
-                          animate={visibleBlocks[blockIndex] ? "visible" : "hidden"}
-                          variants={listItemVariants}
-                          onHoverStart={() => setHoveredItem(blockIndex * 10 + idx)}
-                          onHoverEnd={() => setHoveredItem(null)}
-                          className="flex gap-6 py-4 border-b border-black/10 cursor-pointer transition-all"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="absolute inset-0 bg-black/85 pointer-events-none z-0"
                           style={{
-                            transform: hoveredItem === (blockIndex * 10 + idx)
-                              ? 'translateX(10px) scale(1.02)'
-                              : 'translateX(0) scale(1)',
-                            transition: 'all 0.3s ease-out'
+                            clipPath: `polygon(
+                              0 0,
+                              100% 0,
+                              100% ${(hoveredItem % 10) * 33.33}%,
+                              0 ${(hoveredItem % 10) * 33.33}%,
+                              0 ${((hoveredItem % 10) + 1) * 33.33}%,
+                              100% ${((hoveredItem % 10) + 1) * 33.33}%,
+                              100% 100%,
+                              0 100%
+                            )`
                           }}
-                        >
-                          <span className="text-sm font-light opacity-60 w-12">
-                            {item.number} —
-                          </span>
-                          <div className="flex-1">
-                            <h4 className="text-xl font-bold mb-1">{item.title}</h4>
-                            <p className="text-base font-light opacity-70">
-                              {item.subtitle}
-                            </p>
-                          </div>
-                        </motion.div>
-                      ))}
+                        />
+                      )}
+
+                      {block.items.map((item, idx) => {
+                        const isHovered = hoveredItem === (blockIndex * 10 + idx);
+
+                        return (
+                          <motion.div
+                            key={idx}
+                            custom={idx}
+                            initial="hidden"
+                            animate={visibleBlocks[blockIndex] ? "visible" : "hidden"}
+                            variants={listItemVariants}
+                            onHoverStart={() => setHoveredItem(blockIndex * 10 + idx)}
+                            onHoverEnd={() => setHoveredItem(null)}
+                            className="relative flex gap-6 py-4 border-b border-black/10 cursor-pointer z-10"
+                            style={{
+                              transition: 'all 0.3s ease'
+                            }}
+                          >
+                            <span className="text-sm font-light opacity-60 w-12">
+                              {item.number} —
+                            </span>
+                            <div className="flex-1 flex items-center gap-3">
+                              {/* Animated Arrow */}
+                              {isHovered && (
+                                <motion.span
+                                  initial={{ opacity: 0, x: -10 }}
+                                  animate={{
+                                    opacity: 1,
+                                    x: 0
+                                  }}
+                                  className="text-xl font-bold arrow-pulse"
+                                >
+                                  →
+                                </motion.span>
+                              )}
+
+                              <div className="flex-1">
+                                <h4
+                                  className="font-bold mb-1 transition-all duration-300"
+                                  style={{
+                                    transform: isHovered ? 'translateX(15px) scale(1.05)' : 'translateX(0) scale(1)',
+                                    fontSize: isHovered ? '1.4rem' : '1.25rem'
+                                  }}
+                                >
+                                  {item.title}
+                                </h4>
+                                <p
+                                  className="text-base font-light opacity-70 transition-transform duration-300"
+                                  style={{
+                                    transform: isHovered ? 'translateX(15px)' : 'translateX(0)'
+                                  }}
+                                >
+                                  {item.subtitle}
+                                </p>
+                              </div>
+                            </div>
+                          </motion.div>
+                        );
+                      })}
                     </div>
                   ) : (
                     // PARAGRAPH LAYOUT (Who We Are / Why We Do It)
