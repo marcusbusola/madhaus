@@ -13,8 +13,8 @@ const StickyScrollSection = () => {
   const lastBlockRef = useRef(null);
   const [isSticky, setIsSticky] = useState(true);
 
-  // Current section tracking for subtitle
-  const [currentSection, setCurrentSection] = useState(null);
+  // Track visited sections for subtitle
+  const [visitedSections, setVisitedSections] = useState([]);
 
   // Content data structure
   const contentBlocks = [
@@ -107,13 +107,20 @@ const StickyScrollSection = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Track current section for subtitle
+  // Track visited sections for subtitle
   useEffect(() => {
     const observers = blockRefs.map((ref, index) => {
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
-            setCurrentSection(contentBlocks[index]);
+            setVisitedSections(prev => {
+              const section = contentBlocks[index];
+              // Only add if not already in the list
+              if (!prev.find(s => s.id === section.id)) {
+                return [...prev, section];
+              }
+              return prev;
+            });
           }
         },
         { threshold: 0.5, rootMargin: '-20% 0px -40% 0px' }
@@ -151,18 +158,22 @@ const StickyScrollSection = () => {
                 We&apos;re early, and that&apos;s exciting
               </motion.h2>
 
-              {/* Dynamic Subtitle */}
-              {currentSection && (
-                <motion.button
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  transition={{ duration: 0.4 }}
-                  onClick={() => scrollToSection(currentSection.id)}
-                  className="mt-4 text-lg font-light opacity-60 hover:opacity-100 transition-opacity duration-300 cursor-pointer underline decoration-1 underline-offset-4"
-                >
-                  {currentSection.title}
-                </motion.button>
+              {/* Dynamic Subtitle List */}
+              {visitedSections.length > 0 && (
+                <div className="mt-4 flex flex-col gap-2">
+                  {visitedSections.map((section, index) => (
+                    <motion.button
+                      key={section.id}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: index * 0.1 }}
+                      onClick={() => scrollToSection(section.id)}
+                      className="text-left text-lg font-light opacity-60 hover:opacity-100 transition-opacity duration-300 cursor-pointer underline decoration-1 underline-offset-4"
+                    >
+                      {section.title}
+                    </motion.button>
+                  ))}
+                </div>
               )}
             </div>
           </div>
