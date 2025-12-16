@@ -153,26 +153,10 @@ section {
   }
 }
 
-/* Stained Glass Border - Brand-Aligned Palette */
-@keyframes stainedGlassRotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-@keyframes glassLightPulse {
-  0%, 100% {
-    opacity: 0.5;
-    filter: brightness(1);
-  }
-  50% {
-    opacity: 0.8;
-    filter: brightness(1.3);
-  }
-}
-
+/* Stained Glass Border - Static with Light Sweep */
 .stained-glass-border {
   position: relative;
-  border: 2px solid transparent;
+  border: 2px solid #EDE7DE;  /* Solid beige border */
   background: white;
   background-clip: padding-box;
 }
@@ -183,47 +167,59 @@ section {
   inset: -3px;
   border-radius: inherit;
   padding: 3px;
+
+  /* Conic gradient with rotating light segment - subtle brightness */
   background: conic-gradient(
     from 0deg,
-    #EDE7DE 0deg,
-    #d4a574 45deg,
-    #f5a623 90deg,
-    #4a90e2 180deg,
-    #7ab8e8 225deg,
-    #EDE7DE 270deg,
-    #c9a97a 315deg,
-    #EDE7DE 360deg
+    transparent 0deg,
+    transparent 45deg,
+    rgba(255, 255, 255, 0.1) 75deg,    /* Light trail start */
+    rgba(255, 255, 255, 0.3) 85deg,    /* Subtle peak */
+    rgba(255, 255, 255, 0.1) 95deg,    /* Light trail end */
+    transparent 125deg,
+    transparent 360deg
   );
+
+  /* Mask to reveal only border area */
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
-  animation: stainedGlassRotate 10s linear infinite;
+
+  /* Rotation animation - 3s clockwise */
+  animation: borderChase 3s linear infinite;
+  pointer-events: none;
+  will-change: transform;
   z-index: -1;
 }
 
-.stained-glass-border::after {
-  content: '';
-  position: absolute;
-  inset: -3px;
-  border-radius: inherit;
-  background: radial-gradient(
-    circle at 50% 50%,
-    rgba(237, 231, 222, 0.6) 0%,
-    rgba(245, 166, 35, 0.25) 30%,
-    rgba(74, 144, 226, 0.25) 60%,
-    transparent 100%
-  );
-  filter: blur(10px);
-  opacity: 0.5;
-  animation: glassLightPulse 5s ease-in-out infinite;
-  z-index: -2;
+@keyframes borderChase {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);  /* Clockwise */
+  }
 }
 
-.sneak-peek-glow::after {
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .stained-glass-border::before {
+    animation: none;
+    background: conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      rgba(255, 255, 255, 0.15) 90deg,
+      transparent 180deg
+    );
+    opacity: 0.5;
+  }
+}
+
+.sneak-peek-glow::before {
+  animation: borderChase 1.5s linear 1 !important;
   opacity: 1 !important;
-  filter: blur(10px) brightness(1.5);
 }
 
 /* Sneak Peek Content Animation */
