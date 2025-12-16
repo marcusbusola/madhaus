@@ -16,7 +16,6 @@ import HighlightText from "./components/HighlightText";
 import FlipCard from "./components/FlipCard";
 import Marquee from "./components/Marquee";
 import StickyScrollSection from "./components/StickyScrollSection";
-import SoundToggle from "./components/SoundToggle";
 
 export default function Home() {
   const [isFlashing, setIsFlashing] = useState(false);
@@ -31,11 +30,8 @@ export default function Home() {
 
   return (
     <>
-      {/* Sound Toggle Button */}
-      <SoundToggle />
-
       {/* Hero Section */}
-      <section className="relative bg-black text-white flex flex-col px-25 pt-20 pb-12">
+      <section className="relative bg-black text-white flex flex-col justify-center items-center min-h-screen px-8 py-20">
         <HighlightText />
 
         <div className="w-full flex justify-end pb-12">

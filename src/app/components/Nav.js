@@ -35,7 +35,7 @@ const Nav = () => {
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="max-w-6xl mx-auto px-8 py-4 flex items-center justify-between">
+      <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="relative z-10">
           <Image
