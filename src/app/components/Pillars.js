@@ -1,13 +1,31 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 
 const Pillars = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
   const [clickedCard, setClickedCard] = useState(null); // For mobile tap interaction
+  const [sneakPeekIndex, setSneakPeekIndex] = useState(-1);
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: false, amount: 0.2 });
+
+  useEffect(() => {
+    if (isInView && sneakPeekIndex === -1) {
+      // Trigger staggered sneak peek
+      setSneakPeekIndex(0);
+
+      const timer1 = setTimeout(() => setSneakPeekIndex(1), 800);
+      const timer2 = setTimeout(() => setSneakPeekIndex(2), 1600);
+      const timer3 = setTimeout(() => setSneakPeekIndex(-1), 4000);
+
+      return () => {
+        clearTimeout(timer1);
+        clearTimeout(timer2);
+        clearTimeout(timer3);
+      };
+    }
+  }, [isInView, sneakPeekIndex]);
 
   const pillarsData = [
     {
@@ -90,6 +108,7 @@ const Pillars = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {pillarsData.map((pillar, index) => {
           const isRevealed = hoveredCard === index || clickedCard === index;
+          const showSneakPeek = sneakPeekIndex === index;
 
           return (
             <motion.div
@@ -103,7 +122,9 @@ const Pillars = () => {
                 y: isRevealed ? -10 : 0,
               }}
               transition={{ type: "spring", stiffness: 100, damping: 20 }}
-              className="pillar-card light-border bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 md:p-12 min-h-[300px] cursor-pointer"
+              className={`pillar-card stained-glass-border rounded-2xl p-8 md:p-12 min-h-[300px] cursor-pointer bg-white ${
+                showSneakPeek ? 'sneak-peek-glow' : ''
+              }`}
               style={{
                 animationDelay: getAnimationDelay(index)
               }}
@@ -115,7 +136,7 @@ const Pillars = () => {
               </div>
 
               {/* Hidden Content with Sneak Reveal */}
-              <div className={`sneak-content ${isRevealed ? 'opacity-100' : ''}`}>
+              <div className={`sneak-content ${isRevealed ? 'opacity-100 fully-revealed' : ''} ${showSneakPeek ? 'sneak-peek-active' : ''}`}>
                 <AnimatePresence>
                   {isRevealed && (
                     <motion.div

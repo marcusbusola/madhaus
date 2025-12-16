@@ -7,6 +7,8 @@ import Link from "next/link";
 // Flip Card Component
 const FlipCard = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
+  const [cardOrder, setCardOrder] = useState([0, 1, 2]); // Track current card order
+  const [isAnimating, setIsAnimating] = useState(false);  // Prevent multiple simultaneous animations
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: false, amount: 0.2 });
 
@@ -16,6 +18,26 @@ const FlipCard = () => {
 
   const handleLeave = () => {
     setHoveredCard(null);
+  };
+
+  const handleCardClick = (clickedIndex) => {
+    if (isAnimating) return; // Prevent multiple clicks during animation
+
+    const currentPosition = cardOrder.indexOf(clickedIndex);
+
+    // Only shuffle if card is not already on top (position 0)
+    if (currentPosition !== 0) {
+      setIsAnimating(true);
+
+      // Reorder: move clicked card to front
+      const newOrder = [clickedIndex, ...cardOrder.filter(i => i !== clickedIndex)];
+      setCardOrder(newOrder);
+
+      // Reset animation lock after animation completes (3.5s)
+      setTimeout(() => {
+        setIsAnimating(false);
+      }, 3500);
+    }
   };
 
   // Define the card data with expanded dummy content
@@ -184,69 +206,80 @@ const FlipCard = () => {
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
       transition={{ duration: 0.8, delay: 0.3 }}
       className="relative mb-32 flex flex-col items-center"
+      style={{
+        perspective: '2000px',           // Enable 3D transforms
+        perspectiveOrigin: 'center',     // Center vanishing point
+      }}
     >
-      {/* Render cards in reverse order for proper stacking */}
-      {cards
-        .slice()
-        .reverse()
-        .map((card, reversedIndex) => {
-          const index = cards.length - 1 - reversedIndex; // Convert back to original index
+      {/* Render cards based on cardOrder for proper stacking */}
+      {cardOrder.map((cardId, stackPosition) => {
+        const card = cards[cardId];
+        const index = cardId; // Original card index for data access
 
-          // Calculate width based on the original index - Lagos (index 0) should be largest
-          const widthPercentage = index === 0 ? 90 : 90 - index * 3; // Lagos: 90%, Design: 87%, Media: 84%
-
-          return (
-            <motion.div
-              key={card.id}
-              className={`relative ${card.bgColor} ${card.textColor} rounded-lg overflow-hidden shadow-lg p-10 mt-[-50px]`}
-              style={{
-                zIndex: hoveredCard === index ? 30 : 10 + reversedIndex, // Higher z-index for cards rendered earlier
-                width: `${widthPercentage}%`,
-                marginLeft: `${index * 1.5}%`,
-                marginRight: `${index * 1.5}%`,
-              }}
-              onHoverStart={() => handleHover(index)}
-              onHoverEnd={handleLeave}
-              animate={{
-                y: hoveredCard === index ? -30 : 0, // Lift the card less high
-                scale: hoveredCard === index ? 1.03 : 1, // Scale the card less
-                height:
-                  hoveredCard === index
-                    ? "auto"
-                    : index === 0
-                    ? "auto"
-                    : "120px", // Top card always shows full content
-              }}
-              transition={{ type: "spring", stiffness: 100, damping: 20 }}
-            >
-              {index === 0 ? (
-                // First card always shows full content
-                card.content
-              ) : (
-                <>
-                  {/* For cards 1 and 2, show preview or full content based on hover state */}
-                  {hoveredCard === index ? (
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      {card.content}
-                    </motion.div>
-                  ) : (
-                    <motion.div className="flex flex-col h-full justify-center">
-                      <h3 className="text-2xl font-bold mb-2">{card.title}</h3>
-                      <p className="text-sm opacity-80 line-clamp-2">
-                        {card.previewText}
-                      </p>
-                    </motion.div>
-                  )}
-                </>
-              )}
-            </motion.div>
-          );
-        })}
+        return (
+          <motion.div
+            key={card.id}
+            className={`${card.bgColor} ${card.textColor} rounded-lg overflow-hidden shadow-lg p-10 cursor-pointer`}
+            style={{
+              position: stackPosition === 0 ? 'relative' : 'absolute',
+              top: stackPosition === 0 ? 0 : '0',
+              left: stackPosition === 0 ? 'auto' : '50%',
+              width: '90%',
+              marginLeft: stackPosition === 0 ? '5%' : '0',
+              marginRight: stackPosition === 0 ? '5%' : '0',
+              zIndex: hoveredCard === index ? 30 : (cardOrder.length - stackPosition) * 10,
+            }}
+            onClick={() => handleCardClick(index)}
+            onHoverStart={() => handleHover(index)}
+            onHoverEnd={handleLeave}
+            initial={false}
+            animate={{
+              // 3D Flip Animation
+              rotateY: stackPosition === 0 ? 0 : 15 * stackPosition,  // Back cards slightly rotated
+              x: stackPosition === 0 ? 0 : '-50%', // Center absolute positioned cards
+              y: hoveredCard === index ? -30 : stackPosition * -5,     // Slight offset for depth
+              scale: hoveredCard === index ? 1.03 : 1,
+              height: hoveredCard === index
+                ? "auto"
+                : stackPosition === 0
+                ? "auto"
+                : "120px",
+            }}
+            transition={{
+              type: "spring",
+              stiffness: 60,
+              damping: 25,
+              duration: 3.5,  // Smooth & moderate timing
+            }}
+          >
+            {stackPosition === 0 ? (
+              // Front card always shows full content
+              card.content
+            ) : (
+              <>
+                {/* For back cards, show preview or full content based on hover state */}
+                {hoveredCard === index ? (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {card.content}
+                  </motion.div>
+                ) : (
+                  <motion.div className="flex flex-col h-full justify-center">
+                    <h3 className="text-2xl font-bold mb-2">{card.title}</h3>
+                    <p className="text-sm opacity-80 line-clamp-2">
+                      {card.previewText}
+                    </p>
+                  </motion.div>
+                )}
+              </>
+            )}
+          </motion.div>
+        );
+      })}
     </motion.section>
   );
 };

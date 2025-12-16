@@ -31,7 +31,7 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative bg-black text-white min-h-screen flex flex-col justify-between px-25 py-12">
+      <section className="relative bg-black text-white flex flex-col px-25 pt-20 pb-12">
         <HighlightText />
 
         <div className="w-full flex justify-end pb-12">

@@ -48,6 +48,16 @@ body {
   }
 }
 
+/* Scroll Snap */
+html {
+  scroll-snap-type: y proximity;
+  scroll-behavior: smooth;
+}
+
+section {
+  scroll-snap-align: start;
+}
+
 /* LinkedIn Circle Animation */
 .linkedin-circle {
   position: relative;
@@ -143,43 +153,111 @@ body {
   }
 }
 
-/* Pillar Cards */
-.pillar-card {
+/* Stained Glass Border - Brand-Aligned Palette */
+@keyframes stainedGlassRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes glassLightPulse {
+  0%, 100% {
+    opacity: 0.5;
+    filter: brightness(1);
+  }
+  50% {
+    opacity: 0.8;
+    filter: brightness(1.3);
+  }
+}
+
+.stained-glass-border {
   position: relative;
-  overflow: hidden;
-  border-radius: 1rem;
+  border: 2px solid transparent;
+  background: white;
+  background-clip: padding-box;
 }
 
-.pillar-card .hidden-content {
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
+.stained-glass-border::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: inherit;
+  padding: 3px;
+  background: conic-gradient(
+    from 0deg,
+    #EDE7DE 0deg,
+    #d4a574 45deg,
+    #f5a623 90deg,
+    #4a90e2 180deg,
+    #7ab8e8 225deg,
+    #EDE7DE 270deg,
+    #c9a97a 315deg,
+    #EDE7DE 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: stainedGlassRotate 10s linear infinite;
+  z-index: -1;
 }
 
-.pillar-card:hover .hidden-content {
-  opacity: 1;
+.stained-glass-border::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(237, 231, 222, 0.6) 0%,
+    rgba(245, 166, 35, 0.25) 30%,
+    rgba(74, 144, 226, 0.25) 60%,
+    transparent 100%
+  );
+  filter: blur(10px);
+  opacity: 0.5;
+  animation: glassLightPulse 5s ease-in-out infinite;
+  z-index: -2;
 }
 
-/* Sneak reveal content that animates with light sweep */
+.sneak-peek-glow::after {
+  opacity: 1 !important;
+  filter: blur(10px) brightness(1.5);
+}
+
+/* Sneak Peek Content Animation */
 .sneak-content {
-  animation: contentPeek 2s ease-in-out infinite;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.5s ease-out;
 }
 
-@keyframes contentPeek {
-  0%, 40% {
+.sneak-content.fully-revealed {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.sneak-content.sneak-peek-active {
+  animation: sneakPeekReveal 2.5s ease-in-out forwards;
+}
+
+@keyframes sneakPeekReveal {
+  0% {
     opacity: 0;
+    transform: translateY(10px);
   }
-  48%, 52% {
-    opacity: 0.4;
+  25% {
+    opacity: 0.3;
+    transform: translateY(3px);
   }
-  60%, 100% {
+  50% {
+    opacity: 0.3;
+    transform: translateY(3px);
+  }
+  100% {
     opacity: 0;
+    transform: translateY(10px);
   }
 }
 
-/* Glassmorphism fallback for browsers without backdrop-filter */
-@supports not (backdrop-filter: blur(10px)) {
-  .pillar-card {
-    background: rgba(255, 255, 255, 0.15) !important;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-  }
-}
