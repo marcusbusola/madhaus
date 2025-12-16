@@ -15,7 +15,8 @@ import Image from "next/image";
 import HighlightText from "./components/HighlightText";
 import FlipCard from "./components/FlipCard";
 import Marquee from "./components/Marquee";
-import Pillars from "./components/Pillars";
+import StickyScrollSection from "./components/StickyScrollSection";
+import SoundToggle from "./components/SoundToggle";
 
 export default function Home() {
   const [isFlashing, setIsFlashing] = useState(false);
@@ -30,6 +31,9 @@ export default function Home() {
 
   return (
     <>
+      {/* Sound Toggle Button */}
+      <SoundToggle />
+
       {/* Hero Section */}
       <section className="relative bg-black text-white flex flex-col px-25 pt-20 pb-12">
         <HighlightText />
@@ -58,31 +62,7 @@ export default function Home() {
       {/* Main Content Section */}
       <div className="flex flex-col font-manrope py-12 bg-white text-black">
         <main className="max-w-6xl mx-auto flex-grow">
-          {/* Fade In Section */}
-          <motion.section
-            initial={{ opacity: 0 }} // Start invisible
-            animate={{ opacity: 1 }} // Fade in
-            transition={{ delay: 0.5, duration: 1.5, ease: "easeInOut" }} // Slower and smoother
-            className="mb-50 mt-50"
-          >
-            <h3 className="text-3xl font-bold mb-12">We&apos;re early, and that&apos;s exciting</h3>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div>
-                <p className="text-base leading-relaxed">
-                  Most African media treats social problems like news cycles—report the crisis, move on, repeat. Meanwhile, the same systems keep producing the same outcomes: broken infrastructure, inequality, governance failures.
-                </p>
-              </div>
-
-              <div>
-                <p className="text-base leading-relaxed">
-                  Madhaus is a media company meets social innovation lab. We use systems thinking to help Africans understand not just what&apos;s broken, but why it&apos;s broken—and more importantly, how to fix it.
-                </p>
-              </div>
-            </div>
-          </motion.section>
-
-          <Pillars />
+          <StickyScrollSection />
 
           <FlipCard />
         </main>

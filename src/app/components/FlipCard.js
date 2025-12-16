@@ -219,14 +219,14 @@ const FlipCard = () => {
         return (
           <motion.div
             key={card.id}
-            className={`${card.bgColor} ${card.textColor} rounded-lg overflow-hidden shadow-lg p-10 cursor-pointer`}
+            className={`${card.bgColor} ${card.textColor} rounded-lg overflow-hidden shadow-lg p-6 md:p-10 cursor-pointer`}
             style={{
               position: stackPosition === 0 ? 'relative' : 'absolute',
               top: stackPosition === 0 ? 0 : '0',
               left: stackPosition === 0 ? 'auto' : '50%',
-              width: '90%',
-              marginLeft: stackPosition === 0 ? '5%' : '0',
-              marginRight: stackPosition === 0 ? '5%' : '0',
+              width: '100%',
+              maxWidth: '64rem',
+              marginLeft: stackPosition === 0 ? '0' : '-50%',
               zIndex: hoveredCard === index ? 30 : (cardOrder.length - stackPosition) * 10,
             }}
             onClick={() => handleCardClick(index)}
@@ -235,9 +235,9 @@ const FlipCard = () => {
             initial={false}
             animate={{
               // 3D Flip Animation
-              rotateY: stackPosition === 0 ? 0 : 15 * stackPosition,  // Back cards slightly rotated
-              x: stackPosition === 0 ? 0 : '-50%', // Center absolute positioned cards
-              y: hoveredCard === index ? -30 : stackPosition * -5,     // Slight offset for depth
+              rotateY: stackPosition === 0 ? 0 : 15 * stackPosition,
+              x: stackPosition === 0 ? 0 : '-50%',
+              y: hoveredCard === index ? -30 : stackPosition * -5,
               scale: hoveredCard === index ? 1.03 : 1,
               height: hoveredCard === index
                 ? "auto"
@@ -249,7 +249,7 @@ const FlipCard = () => {
               type: "spring",
               stiffness: 60,
               damping: 25,
-              duration: 3.5,  // Smooth & moderate timing
+              duration: 3.5,
             }}
           >
             {stackPosition === 0 ? (

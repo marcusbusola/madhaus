@@ -28,7 +28,7 @@ const Nav = () => {
     <motion.nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-white/80 backdrop-blur-md shadow-sm"
+          ? "bg-black/40 backdrop-blur-[20px] border-b border-white/8"
           : "bg-transparent"
       }`}
       initial={{ y: -100 }}
@@ -43,8 +43,10 @@ const Nav = () => {
             alt="Madhaus Logo"
             width={100}
             height={33}
-            className="transition-opacity duration-300 hover:opacity-100"
-            style={{ opacity: 0.7 }}
+            className={`transition-all duration-300 hover:opacity-100 ${
+              isScrolled ? "invert" : ""
+            }`}
+            style={{ opacity: 0.85 }}
           />
         </Link>
 
@@ -54,24 +56,53 @@ const Nav = () => {
             <Link
               key={link.name}
               href={link.href}
-              className="relative group"
+              className="relative group nav-link-sweep overflow-hidden"
               target={link.href.startsWith("http") ? "_blank" : undefined}
               rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
             >
               <span
-                className="text-black font-medium text-sm transition-opacity duration-300"
-                style={{ opacity: 0.7 }}
+                className={`font-medium text-sm transition-all duration-300 ${
+                  isScrolled ? "text-white" : "text-black"
+                }`}
+                style={{ opacity: 0.85 }}
               >
                 {link.name}
               </span>
 
               {/* Underline animation - expands from center */}
-              <span className="absolute left-1/2 bottom-0 h-[2px] bg-black w-0 group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out origin-center" />
+              <span
+                className={`absolute left-1/2 bottom-0 h-[2px] w-0 group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out origin-center ${
+                  isScrolled ? "bg-white" : "bg-black"
+                }`}
+              />
 
               {/* Hover effect for opacity */}
               <style jsx>{`
                 a:hover span {
                   opacity: 1 !important;
+                }
+
+                .nav-link-sweep::before {
+                  content: '';
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  background: linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.3),
+                    transparent
+                  );
+                  transform: translateX(-100%);
+                  transition: transform 300ms ease-out;
+                  pointer-events: none;
+                  z-index: -1;
+                }
+
+                .nav-link-sweep:hover::before {
+                  transform: translateX(100%);
                 }
               `}</style>
             </Link>

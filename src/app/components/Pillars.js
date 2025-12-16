@@ -122,7 +122,7 @@ const Pillars = () => {
                 y: isRevealed ? -10 : 0,
               }}
               transition={{ type: "spring", stiffness: 100, damping: 20 }}
-              className={`pillar-card stained-glass-border rounded-2xl p-8 md:p-12 min-h-[300px] cursor-pointer bg-white ${
+              className={`pillar-card stained-glass-border rounded-2xl p-6 md:p-8 cursor-pointer bg-white ${
                 showSneakPeek ? 'sneak-peek-glow' : ''
               }`}
               style={{

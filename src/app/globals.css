@@ -50,12 +50,9 @@ body {
 
 /* Scroll Snap */
 html {
-  scroll-snap-type: y proximity;
-  scroll-behavior: smooth;
 }
 
 section {
-  scroll-snap-align: start;
 }
 
 /* LinkedIn Circle Animation */
