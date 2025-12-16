@@ -30,7 +30,7 @@ export default function Home() {
 
   return (
     <>
-      {/* Hero Section */}
+      {/* Hero Section - Fixed in place */}
       <section className="relative bg-black text-white flex flex-col justify-center items-center min-h-screen px-8 py-20">
         <HighlightText />
 
@@ -52,16 +52,20 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Marquee Strip */}
-      <Marquee />
+      {/* Main Content Section - Slides up from underneath */}
+      <div className="relative z-20 flex flex-col font-manrope bg-white text-black rounded-t-3xl -mt-8">
+        {/* Marquee Strip - positioned right under header when scrolling */}
+        <div className="sticky top-[72px] z-30">
+          <Marquee />
+        </div>
 
-      {/* Main Content Section */}
-      <div className="flex flex-col font-manrope py-12 bg-white text-black">
-        <main className="max-w-6xl mx-auto flex-grow">
-          <StickyScrollSection />
+        <div className="py-12 bg-white">
+          <main className="max-w-6xl mx-auto flex-grow">
+            <StickyScrollSection />
 
-          <FlipCard />
-        </main>
+            <FlipCard />
+          </main>
+        </div>
 
         {/* Footer Section */}
         <footer className="w-full bg-black py-50 px-8">

@@ -150,6 +150,50 @@ section {
   }
 }
 
+/* Stained Glass Navbar - Light transparent with animated border */
+.stained-glass-nav {
+  position: relative;
+  background: rgba(255, 255, 255, 0.08);  /* Very light transparent background */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.stained-glass-nav::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-bottom: 1px solid transparent;
+
+  /* Animated light sweep along the bottom border */
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 40%,
+    rgba(255, 255, 255, 0.6) 50%,
+    transparent 60%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  background-position: -100% 0;
+
+  /* Animate the light sweep */
+  animation: navLightSweep 3s ease-in-out infinite;
+  pointer-events: none;
+  mask: linear-gradient(to bottom, transparent calc(100% - 1px), white calc(100% - 1px));
+  -webkit-mask: linear-gradient(to bottom, transparent calc(100% - 1px), white calc(100% - 1px));
+}
+
+@keyframes navLightSweep {
+  0% {
+    background-position: -100% 0;
+  }
+  50% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
 /* Stained Glass Border - Static with Light Sweep */
 .stained-glass-border {
   position: relative;

@@ -28,14 +28,14 @@ const Nav = () => {
     <motion.nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-black/40 backdrop-blur-[20px] border-b border-white/8"
+          ? "stained-glass-nav backdrop-blur-[20px]"
           : "bg-transparent"
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div className="max-w-6xl mx-auto pl-2 pr-4 py-3 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="relative z-10">
           <Image
