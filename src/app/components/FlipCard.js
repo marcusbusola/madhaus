@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 
@@ -9,8 +9,19 @@ const FlipCard = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
   const [cardOrder, setCardOrder] = useState([0, 1, 2]); // Track current card order
   const [isAnimating, setIsAnimating] = useState(false);  // Prevent multiple simultaneous animations
+  const [supportsHover, setSupportsHover] = useState(true);
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: false, amount: 0.2 });
+
+  // Detect devices that don't support hover and fall back to stacked layout
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mediaQuery = window.matchMedia("(hover: none)");
+    const handleChange = (event) => setSupportsHover(!event.matches);
+    handleChange(mediaQuery);
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
 
   const handleHover = (index) => {
     setHoveredCard(index);
@@ -205,77 +216,58 @@ const FlipCard = () => {
       initial={{ opacity: 0, y: 50 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
       transition={{ duration: 0.8, delay: 0.3 }}
-      className="relative mb-32 flex flex-col items-center"
+      className="relative mb-32 flex flex-col items-center gap-8"
       style={{
-        perspective: '2000px',           // Enable 3D transforms
-        perspectiveOrigin: 'center',     // Center vanishing point
+        perspective: "2000px", // Enable 3D transforms
+        perspectiveOrigin: "center", // Center vanishing point
       }}
     >
       {/* Render cards based on cardOrder for proper stacking */}
       {cardOrder.map((cardId, stackPosition) => {
         const card = cards[cardId];
         const index = cardId; // Original card index for data access
+        const isTopCard = stackPosition === 0;
+        const shouldShowFull = !supportsHover || hoveredCard === index || isTopCard;
 
         return (
           <motion.div
             key={card.id}
-            className={`${card.bgColor} ${card.textColor} rounded-lg overflow-hidden shadow-lg p-6 md:p-10 cursor-pointer`}
+            className={`${card.bgColor} ${card.textColor} rounded-lg overflow-hidden shadow-lg p-6 md:p-10 cursor-pointer w-full max-w-4xl`}
             style={{
-              position: stackPosition === 0 ? 'relative' : 'absolute',
-              top: stackPosition === 0 ? 0 : '0',
-              left: stackPosition === 0 ? 'auto' : '50%',
-              width: '100%',
-              maxWidth: '64rem',
-              marginLeft: stackPosition === 0 ? '0' : '-50%',
+              position: supportsHover && !isTopCard ? "absolute" : "relative",
+              top: supportsHover && !isTopCard ? "0" : "auto",
+              left: supportsHover && !isTopCard ? "50%" : "auto",
+              marginLeft: supportsHover && !isTopCard ? "-50%" : "0",
               zIndex: hoveredCard === index ? 30 : (cardOrder.length - stackPosition) * 10,
             }}
             onClick={() => handleCardClick(index)}
-            onHoverStart={() => handleHover(index)}
-            onHoverEnd={handleLeave}
+            onHoverStart={supportsHover ? () => handleHover(index) : undefined}
+            onHoverEnd={supportsHover ? handleLeave : undefined}
             initial={false}
             animate={{
               // 3D Flip Animation
-              rotateY: stackPosition === 0 ? 0 : 15 * stackPosition,
-              x: stackPosition === 0 ? 0 : '-50%',
-              y: hoveredCard === index ? -30 : stackPosition * -5,
-              scale: hoveredCard === index ? 1.03 : 1,
-              height: hoveredCard === index
-                ? "auto"
-                : stackPosition === 0
-                ? "auto"
-                : "120px",
+              rotateY: supportsHover ? (isTopCard ? 0 : 15 * stackPosition) : 0,
+              x: supportsHover && !isTopCard ? "-50%" : 0,
+              y: supportsHover ? (hoveredCard === index ? -30 : stackPosition * -5) : 0,
+              scale: supportsHover && hoveredCard === index ? 1.03 : 1,
+              height: shouldShowFull ? "auto" : "200px",
             }}
             transition={{
               type: "spring",
               stiffness: 60,
               damping: 25,
-              duration: 3.5,
+              duration: supportsHover ? 3.5 : 0.8,
             }}
           >
-            {stackPosition === 0 ? (
-              // Front card always shows full content
+            {shouldShowFull ? (
               card.content
             ) : (
-              <>
-                {/* For back cards, show preview or full content based on hover state */}
-                {hoveredCard === index ? (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {card.content}
-                  </motion.div>
-                ) : (
-                  <motion.div className="flex flex-col h-full justify-center">
-                    <h3 className="text-2xl font-bold mb-2">{card.title}</h3>
-                    <p className="text-sm opacity-80 line-clamp-2">
-                      {card.previewText}
-                    </p>
-                  </motion.div>
-                )}
-              </>
+              <motion.div className="flex flex-col h-full justify-center">
+                <h3 className="text-2xl font-bold mb-2">{card.title}</h3>
+                <p className="text-sm opacity-80 line-clamp-3">
+                  {card.previewText}
+                </p>
+              </motion.div>
             )}
           </motion.div>
         );

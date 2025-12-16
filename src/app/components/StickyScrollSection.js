@@ -168,7 +168,7 @@ const StickyScrollSection = () => {
           </div>
 
           {/* RIGHT COLUMN: Scrolling Content */}
-          <div className="relative py-24">
+          <div className="relative flex flex-col gap-16 lg:gap-24 py-8">
 
             {contentBlocks.map((block, blockIndex) => {
               const isLastBlock = blockIndex === contentBlocks.length - 1;
@@ -183,10 +183,9 @@ const StickyScrollSection = () => {
                   initial="hidden"
                   animate={visibleBlocks[blockIndex] ? "visible" : "hidden"}
                   variants={blockVariants}
-                  className="sticky top-[50vh] min-h-[100vh] flex flex-col justify-center bg-white"
+                  className="relative min-h-[60vh] lg:min-h-[70vh] flex flex-col justify-center bg-white mb-12 last:mb-0"
                   style={{
-                    zIndex: blockIndex + 1,
-                    marginBottom: blockIndex === contentBlocks.length - 1 ? 0 : '100vh'
+                    zIndex: blockIndex + 1
                   }}
                 >
                   {/* Block Title */}
