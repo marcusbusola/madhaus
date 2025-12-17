@@ -150,7 +150,7 @@ const StickyScrollSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
 
           {/* LEFT COLUMN: Sticky Heading */}
-          <div className={`${isSticky ? 'lg:sticky' : ''} lg:top-24 lg:h-screen flex items-center`}>
+          <div className={`${isSticky ? 'lg:sticky' : ''} lg:top-24 lg:h-[calc(100vh-6rem)] flex items-center`}>
             <div>
               <motion.h2
                 initial={{ opacity: 0, x: -30 }}
