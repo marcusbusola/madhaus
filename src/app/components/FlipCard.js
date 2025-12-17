@@ -213,7 +213,7 @@ const FlipCard = () => {
   return (
     <div
       ref={containerRef}
-      className={`relative ${supportsHover ? 'flex items-center' : 'flex flex-col items-center gap-12'} w-full max-w-6xl`}
+      className={`relative ${supportsHover ? 'flex items-center justify-center' : 'flex flex-col items-center gap-12'} w-full max-w-6xl`}
       style={{
         perspective: "2000px", // Enable 3D transforms
         perspectiveOrigin: "center", // Center vanishing point
@@ -234,7 +234,9 @@ const FlipCard = () => {
             style={{
               position: supportsHover ? "absolute" : "relative",
               top: supportsHover ? `${stackPosition * 48}px` : "auto",
-              left: supportsHover ? "0" : 0,
+              left: supportsHover ? "50%" : "auto",
+              right: supportsHover ? "auto" : "auto",
+              marginLeft: supportsHover ? "-50%" : "auto",
               zIndex: hoveredCard === index ? 30 : (cardOrder.length - stackPosition) * 10,
             }}
             onClick={() => handleCardClick(index)}
