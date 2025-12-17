@@ -69,19 +69,12 @@ export default function Home() {
       </StackSection>
 
       {/* SECTION 3: IMPACT */}
-      <StackSection sectionNumber={3} backgroundColor="bg-[#f2ece3]">
+      <StackSection sectionNumber={3} backgroundColor="bg-white">
         <div className="section-impact flex flex-col h-full">
           <div className="section-marquee">
             <Marquee />
           </div>
           <div className="flex flex-col justify-center items-center flex-1 px-8 py-16">
-            <div className="text-center mb-12">
-              <h2 className="text-5xl font-bold mb-6">Impact in Action</h2>
-              <p className="text-xl font-light max-w-2xl mx-auto">
-                From research to real-world change—explore our projects transforming
-                Africa through systems thinking and design.
-              </p>
-            </div>
             <FlipCard />
           </div>
         </div>

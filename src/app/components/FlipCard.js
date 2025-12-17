@@ -213,7 +213,7 @@ const FlipCard = () => {
   return (
     <div
       ref={containerRef}
-      className="relative flex flex-col items-center gap-8 w-full max-w-6xl"
+      className="relative flex flex-col items-center gap-12 w-full max-w-6xl"
       style={{
         perspective: "2000px", // Enable 3D transforms
         perspectiveOrigin: "center", // Center vanishing point
@@ -232,8 +232,8 @@ const FlipCard = () => {
             className={`${card.bgColor} ${card.textColor} rounded-lg overflow-hidden shadow-lg p-6 md:p-10 cursor-pointer w-full max-w-4xl`}
             style={{
               position: supportsHover && !isTopCard ? "absolute" : "relative",
-              top: supportsHover && !isTopCard ? "0" : "auto",
-              left: supportsHover && !isTopCard ? "50%" : "auto",
+              top: supportsHover && !isTopCard ? `${stackPosition * 48}px` : "auto",
+              left: 0,
               zIndex: hoveredCard === index ? 30 : (cardOrder.length - stackPosition) * 10,
             }}
             onClick={() => handleCardClick(index)}
@@ -242,11 +242,11 @@ const FlipCard = () => {
             initial={false}
             animate={{
               // 3D Flip Animation
-              rotateY: supportsHover ? (isTopCard ? 0 : 15 * stackPosition) : 0,
-              x: supportsHover && !isTopCard ? "-50%" : 0,
-              y: supportsHover ? (hoveredCard === index ? -30 : stackPosition * -5) : 0,
+              rotateY: supportsHover ? (isTopCard ? 0 : 8 * stackPosition) : 0,
+              x: 0,
+              y: supportsHover ? (hoveredCard === index ? -30 : stackPosition * -8) : 0,
               scale: supportsHover && hoveredCard === index ? 1.03 : 1,
-              height: shouldShowFull ? "auto" : "200px",
+              height: shouldShowFull ? "auto" : "220px",
             }}
             transition={{
               type: "spring",
