@@ -225,7 +225,7 @@ const StickyScrollSection = () => {
                             variants={listItemVariants}
                             onHoverStart={() => setHoveredItem(blockIndex * 10 + idx)}
                             onHoverEnd={() => setHoveredItem(null)}
-                            className="relative flex gap-6 py-4 border-b border-black/10 cursor-pointer z-10"
+                            className="relative flex items-center gap-6 py-5 px-5 border border-black/10 rounded-xl cursor-pointer z-10 overflow-hidden"
                             style={{
                               transition: 'all 0.3s ease'
                             }}
@@ -237,32 +237,18 @@ const StickyScrollSection = () => {
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
                                 transition={{ duration: 0.3 }}
-                                className="absolute inset-0 bg-black/85 pointer-events-none z-0"
+                                className="absolute inset-0 bg-black/85 pointer-events-none z-0 rounded-xl"
                               />
                             )}
-                            <span className={`text-sm font-light w-12 relative z-10 transition-colors duration-300 ${isHovered ? 'text-white opacity-90' : 'opacity-60'}`}>
+                            <span className={`text-sm font-light min-w-[52px] relative z-10 transition-colors duration-300 ${isHovered ? 'text-white opacity-90' : 'opacity-60'}`}>
                               {item.number} —
                             </span>
-                            <div className="flex-1 flex items-center gap-3">
-                              {/* Animated Arrow */}
-                              {isHovered && (
-                                <motion.span
-                                  initial={{ opacity: 0, x: -10 }}
-                                  animate={{
-                                    opacity: 1,
-                                    x: 0
-                                  }}
-                                  className="text-xl font-bold arrow-pulse text-white relative z-10"
-                                >
-                                  →
-                                </motion.span>
-                              )}
-
-                              <div className="flex-1 relative z-10">
+                            <div className="flex-1 flex items-center gap-3 relative z-10">
+                              <div className="flex-1">
                                 <h4
                                   className={`font-bold mb-1 transition-all duration-300 ${isHovered ? 'text-white' : ''}`}
                                   style={{
-                                    transform: isHovered ? 'translateX(15px) scale(1.05)' : 'translateX(0) scale(1)',
+                                    transform: isHovered ? 'translateX(10px) scale(1.05)' : 'translateX(0) scale(1)',
                                     fontSize: isHovered ? '1.4rem' : '1.25rem'
                                   }}
                                 >
@@ -271,12 +257,25 @@ const StickyScrollSection = () => {
                                 <p
                                   className={`text-base font-light transition-all duration-300 ${isHovered ? 'text-white opacity-90' : 'opacity-70'}`}
                                   style={{
-                                    transform: isHovered ? 'translateX(15px)' : 'translateX(0)'
+                                    transform: isHovered ? 'translateX(10px)' : 'translateX(0)'
                                   }}
                                 >
                                   {item.subtitle}
                                 </p>
                               </div>
+                              {/* Animated Arrow on the right */}
+                              {isHovered && (
+                                <motion.span
+                                  initial={{ opacity: 0, x: 10 }}
+                                  animate={{
+                                    opacity: 1,
+                                    x: 0
+                                  }}
+                                  className="text-xl font-bold arrow-pulse text-white"
+                                >
+                                  →
+                                </motion.span>
+                              )}
                             </div>
                           </motion.div>
                         );
