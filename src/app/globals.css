@@ -97,7 +97,7 @@ html {
 /* Marquee positioning within sections */
 .section-marquee {
   position: sticky;
-  top: 72px;
+  top: 0;
   z-index: 50;
 }
 
