@@ -64,6 +64,7 @@ html {
   scroll-snap-stop: always;
   width: 100%;
   will-change: transform;
+  min-height: 100vh;
 }
 
 /* Internal scrollable content with overscroll containment */
@@ -356,4 +357,3 @@ html {
     transform: translateY(10px);
   }
 }
-

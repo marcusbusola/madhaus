@@ -57,7 +57,7 @@ export default function Home() {
       <StackSection
         sectionNumber={2}
         backgroundColor="bg-white"
-        className="rounded-t-3xl -mt-8"
+        className="rounded-t-3xl"
         minHeight={true}
       >
         <div className="section-identity">
