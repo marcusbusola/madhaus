@@ -237,7 +237,6 @@ const FlipCard = () => {
               position: supportsHover && !isTopCard ? "absolute" : "relative",
               top: supportsHover && !isTopCard ? "0" : "auto",
               left: supportsHover && !isTopCard ? "50%" : "auto",
-              marginLeft: supportsHover && !isTopCard ? "-50%" : "0",
               zIndex: hoveredCard === index ? 30 : (cardOrder.length - stackPosition) * 10,
             }}
             onClick={() => handleCardClick(index)}
