@@ -48,11 +48,56 @@ body {
   }
 }
 
-/* Scroll Snap */
+/* ============================================
+   STACK SCROLL SYSTEM
+   ============================================ */
+
+/* Enable scroll-snap on html */
 html {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
 }
 
-section {
+/* Section base styles */
+.stack-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  width: 100%;
+  will-change: transform;
+}
+
+/* Internal scrollable content with overscroll containment */
+.stack-section-content {
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Section-specific backgrounds */
+.section-hero {
+  background: #000;
+  color: #fff;
+}
+
+.section-identity {
+  background: #fff;
+  color: #000;
+}
+
+.section-impact {
+  background: #f2ece3;
+  color: #000;
+}
+
+.section-engagement {
+  background: #000;
+  color: #fff;
+}
+
+/* Marquee positioning within sections */
+.section-marquee {
+  position: sticky;
+  top: 72px;
+  z-index: 50;
 }
 
 /* LinkedIn Circle Animation */

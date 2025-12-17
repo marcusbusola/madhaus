@@ -211,12 +211,9 @@ const FlipCard = () => {
   ];
 
   return (
-    <motion.section
+    <div
       ref={containerRef}
-      initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-      transition={{ duration: 0.8, delay: 0.3 }}
-      className="relative mb-32 flex flex-col items-center gap-8"
+      className="relative flex flex-col items-center gap-8 w-full max-w-6xl"
       style={{
         perspective: "2000px", // Enable 3D transforms
         perspectiveOrigin: "center", // Center vanishing point
@@ -271,7 +268,7 @@ const FlipCard = () => {
           </motion.div>
         );
       })}
-    </motion.section>
+    </div>
   );
 };
 

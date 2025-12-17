@@ -1,4 +1,4 @@
-"use client"; // Add this line at the top
+"use client";
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
@@ -16,6 +16,7 @@ import HighlightText from "./components/HighlightText";
 import FlipCard from "./components/FlipCard";
 import Marquee from "./components/Marquee";
 import StickyScrollSection from "./components/StickyScrollSection";
+import StackSection from "./components/StackSection";
 
 export default function Home() {
   const [isFlashing, setIsFlashing] = useState(false);
@@ -23,53 +24,154 @@ export default function Home() {
   useEffect(() => {
     const interval = setInterval(() => {
       setIsFlashing((prev) => !prev);
-    }, 3000); // Flash every 3 seconds
-
+    }, 3000);
     return () => clearInterval(interval);
   }, []);
 
   return (
     <>
-      {/* Hero Section - Fixed in place */}
-      <section className="relative bg-black text-white flex flex-col justify-center items-center min-h-screen px-8 py-20">
-        <HighlightText />
-
-        <div className="w-full flex justify-end pb-12">
-          <div className="flex gap-4 rounded-full border border-[#EDE7DE] py-1.5 px-1.5">
-            <a
-              href="https://www.linkedin.com/company/madhaus-africa"
-              className="light-border border border-white text-[#EDE7DE] px-6 py-2 rounded-full text-sm hover:#EDE7DE hover:text-black transition-all duration-300 ease-in-out relative overflow-hidden"
-            >
-              LINKED IN →
-            </a>
-            <a
-              href="mailto:pr@madhaus.africa"
-              className="light-border bg-[#EDE7DE] text-black px-6 py-2 rounded-full text-sm hover:bg-gray-200 transition-all duration-300 ease-in-out relative overflow-hidden"
-            >
-              Let&apos;s Talk →
-            </a>
+      {/* SECTION 1: HERO */}
+      <StackSection sectionNumber={1} backgroundColor="bg-black">
+        <div className="section-hero flex flex-col justify-center items-center h-full px-8">
+          <HighlightText />
+          <div className="w-full flex justify-end pb-12 mt-12">
+            <div className="flex gap-4 rounded-full border border-[#EDE7DE] py-1.5 px-1.5">
+              <a
+                href="https://www.linkedin.com/company/madhaus-africa"
+                className="light-border border border-white text-[#EDE7DE] px-6 py-2 rounded-full text-sm hover:#EDE7DE hover:text-black transition-all duration-300 ease-in-out relative overflow-hidden"
+              >
+                LINKED IN →
+              </a>
+              <a
+                href="mailto:pr@madhaus.africa"
+                className="light-border bg-[#EDE7DE] text-black px-6 py-2 rounded-full text-sm hover:bg-gray-200 transition-all duration-300 ease-in-out relative overflow-hidden"
+              >
+                Let&apos;s Talk →
+              </a>
+            </div>
           </div>
         </div>
-      </section>
+      </StackSection>
 
-      {/* Main Content Section - Slides up from underneath */}
-      <div className="relative z-20 flex flex-col font-manrope bg-white text-black rounded-t-3xl -mt-8">
-        {/* Marquee Strip - positioned right under header when scrolling */}
-        <div className="sticky top-[72px] z-30">
-          <Marquee />
+      {/* SECTION 2: IDENTITY */}
+      <StackSection
+        sectionNumber={2}
+        backgroundColor="bg-white"
+        className="rounded-t-3xl -mt-8"
+        minHeight={true}
+      >
+        <div className="section-identity">
+          <div className="section-marquee">
+            <Marquee />
+          </div>
+          <StickyScrollSection />
         </div>
+      </StackSection>
 
-        <div className="py-12 bg-white">
-          <main className="max-w-6xl mx-auto flex-grow">
-            <StickyScrollSection />
-
-            <FlipCard />
-          </main>
+      {/* SECTION 3: IMPACT */}
+      <StackSection sectionNumber={3} backgroundColor="bg-[#f2ece3]">
+        <div className="section-impact flex flex-col justify-center items-center h-full px-8 py-20">
+          <div className="text-center mb-12">
+            <h2 className="text-5xl font-bold mb-6">Impact in Action</h2>
+            <p className="text-xl font-light max-w-2xl mx-auto">
+              From research to real-world change—explore our projects transforming
+              Africa through systems thinking and design.
+            </p>
+          </div>
+          <FlipCard />
         </div>
+      </StackSection>
 
-        {/* Footer Section */}
-        <footer className="w-full bg-black py-50 px-8">
-          <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
+      {/* SECTION 4: ENGAGEMENT */}
+      <StackSection
+        sectionNumber={4}
+        backgroundColor="bg-black"
+        minHeight={true}
+      >
+        <div className="section-engagement flex flex-col min-h-screen">
+          <div className="section-marquee">
+            <Marquee />
+          </div>
+
+          <div className="flex-grow flex items-center justify-center px-8 py-20">
+            <div className="max-w-2xl w-full">
+              <div className="flex flex-col items-center gap-6">
+                <h2 className="text-5xl font-bold text-[#EDE7DE] mb-2 text-center">
+                  Join the Madness
+                </h2>
+
+                {/* Newsletter Form */}
+                <div className="relative w-full max-w-md mt-5">
+                  <div className="flex items-center rounded-full border border-[#EDE7DE] overflow-hidden">
+                    <input
+                      type="email"
+                      className="w-full bg-transparent py-2 px-8 text-[#EDE7DE] placeholder-[#EDE7DE] focus:outline-none text-sm"
+                      placeholder="Enter your email"
+                    />
+                    <motion.button
+                      className={`rounded-full ${
+                        isFlashing ? "bg-white" : "bg-[#EDE7DE]"
+                      } text-black py-0.5 px-4 text-sm mx-1 hover:bg-gray-300 transition-colors duration-300`}
+                      animate={{
+                        backgroundColor: isFlashing
+                          ? ["#EDE7DE", "#FFFFFF", "#EDE7DE"]
+                          : "#EDE7DE",
+                        scale: isFlashing ? [1, 1.05, 1] : 1,
+                      }}
+                      transition={{
+                        duration: 1,
+                        ease: "easeInOut",
+                      }}
+                    >
+                      Subscribe
+                    </motion.button>
+                  </div>
+                </div>
+
+                {/* Social Media Icons */}
+                <div className="flex gap-6 mt-5">
+                  {[
+                    {
+                      icon: <FaFacebook size={18} />,
+                      href: "https://facebook.com",
+                    },
+                    {
+                      icon: <FaInstagram size={18} />,
+                      href: "https://www.instagram.com/madhausafrica/",
+                    },
+                    {
+                      icon: <FaTwitter size={18} />,
+                      href: "https://x.com/Madhaus_Africa",
+                    },
+                    {
+                      icon: <FaLinkedin size={18} />,
+                      href: "https://www.linkedin.com/company/madhaus-africa",
+                    },
+                    {
+                      icon: <FaYoutube size={18} />,
+                      href: "https://youtube.com",
+                    },
+                    {
+                      icon: <FaTiktok size={18} />,
+                      href: "http://www.tiktok.com/@madhaus.africa",
+                    },
+                  ].map((social, index) => (
+                    <a
+                      key={index}
+                      href={social.href}
+                      aria-label={social.href}
+                      className="bg-[#EDE7DE] text-black rounded-full w-8 h-8 md:w-10 md:h-10 flex items-center justify-center hover:bg-white transition-colors"
+                    >
+                      {social.icon}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Logo at bottom */}
+          <div className="w-full flex justify-center pb-12">
             <div className="w-40">
               <Image
                 src="/MH.svg"
@@ -78,82 +180,9 @@ export default function Home() {
                 height={120}
               />
             </div>
-
-            <div className="flex flex-col items-center md:items-start gap-6 font-manrope">
-              <h2 className="text-3xl font-light text-[#EDE7DE]">
-                Join the Madness
-              </h2>
-
-              {/* Subscribe Button with Flashing effect */}
-              <div className="relative w-full max-w-md mt-5">
-                <div className="flex items-center rounded-full border border-[#EDE7DE] overflow-hidden">
-                  <input
-                    type="email"
-                    className="w-full bg-transparent py-2 px-8 text-[#EDE7DE] placeholder-[#EDE7DE] focus:outline-none text-sm"
-                    placeholder="Enter your email"
-                  />
-                  <motion.button
-                    className={`rounded-full ${
-                      isFlashing ? "bg-white" : "bg-[#EDE7DE]"
-                    } text-black py-0.5 px-4 text-sm mx-1 hover:bg-gray-300 transition-colors duration-300`}
-                    animate={{
-                      backgroundColor: isFlashing
-                        ? ["#EDE7DE", "#FFFFFF", "#EDE7DE"]
-                        : "#EDE7DE",
-                      scale: isFlashing ? [1, 1.05, 1] : 1,
-                    }}
-                    transition={{
-                      duration: 1,
-                      ease: "easeInOut",
-                    }}
-                  >
-                    Subscribe
-                  </motion.button>
-                </div>
-              </div>
-
-              {/* Social Media Icons */}
-              <div className="flex gap-6 mt-5">
-                {[
-                  {
-                    icon: <FaFacebook size={18} />,
-                    href: "https://facebook.com",
-                  },
-                  {
-                    icon: <FaInstagram size={18} />,
-                    href: "https://www.instagram.com/madhausafrica/",
-                  },
-                  {
-                    icon: <FaTwitter size={18} />,
-                    href: "https://x.com/Madhaus_Africa",
-                  },
-                  {
-                    icon: <FaLinkedin size={18} />,
-                    href: "https://www.linkedin.com/company/madhaus-africa",
-                  },
-                  {
-                    icon: <FaYoutube size={18} />,
-                    href: "https://youtube.com",
-                  },
-                  {
-                    icon: <FaTiktok size={18} />,
-                    href: "http://www.tiktok.com/@madhaus.africa",
-                  },
-                ].map((social, index) => (
-                  <a
-                    key={index}
-                    href={social.href}
-                    aria-label={social.href}
-                    className="bg-[#EDE7DE] text-black rounded-full w-8 h-8 md:w-10 md:h-10 flex items-center justify-center"
-                  >
-                    {social.icon}
-                  </a>
-                ))}
-              </div>
-            </div>
           </div>
-        </footer>
-      </div>
+        </div>
+      </StackSection>
     </>
   );
 }

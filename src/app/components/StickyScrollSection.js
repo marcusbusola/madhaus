@@ -142,7 +142,7 @@ const StickyScrollSection = () => {
   };
 
   return (
-    <section className="relative bg-white text-black py-20">
+    <div className="relative py-12">
       <div className="max-w-7xl mx-auto px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
 
@@ -304,7 +304,7 @@ const StickyScrollSection = () => {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
