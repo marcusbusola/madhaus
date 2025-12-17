@@ -194,7 +194,7 @@ const StickyScrollSection = () => {
                   initial="hidden"
                   animate={visibleBlocks[blockIndex] ? "visible" : "hidden"}
                   variants={blockVariants}
-                  className="relative min-h-[60vh] lg:min-h-[70vh] flex flex-col justify-center bg-white mb-12 last:mb-0"
+                  className="relative min-h-[60vh] lg:min-h-[70vh] flex flex-col justify-start bg-white mb-12 last:mb-0"
                   style={{
                     zIndex: blockIndex + 1
                   }}
