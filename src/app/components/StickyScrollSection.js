@@ -81,7 +81,7 @@ const StickyScrollSection = () => {
             });
           }
         },
-        { threshold: 0.3, rootMargin: '-100px' }
+        { threshold: 0.2, rootMargin: '-96px 0px 0px 0px' }
       );
 
       if (ref.current) observer.observe(ref.current);
@@ -117,7 +117,7 @@ const StickyScrollSection = () => {
             setActiveSectionIndex(index);
           }
         },
-        { threshold: 0.5, rootMargin: '-20% 0px -40% 0px' }
+        { threshold: 0.3, rootMargin: '-96px 0px -50% 0px' }
       );
 
       if (ref.current) observer.observe(ref.current);
@@ -182,8 +182,8 @@ const StickyScrollSection = () => {
           </div>
 
           {/* RIGHT COLUMN: Scrolling Content */}
-          <div className="relative flex justify-center py-8">
-            <div className="w-full max-w-3xl flex flex-col gap-16 lg:gap-20">
+          <div className="relative flex justify-center">
+            <div className="w-full max-w-3xl flex flex-col">
               {contentBlocks.map((block, blockIndex) => {
                 const isLastBlock = blockIndex === contentBlocks.length - 1;
 
@@ -197,20 +197,18 @@ const StickyScrollSection = () => {
                     initial="hidden"
                     animate={visibleBlocks[blockIndex] ? "visible" : "hidden"}
                     variants={blockVariants}
-                    className="relative min-h-[60vh] lg:min-h-[70vh] flex flex-col justify-start bg-white"
+                    className="lg:sticky lg:top-24 relative min-h-[70vh] lg:min-h-[80vh] flex flex-col justify-start bg-white p-8 lg:p-10 mb-20 lg:mb-32"
                     style={{
-                      zIndex: blockIndex + 1
+                      zIndex: contentBlocks.length - blockIndex
                     }}
                   >
                   {/* Block Title */}
-                  <h3 className="text-2xl font-bold mb-2">{block.title}</h3>
+                  <h3 className="text-2xl font-bold mb-4">{block.title}</h3>
 
                   {/* Subtitle for WHAT WE DO */}
                   {block.subtitle && (
-                    <p className="text-base font-light text-black/60 mb-8">{block.subtitle}</p>
+                    <p className="text-base font-light text-black/60 mb-6">{block.subtitle}</p>
                   )}
-
-                  {!block.subtitle && <div className="mb-8" />}
 
                   {/* Conditional Content Rendering */}
                   {block.type === "list" ? (
