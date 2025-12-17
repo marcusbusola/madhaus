@@ -1,7 +1,6 @@
 import { Manrope } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
-import Nav from "./components/Nav";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -27,7 +26,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${manrope.variable} antialiased`}>
-        <Nav />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-FSEDXP0GJ6"
           strategy="afterInteractive"
