@@ -24,34 +24,30 @@ const Nav = () => {
     { name: "Blog", href: "https://madhaus.substack.com/" },
   ];
 
+  const baseText = isScrolled ? "text-black" : "text-white";
+  const underlineColor = isScrolled ? "bg-black" : "bg-white";
+
   return (
     <motion.nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "stained-glass-nav backdrop-blur-[20px]"
-          : "bg-transparent"
+          ? "bg-white/80 backdrop-blur-xl border-b border-black/10 shadow-sm"
+          : "bg-white/10 backdrop-blur-xl border-b border-white/15"
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="max-w-6xl mx-auto pl-2 pr-4 py-3 flex items-center justify-between">
-        {/* Logo */}
+      <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+        {/* Brand */}
         <Link href="/" className="relative z-10">
-          <Image
-            src="/MH.svg"
-            alt="Madhaus Logo"
-            width={100}
-            height={33}
-            className={`transition-all duration-300 hover:opacity-100 ${
-              isScrolled ? "invert" : ""
-            }`}
-            style={{ opacity: 0.85 }}
-          />
+          <span className={`text-sm md:text-base font-semibold tracking-[0.18em] uppercase ${baseText}`}>
+            Madhaus Africa
+          </span>
         </Link>
 
         {/* Navigation Links */}
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-6 md:gap-8">
           {navLinks.map((link) => (
             <Link
               key={link.name}
@@ -61,19 +57,15 @@ const Nav = () => {
               rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
             >
               <span
-                className={`font-medium text-sm transition-all duration-300 ${
-                  isScrolled ? "text-white" : "text-black"
-                }`}
-                style={{ opacity: 0.85 }}
+                className={`font-medium text-sm transition-all duration-300 ${baseText}`}
+                style={{ opacity: 0.9 }}
               >
                 {link.name}
               </span>
 
               {/* Underline animation - expands from center */}
               <span
-                className={`absolute left-1/2 bottom-0 h-[2px] w-0 group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out origin-center ${
-                  isScrolled ? "bg-white" : "bg-black"
-                }`}
+                className={`absolute left-1/2 bottom-0 h-[2px] w-0 group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out origin-center ${underlineColor}`}
               />
 
               {/* Hover effect for opacity */}
@@ -107,6 +99,18 @@ const Nav = () => {
               `}</style>
             </Link>
           ))}
+
+          {/* Contact CTA */}
+          <a
+            href="mailto:pr@madhaus.africa"
+            className={`text-xs md:text-sm font-semibold px-4 py-2 rounded-full border transition-all duration-300 ${
+              isScrolled
+                ? "border-black/60 text-black hover:bg-black hover:text-white"
+                : "border-white/70 text-white hover:bg-white hover:text-black"
+            }`}
+          >
+            Contact Us
+          </a>
         </div>
       </div>
     </motion.nav>
