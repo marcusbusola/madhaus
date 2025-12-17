@@ -12,10 +12,14 @@ export default function StackSection({
       className={`stack-section ${backgroundColor} ${className}`}
       data-section={sectionNumber}
       style={{
-        zIndex: sectionNumber
+        zIndex: sectionNumber,
+        minHeight: "100vh",
+        height: minHeight ? "auto" : "100vh",
+        display: "flex",
+        flexDirection: "column"
       }}
     >
-      <div className="stack-section-content w-full min-h-screen">
+      <div className="stack-section-content w-full flex-1">
         {children}
       </div>
     </section>
