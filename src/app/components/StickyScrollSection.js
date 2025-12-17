@@ -15,6 +15,7 @@ const StickyScrollSection = () => {
 
   // Track visited sections for subtitle
   const [visitedSections, setVisitedSections] = useState([]);
+  const [activeSectionIndex, setActiveSectionIndex] = useState(-1);
 
   // Content data structure
   const contentBlocks = [
@@ -107,20 +108,13 @@ const StickyScrollSection = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Track visited sections for subtitle
+  // Track current section in view and build visited list progressively; clear in reverse when scrolling up
   useEffect(() => {
     const observers = blockRefs.map((ref, index) => {
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
-            setVisitedSections(prev => {
-              const section = contentBlocks[index];
-              // Only add if not already in the list
-              if (!prev.find(s => s.id === section.id)) {
-                return [...prev, section];
-              }
-              return prev;
-            });
+            setActiveSectionIndex(index);
           }
         },
         { threshold: 0.5, rootMargin: '-20% 0px -40% 0px' }
@@ -132,6 +126,15 @@ const StickyScrollSection = () => {
 
     return () => observers.forEach(obs => obs.disconnect());
   }, []);
+
+  // Build visited list based on active section index (progressive down, clears when moving up)
+  useEffect(() => {
+    if (activeSectionIndex === -1) {
+      setVisitedSections([]);
+    } else {
+      setVisitedSections(contentBlocks.slice(0, activeSectionIndex + 1));
+    }
+  }, [activeSectionIndex]);
 
   // Function to scroll to a specific section
   const scrollToSection = (sectionId) => {
@@ -168,7 +171,7 @@ const StickyScrollSection = () => {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.4, delay: index * 0.1 }}
                       onClick={() => scrollToSection(section.id)}
-                      className="text-left text-lg font-light opacity-60 hover:opacity-100 transition-opacity duration-300 cursor-pointer underline decoration-1 underline-offset-4"
+                      className="text-left text-lg font-light text-black/60 hover:text-black transition-colors duration-300 cursor-pointer"
                     >
                       {section.title}
                     </motion.button>
@@ -179,32 +182,32 @@ const StickyScrollSection = () => {
           </div>
 
           {/* RIGHT COLUMN: Scrolling Content */}
-          <div className="relative flex flex-col gap-16 lg:gap-24 py-8">
+          <div className="relative flex justify-center py-8">
+            <div className="w-full max-w-3xl flex flex-col gap-16 lg:gap-20">
+              {contentBlocks.map((block, blockIndex) => {
+                const isLastBlock = blockIndex === contentBlocks.length - 1;
 
-            {contentBlocks.map((block, blockIndex) => {
-              const isLastBlock = blockIndex === contentBlocks.length - 1;
-
-              return (
-                <motion.div
-                  key={block.id}
-                  ref={(el) => {
-                    blockRefs[blockIndex].current = el;
-                    if (isLastBlock) lastBlockRef.current = el;
-                  }}
-                  initial="hidden"
-                  animate={visibleBlocks[blockIndex] ? "visible" : "hidden"}
-                  variants={blockVariants}
-                  className="relative min-h-[60vh] lg:min-h-[70vh] flex flex-col justify-start bg-white mb-12 last:mb-0"
-                  style={{
-                    zIndex: blockIndex + 1
-                  }}
-                >
+                return (
+                  <motion.div
+                    key={block.id}
+                    ref={(el) => {
+                      blockRefs[blockIndex].current = el;
+                      if (isLastBlock) lastBlockRef.current = el;
+                    }}
+                    initial="hidden"
+                    animate={visibleBlocks[blockIndex] ? "visible" : "hidden"}
+                    variants={blockVariants}
+                    className="relative min-h-[60vh] lg:min-h-[70vh] flex flex-col justify-start bg-white"
+                    style={{
+                      zIndex: blockIndex + 1
+                    }}
+                  >
                   {/* Block Title */}
                   <h3 className="text-2xl font-bold mb-2">{block.title}</h3>
 
                   {/* Subtitle for WHAT WE DO */}
                   {block.subtitle && (
-                    <p className="text-base font-light opacity-70 mb-8">{block.subtitle}</p>
+                    <p className="text-base font-light text-black/60 mb-8">{block.subtitle}</p>
                   )}
 
                   {!block.subtitle && <div className="mb-8" />}
@@ -225,7 +228,7 @@ const StickyScrollSection = () => {
                             variants={listItemVariants}
                             onHoverStart={() => setHoveredItem(blockIndex * 10 + idx)}
                             onHoverEnd={() => setHoveredItem(null)}
-                            className="relative flex items-center gap-6 py-5 px-5 border border-black/10 rounded-xl cursor-pointer z-10 overflow-hidden"
+                            className={`relative flex items-center gap-6 py-5 px-5 rounded-xl cursor-pointer z-10 overflow-hidden ${isHovered ? 'border border-black/15' : 'border-b border-black/15'}`}
                             style={{
                               transition: 'all 0.3s ease'
                             }}
@@ -297,9 +300,10 @@ const StickyScrollSection = () => {
                       ))}
                     </div>
                   )}
-                </motion.div>
-              );
-            })}
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
