@@ -182,7 +182,10 @@ const StickyScrollSection = () => {
     const index = contentBlocks.findIndex(block => block.id === sectionId);
     if (index !== -1 && scrollContainerRef.current) {
       const targetProgress = index === 0 ? 0.15 : index === 1 ? 0.45 : 0.8;
-      const targetScroll = targetProgress * scrollHeight;
+      const scrollableHeight =
+        scrollContainerRef.current.scrollHeight -
+        scrollContainerRef.current.clientHeight;
+      const targetScroll = targetProgress * Math.max(scrollableHeight, 0);
 
       scrollContainerRef.current.scrollTo({
         top: targetScroll,
@@ -229,26 +232,20 @@ const StickyScrollSection = () => {
           </div>
 
           {/* RIGHT COLUMN: Scroll-triggered content transition */}
-          <div className="relative lg:h-[calc(100vh-6rem)] h-[80vh] overflow-hidden">
-            {/* Invisible Scroll Track */}
-            <div
-              ref={scrollContainerRef}
-              className="absolute inset-0 overflow-y-scroll"
-              role="region"
-              aria-label="Content navigation"
-              style={{
-                scrollbarWidth: 'none',
-                msOverflowStyle: 'none',
-                WebkitOverflowScrolling: 'touch',
-                overscrollBehavior: 'contain',
-                touchAction: 'pan-y'
-              }}
-            >
-              <div style={{ height: `${scrollHeight}px` }} aria-hidden="true" />
-            </div>
-
-            {/* Fixed Content Display */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div
+            ref={scrollContainerRef}
+            className="relative lg:h-[calc(100vh-6rem)] h-[80vh] overflow-y-scroll overflow-x-hidden"
+            role="region"
+            aria-label="Content navigation"
+            style={{
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+              WebkitOverflowScrolling: "touch",
+              overscrollBehavior: "contain",
+              touchAction: "pan-y",
+            }}
+          >
+            <div className="sticky top-0 h-full flex items-center justify-center">
               <div className="w-full max-w-3xl px-4 md:px-8">
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -264,6 +261,8 @@ const StickyScrollSection = () => {
                 </AnimatePresence>
               </div>
             </div>
+
+            <div style={{ height: `${scrollHeight}px` }} aria-hidden="true" />
 
             {/* Hide scrollbar */}
             <style jsx>{`

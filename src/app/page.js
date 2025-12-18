@@ -17,6 +17,7 @@ import FlipCard from "./components/FlipCard";
 import Marquee from "./components/Marquee";
 import StickyScrollSection from "./components/StickyScrollSection";
 import StackSection from "./components/StackSection";
+import Nav from "./components/Nav";
 
 export default function Home() {
   const [isFlashing, setIsFlashing] = useState(false);
@@ -30,15 +31,16 @@ export default function Home() {
 
   return (
     <>
+      <Nav />
       {/* SECTION 1: HERO */}
       <StackSection sectionNumber={1} backgroundColor="bg-black">
         <div className="section-hero flex flex-col justify-center items-center h-full px-8">
           <HighlightText />
-          <div className="w-full flex justify-end pb-12 mt-12">
+          <div className="w-full flex justify-center md:justify-end pb-12 mt-12">
             <div className="flex gap-4 rounded-full border border-[#EDE7DE] py-1.5 px-1.5">
               <a
                 href="https://www.linkedin.com/company/madhaus-africa"
-                className="light-border border border-white text-[#EDE7DE] px-6 py-2 rounded-full text-sm hover:#EDE7DE hover:text-black transition-all duration-300 ease-in-out relative overflow-hidden"
+                className="light-border border border-white text-[#EDE7DE] px-6 py-2 rounded-full text-sm hover:bg-[#EDE7DE] hover:text-black transition-all duration-300 ease-in-out relative overflow-hidden"
               >
                 LINKED IN →
               </a>
@@ -69,7 +71,7 @@ export default function Home() {
       </StackSection>
 
       {/* SECTION 3: IMPACT */}
-      <StackSection sectionNumber={3} backgroundColor="bg-white">
+      <StackSection sectionNumber={3} backgroundColor="bg-white" minHeight={true}>
         <div className="section-impact flex flex-col h-full">
           <div className="section-marquee">
             <Marquee />
@@ -176,6 +178,7 @@ export default function Home() {
                 alt="Madhaus Logo"
                 width={260}
                 height={120}
+                className="w-full h-auto"
               />
             </div>
           </div>
