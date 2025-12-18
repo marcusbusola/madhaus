@@ -235,7 +235,6 @@ const FlipCard = () => {
               position: supportsHover ? "absolute" : "relative",
               top: supportsHover ? `${stackPosition * 36}px` : "auto",
               left: supportsHover ? "50%" : "auto",
-              transform: supportsHover ? "translateX(-50%)" : "none",
               zIndex: hoveredCard === index ? 30 : (cardOrder.length - stackPosition) * 10,
             }}
             onClick={() => handleCardClick(index)}
@@ -245,6 +244,7 @@ const FlipCard = () => {
             animate={{
               // 3D Flip Animation
               rotateY: 0,
+              x: supportsHover ? "-50%" : 0,
               y: supportsHover ? (hoveredCard === index ? -30 : 0) : 0,
               scale: supportsHover && hoveredCard === index ? 1.03 : 1,
               height: shouldShowFull ? "auto" : "220px",
