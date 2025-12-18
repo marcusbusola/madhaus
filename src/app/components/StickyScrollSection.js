@@ -229,18 +229,19 @@ const StickyScrollSection = () => {
           </div>
 
           {/* RIGHT COLUMN: Scroll-triggered content transition */}
-          <div className="relative h-screen overflow-hidden">
+          <div className="relative lg:h-[calc(100vh-6rem)] h-[80vh] overflow-hidden">
             {/* Invisible Scroll Track */}
             <div
               ref={scrollContainerRef}
-              className="absolute inset-0 overflow-y-auto"
+              className="absolute inset-0 overflow-y-scroll"
               role="region"
               aria-label="Content navigation"
               style={{
                 scrollbarWidth: 'none',
                 msOverflowStyle: 'none',
                 WebkitOverflowScrolling: 'touch',
-                overscrollBehavior: 'contain'
+                overscrollBehavior: 'contain',
+                touchAction: 'pan-y'
               }}
             >
               <div style={{ height: `${scrollHeight}px` }} aria-hidden="true" />
