@@ -1,16 +1,16 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, AnimatePresence } from "framer-motion";
 
 const StickyScrollSection = () => {
-  // State for visibility tracking
-  const blockRefs = [useRef(null), useRef(null), useRef(null)];
-  const [visibleBlocks, setVisibleBlocks] = useState([false, false, false]);
+  // Scroll container and active block tracking
+  const scrollContainerRef = useRef(null);
+  const [activeBlockIndex, setActiveBlockIndex] = useState(0);
+  const [scrollHeight] = useState(3000); // Total scroll distance
   const [hoveredItem, setHoveredItem] = useState(null);
 
   // Sticky unpin logic
-  const lastBlockRef = useRef(null);
   const [isSticky, setIsSticky] = useState(true);
 
   // Track visited sections for subtitle
@@ -49,83 +49,33 @@ const StickyScrollSection = () => {
     }
   ];
 
-  // Animation variants
-  const blockVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: "easeOut" }
-    }
-  };
+  // Framer Motion scroll tracking
+  const { scrollYProgress } = useScroll({
+    container: scrollContainerRef,
+    offset: ["start start", "end end"]
+  });
 
-  const listItemVariants = {
-    hidden: { opacity: 0, x: -20 },
-    visible: (i) => ({
-      opacity: 1,
-      x: 0,
-      transition: { delay: i * 0.1, duration: 0.5 }
-    })
-  };
-
-  // Intersection Observer for content block fade-ins
+  // Map scroll progress to active block
   useEffect(() => {
-    const observers = blockRefs.map((ref, index) => {
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setVisibleBlocks(prev => {
-              const newState = [...prev];
-              newState[index] = true;
-              return newState;
-            });
-          }
-        },
-        { threshold: 0.2, rootMargin: '-96px 0px 0px 0px' }
-      );
+    const unsubscribe = scrollYProgress.on("change", (progress) => {
+      let newBlockIndex;
 
-      if (ref.current) observer.observe(ref.current);
-      return observer;
-    });
-
-    return () => observers.forEach(obs => obs.disconnect());
-  }, []);
-
-  // Sticky unpin logic - unpin heading after last block scrolls past
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        // Keep sticky while last block is visible or below viewport
-        setIsSticky(entry.isIntersecting || entry.boundingClientRect.top > 0);
-      },
-      {
-        threshold: 0,
-        rootMargin: '0px 0px -90% 0px'
+      if (progress < 0.28) {
+        newBlockIndex = 0;
+      } else if (progress < 0.62) {
+        newBlockIndex = 1;
+      } else {
+        newBlockIndex = 2;
       }
-    );
 
-    if (lastBlockRef.current) observer.observe(lastBlockRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  // Track current section in view and build visited list progressively; clear in reverse when scrolling up
-  useEffect(() => {
-    const observers = blockRefs.map((ref, index) => {
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setActiveSectionIndex(index);
-          }
-        },
-        { threshold: 0.3, rootMargin: '-96px 0px -50% 0px' }
-      );
-
-      if (ref.current) observer.observe(ref.current);
-      return observer;
+      if (newBlockIndex !== activeBlockIndex) {
+        setActiveBlockIndex(newBlockIndex);
+        setActiveSectionIndex(newBlockIndex);
+      }
     });
 
-    return () => observers.forEach(obs => obs.disconnect());
-  }, []);
+    return () => unsubscribe();
+  }, [scrollYProgress, activeBlockIndex]);
 
   // Build visited list based on active section index (progressive down, clears when moving up)
   useEffect(() => {
@@ -136,11 +86,108 @@ const StickyScrollSection = () => {
     }
   }, [activeSectionIndex]);
 
+  // Function to render content block
+  const renderContentBlock = (block) => (
+    <>
+      <h3 className="text-2xl font-bold mb-4">{block.title}</h3>
+
+      {block.subtitle && (
+        <p className="text-base font-light text-black/60 mb-6">{block.subtitle}</p>
+      )}
+
+      {block.type === "list" ? (
+        <div className="relative space-y-2">
+          {block.items.map((item, idx) => {
+            const isHovered = hoveredItem === idx;
+            return (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: idx * 0.1, duration: 0.5 }}
+                onHoverStart={() => setHoveredItem(idx)}
+                onHoverEnd={() => setHoveredItem(null)}
+                className={`relative flex items-center gap-6 py-5 px-5 rounded-xl cursor-pointer z-10 overflow-hidden ${
+                  isHovered ? 'border border-black/15' : 'border-b border-black/15'
+                }`}
+              >
+                {isHovered && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="absolute inset-0 bg-black/85 pointer-events-none z-0 rounded-xl"
+                  />
+                )}
+                <span className={`text-sm font-light min-w-[52px] relative z-10 ${
+                  isHovered ? 'text-white opacity-90' : 'opacity-60'
+                }`}>
+                  {item.number} —
+                </span>
+                <div className="flex-1 flex items-center gap-3 relative z-10">
+                  <div className="flex-1">
+                    <h4
+                      className={`font-bold mb-1 transition-all duration-300 ${
+                        isHovered ? 'text-white' : ''
+                      }`}
+                      style={{
+                        transform: isHovered ? 'translateX(10px) scale(1.05)' : 'translateX(0) scale(1)',
+                        fontSize: isHovered ? '1.4rem' : '1.25rem'
+                      }}
+                    >
+                      {item.title}
+                    </h4>
+                    <p
+                      className={`text-base font-light transition-all duration-300 ${
+                        isHovered ? 'text-white opacity-90' : 'opacity-70'
+                      }`}
+                      style={{ transform: isHovered ? 'translateX(10px)' : 'translateX(0)' }}
+                    >
+                      {item.subtitle}
+                    </p>
+                  </div>
+                  {isHovered && (
+                    <motion.span
+                      initial={{ opacity: 0, x: 10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      className="text-xl font-bold text-white"
+                    >
+                      →
+                    </motion.span>
+                  )}
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      ) : (
+        <div className="space-y-6">
+          {block.paragraphs.map((paragraph, idx) => (
+            <motion.p
+              key={idx}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.2, duration: 0.6 }}
+              className="text-base leading-relaxed"
+            >
+              {paragraph}
+            </motion.p>
+          ))}
+        </div>
+      )}
+    </>
+  );
+
   // Function to scroll to a specific section
   const scrollToSection = (sectionId) => {
     const index = contentBlocks.findIndex(block => block.id === sectionId);
-    if (index !== -1 && blockRefs[index].current) {
-      blockRefs[index].current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (index !== -1 && scrollContainerRef.current) {
+      const targetProgress = index === 0 ? 0.15 : index === 1 ? 0.45 : 0.8;
+      const targetScroll = targetProgress * scrollHeight;
+
+      scrollContainerRef.current.scrollTo({
+        top: targetScroll,
+        behavior: 'smooth'
+      });
     }
   };
 
@@ -181,128 +228,48 @@ const StickyScrollSection = () => {
             </div>
           </div>
 
-          {/* RIGHT COLUMN: Scrolling Content */}
-          <div className="relative flex justify-center pt-24">
-            <div className="w-full max-w-3xl flex flex-col">
-              {contentBlocks.map((block, blockIndex) => {
-                const isLastBlock = blockIndex === contentBlocks.length - 1;
-
-                return (
-                  <motion.div
-                    key={block.id}
-                    ref={(el) => {
-                      blockRefs[blockIndex].current = el;
-                      if (isLastBlock) lastBlockRef.current = el;
-                    }}
-                    initial="hidden"
-                    animate={visibleBlocks[blockIndex] ? "visible" : "hidden"}
-                    variants={blockVariants}
-                    className="relative min-h-[70vh] lg:min-h-[80vh] flex flex-col justify-start bg-white p-8 lg:p-10 mb-20 lg:mb-32"
-                    style={{
-                      zIndex: blockIndex + 1,
-                      paddingTop: blockIndex === 0 ? '0' : '0'
-                    }}
-                  >
-                  {/* Block Title */}
-                  <h3 className="text-2xl font-bold mb-4">{block.title}</h3>
-
-                  {/* Subtitle for WHAT WE DO */}
-                  {block.subtitle && (
-                    <p className="text-base font-light text-black/60 mb-6">{block.subtitle}</p>
-                  )}
-
-                  {/* Conditional Content Rendering */}
-                  {block.type === "list" ? (
-                    // LIST LAYOUT (What We Do)
-                    <div className="relative space-y-2">
-                      {block.items.map((item, idx) => {
-                        const isHovered = hoveredItem === (blockIndex * 10 + idx);
-
-                        return (
-                          <motion.div
-                            key={idx}
-                            custom={idx}
-                            initial="hidden"
-                            animate={visibleBlocks[blockIndex] ? "visible" : "hidden"}
-                            variants={listItemVariants}
-                            onHoverStart={() => setHoveredItem(blockIndex * 10 + idx)}
-                            onHoverEnd={() => setHoveredItem(null)}
-                            className={`relative flex items-center gap-6 py-5 px-5 rounded-xl cursor-pointer z-10 overflow-hidden ${isHovered ? 'border border-black/15' : 'border-b border-black/15'}`}
-                            style={{
-                              transition: 'all 0.3s ease'
-                            }}
-                          >
-                            {/* Black overlay that appears on hover - positioned over THIS item */}
-                            {isHovered && (
-                              <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                                transition={{ duration: 0.3 }}
-                                className="absolute inset-0 bg-black/85 pointer-events-none z-0 rounded-xl"
-                              />
-                            )}
-                            <span className={`text-sm font-light min-w-[52px] relative z-10 transition-colors duration-300 ${isHovered ? 'text-white opacity-90' : 'opacity-60'}`}>
-                              {item.number} —
-                            </span>
-                            <div className="flex-1 flex items-center gap-3 relative z-10">
-                              <div className="flex-1">
-                                <h4
-                                  className={`font-bold mb-1 transition-all duration-300 ${isHovered ? 'text-white' : ''}`}
-                                  style={{
-                                    transform: isHovered ? 'translateX(10px) scale(1.05)' : 'translateX(0) scale(1)',
-                                    fontSize: isHovered ? '1.4rem' : '1.25rem'
-                                  }}
-                                >
-                                  {item.title}
-                                </h4>
-                                <p
-                                  className={`text-base font-light transition-all duration-300 ${isHovered ? 'text-white opacity-90' : 'opacity-70'}`}
-                                  style={{
-                                    transform: isHovered ? 'translateX(10px)' : 'translateX(0)'
-                                  }}
-                                >
-                                  {item.subtitle}
-                                </p>
-                              </div>
-                              {/* Animated Arrow on the right */}
-                              {isHovered && (
-                                <motion.span
-                                  initial={{ opacity: 0, x: 10 }}
-                                  animate={{
-                                    opacity: 1,
-                                    x: 0
-                                  }}
-                                  className="text-xl font-bold arrow-pulse text-white"
-                                >
-                                  →
-                                </motion.span>
-                              )}
-                            </div>
-                          </motion.div>
-                        );
-                      })}
-                    </div>
-                  ) : (
-                    // PARAGRAPH LAYOUT (Who We Are / Why We Do It)
-                    <div className="space-y-6">
-                      {block.paragraphs.map((paragraph, idx) => (
-                        <motion.p
-                          key={idx}
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={visibleBlocks[blockIndex] ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                          transition={{ delay: idx * 0.2, duration: 0.6 }}
-                          className="text-base leading-relaxed"
-                        >
-                          {paragraph}
-                        </motion.p>
-                      ))}
-                    </div>
-                  )}
-                  </motion.div>
-                );
-              })}
+          {/* RIGHT COLUMN: Scroll-triggered content transition */}
+          <div className="relative h-screen overflow-hidden">
+            {/* Invisible Scroll Track */}
+            <div
+              ref={scrollContainerRef}
+              className="absolute inset-0 overflow-y-auto"
+              role="region"
+              aria-label="Content navigation"
+              style={{
+                scrollbarWidth: 'none',
+                msOverflowStyle: 'none',
+                WebkitOverflowScrolling: 'touch',
+                overscrollBehavior: 'contain'
+              }}
+            >
+              <div style={{ height: `${scrollHeight}px` }} aria-hidden="true" />
             </div>
+
+            {/* Fixed Content Display */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="w-full max-w-3xl px-4 md:px-8">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeBlockIndex}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                    className="bg-white p-8 lg:p-10 pointer-events-auto rounded-lg shadow-lg"
+                  >
+                    {renderContentBlock(contentBlocks[activeBlockIndex])}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </div>
+
+            {/* Hide scrollbar */}
+            <style jsx>{`
+              div::-webkit-scrollbar {
+                display: none;
+              }
+            `}</style>
           </div>
         </div>
       </div>
