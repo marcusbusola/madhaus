@@ -246,7 +246,7 @@ const StickyScrollSection = () => {
             }}
           >
             <div className="sticky top-0 h-full flex items-center justify-center">
-              <div className="w-full max-w-3xl px-4 md:px-8">
+              <div className="w-full max-w-4xl px-4 md:px-8 lg:px-10">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeBlockIndex}
@@ -254,7 +254,7 @@ const StickyScrollSection = () => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    className="bg-white p-8 lg:p-10 pointer-events-auto rounded-lg shadow-lg"
+                    className="bg-white p-10 lg:p-12 pointer-events-auto rounded-lg"
                   >
                     {renderContentBlock(contentBlocks[activeBlockIndex])}
                   </motion.div>

@@ -217,7 +217,7 @@ const FlipCard = () => {
       style={{
         perspective: "2000px", // Enable 3D transforms
         perspectiveOrigin: "center", // Center vanishing point
-        minHeight: supportsHover ? "800px" : "auto",
+        minHeight: supportsHover ? "640px" : "auto",
       }}
     >
       {/* Render cards based on cardOrder for proper stacking */}
@@ -230,13 +230,12 @@ const FlipCard = () => {
         return (
           <motion.div
             key={card.id}
-            className={`${card.bgColor} ${card.textColor} rounded-lg overflow-hidden shadow-lg p-6 md:p-10 cursor-pointer w-full max-w-4xl`}
+            className={`${card.bgColor} ${card.textColor} rounded-lg overflow-y-auto overflow-x-hidden shadow-lg p-6 md:p-10 cursor-pointer w-full max-w-5xl max-h-[600px]`}
             style={{
               position: supportsHover ? "absolute" : "relative",
-              top: supportsHover ? `${stackPosition * 48}px` : "auto",
+              top: supportsHover ? `${stackPosition * 36}px` : "auto",
               left: supportsHover ? "50%" : "auto",
-              right: supportsHover ? "auto" : "auto",
-              marginLeft: supportsHover ? "-50%" : "auto",
+              transform: supportsHover ? "translateX(-50%)" : "none",
               zIndex: hoveredCard === index ? 30 : (cardOrder.length - stackPosition) * 10,
             }}
             onClick={() => handleCardClick(index)}
@@ -245,7 +244,7 @@ const FlipCard = () => {
             initial={false}
             animate={{
               // 3D Flip Animation
-              rotateY: supportsHover ? (isTopCard ? 0 : 8 * stackPosition) : 0,
+              rotateY: 0,
               y: supportsHover ? (hoveredCard === index ? -30 : 0) : 0,
               scale: supportsHover && hoveredCard === index ? 1.03 : 1,
               height: shouldShowFull ? "auto" : "220px",
