@@ -21,9 +21,6 @@ const nextConfig = {
     optimizePackageImports: ['framer-motion', 'react-icons'],
   },
 
-  // Enable SWC minification
-  swcMinify: true,
-
   // Production optimizations
   poweredByHeader: false,
 };

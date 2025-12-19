@@ -13,13 +13,11 @@ import { Nav, HighlightText, Marquee, StackSection, SubscribeButton } from "./co
 
 // Code split heavy components for better performance
 const FlipCard = dynamic(() => import('./components/FlipCard'), {
-  loading: () => <div className="min-h-[400px] flex items-center justify-center"><div className="animate-pulse bg-gray-200 rounded-lg w-full h-96"></div></div>,
-  ssr: false  // Skip SSR for heavy animation component
+  loading: () => <div className="min-h-[400px] flex items-center justify-center"><div className="animate-pulse bg-gray-200 rounded-lg w-full h-96"></div></div>
 });
 
 const StickyScrollSection = dynamic(() => import('./components/StickyScrollSection'), {
-  loading: () => <div className="min-h-[600px] flex items-center justify-center"><div className="animate-pulse bg-gray-100 rounded-lg w-full h-[500px]"></div></div>,
-  ssr: false  // Skip SSR for heavy animation component
+  loading: () => <div className="min-h-[600px] flex items-center justify-center"><div className="animate-pulse bg-gray-100 rounded-lg w-full h-[500px]"></div></div>
 });
 
 export default function Home() {
