@@ -114,13 +114,9 @@ const FlipCard = () => {
               href="https://madhaus.substack.com/"
               className="flex items-center gap-2 bg-[#f2ece3] py-2 px-4 md:py-3 md:px-6 rounded-md"
             >
-              <motion.span
-                className="text-black"
-                animate={{ x: [0, 10, 0] }}
-                transition={{ repeat: Infinity, duration: 1 }}
-              >
+              <span className="text-black arrow-animate">
                 →
-              </motion.span>
+              </span>
             </Link>
           </div>
         </div>
@@ -155,12 +151,9 @@ const FlipCard = () => {
               href="/design"
               className="flex items-center gap-2 bg-black text-white py-2 px-4 md:py-3 md:px-6 rounded-md"
             >
-              <motion.span
-                animate={{ x: [0, 10, 0] }}
-                transition={{ repeat: Infinity, duration: 1 }}
-              >
+              <span className="arrow-animate">
                 →
-              </motion.span>
+              </span>
             </Link>
           </div>
         </div>
@@ -196,13 +189,9 @@ const FlipCard = () => {
               href="/media"
               className="flex items-center gap-2 bg-[#f2ece3] py-2 px-4 md:py-3 md:px-6 rounded-md"
             >
-              <motion.span
-                className="text-black"
-                animate={{ x: [0, 10, 0] }}
-                transition={{ repeat: Infinity, duration: 1 }}
-              >
+              <span className="text-black arrow-animate">
                 →
-              </motion.span>
+              </span>
             </Link>
           </div>
         </div>
@@ -247,13 +236,14 @@ const FlipCard = () => {
               x: supportsHover ? "-50%" : 0,
               y: supportsHover ? (hoveredCard === index ? -30 : 0) : 0,
               scale: supportsHover && hoveredCard === index ? 1.03 : 1,
-              height: shouldShowFull ? "auto" : "220px",
+              // Height removed - using CSS max-height instead for better performance
             }}
             transition={{
               type: "spring",
-              stiffness: 60,
-              damping: 25,
-              duration: supportsHover ? 3.5 : 0.8,
+              stiffness: 200,  // Increased for snappier response
+              damping: 30,      // Increased to reduce oscillation
+              mass: 0.5,        // Reduced for faster response
+              duration: 0.6     // Capped duration
             }}
           >
             {shouldShowFull ? (

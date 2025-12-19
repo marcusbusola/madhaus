@@ -55,7 +55,12 @@ body {
 /* Enable scroll-snap on html */
 html {
   scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
   overflow-y: scroll;
+  overflow-x: hidden;
+  /* Improve scroll performance */
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
 }
 
 /* Section base styles */
@@ -63,8 +68,9 @@ html {
   scroll-snap-align: start;
   scroll-snap-stop: always;
   width: 100%;
-  will-change: transform;
   min-height: 100vh;
+  /* CSS containment for performance isolation */
+  contain: layout style paint;
 }
 
 /* Internal scrollable content with overscroll containment */
@@ -252,6 +258,33 @@ html {
 
 .arrow-pulse {
   animation: arrowPulse 1s ease-in-out infinite;
+}
+
+/* Arrow Slide Animation for FlipCard Links */
+@keyframes arrowSlide {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+}
+
+.arrow-animate {
+  animation: arrowSlide 1s ease-in-out infinite;
+  will-change: transform;
+  display: inline-block;
+}
+
+/* FlipCard Height Transitions - Using max-height for better performance than animating height */
+.flip-card-content {
+  max-height: 220px;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.flip-card-content.expanded {
+  max-height: 800px;
 }
 
 /* Stained Glass Border - Static with Light Sweep */

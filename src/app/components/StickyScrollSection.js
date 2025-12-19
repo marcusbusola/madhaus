@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { motion, useScroll, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const StickyScrollSection = () => {
   // Scroll container and active block tracking
@@ -49,33 +49,34 @@ const StickyScrollSection = () => {
     }
   ];
 
-  // Framer Motion scroll tracking
-  const { scrollYProgress } = useScroll({
-    container: scrollContainerRef,
-    offset: ["start start", "end end"]
-  });
-
-  // Map scroll progress to active block
+  // Use Intersection Observer instead of scroll tracking for better performance
+  // Eliminates continuous scroll calculations and nested scroll conflicts
   useEffect(() => {
-    const unsubscribe = scrollYProgress.on("change", (progress) => {
-      let newBlockIndex;
+    const container = scrollContainerRef.current;
+    if (!container) return;
 
-      if (progress < 0.28) {
-        newBlockIndex = 0;
-      } else if (progress < 0.62) {
-        newBlockIndex = 1;
-      } else {
-        newBlockIndex = 2;
-      }
-
-      if (newBlockIndex !== activeBlockIndex) {
-        setActiveBlockIndex(newBlockIndex);
-        setActiveSectionIndex(newBlockIndex);
-      }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+          const index = parseInt(entry.target.dataset.blockIndex, 10);
+          if (!isNaN(index)) {
+            setActiveBlockIndex(index);
+            setActiveSectionIndex(index);
+          }
+        }
+      });
+    }, {
+      root: container,
+      threshold: [0, 0.25, 0.5, 0.75, 1.0],
+      rootMargin: '-40% 0px -40% 0px' // Trigger when content is centered
     });
 
-    return () => unsubscribe();
-  }, [scrollYProgress, activeBlockIndex]);
+    // Observe block markers
+    const markers = container.querySelectorAll('[data-block-index]');
+    markers.forEach(marker => observer.observe(marker));
+
+    return () => observer.disconnect();
+  }, []);
 
   // Build visited list based on active section index (progressive down, clears when moving up)
   useEffect(() => {
@@ -250,10 +251,18 @@ const StickyScrollSection = () => {
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeBlockIndex}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{
+                      duration: 0.3,
+                      ease: "easeOut",
+                      layout: false
+                    }}
+                    style={{
+                      willChange: 'transform, opacity',
+                      transform: 'translateZ(0)'
+                    }}
                     className="bg-white p-10 lg:p-12 pointer-events-auto rounded-lg"
                   >
                     {renderContentBlock(contentBlocks[activeBlockIndex])}
@@ -262,7 +271,18 @@ const StickyScrollSection = () => {
               </div>
             </div>
 
-            <div style={{ height: `${scrollHeight}px` }} aria-hidden="true" />
+            {/* Add invisible markers for Intersection Observer */}
+            {contentBlocks.map((_, idx) => (
+              <div
+                key={`marker-${idx}`}
+                data-block-index={idx}
+                style={{
+                  height: `${scrollHeight / contentBlocks.length}px`,
+                  pointerEvents: 'none'
+                }}
+                aria-hidden="true"
+              />
+            ))}
 
             {/* Hide scrollbar */}
             <style jsx>{`

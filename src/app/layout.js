@@ -5,6 +5,10 @@ import Script from "next/script";
 const manrope = Manrope({
   variable: "--font-manrope",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "700"],  // Only load needed weights
+  display: "swap",                        // Prevent FOIT (Flash of Invisible Text)
+  preload: true,                          // Preload for faster initial render
+  fallback: ['system-ui', 'arial']       // Fallback fonts
 });
 
 export const metadata = {

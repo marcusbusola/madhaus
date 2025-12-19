@@ -13,9 +13,13 @@ import { useScroll } from "framer-motion";
  */
 export const useScrollNarrative = () => {
   const { scrollY } = useScroll();
-  const [heroFixed, setHeroFixed] = useState(false);
-  const [currentSection, setCurrentSection] = useState(0);
-  const [scrollProgress, setScrollProgress] = useState(0);
+
+  // Batch all scroll state into single object to avoid triple re-renders
+  const [scrollState, setScrollState] = useState({
+    heroFixed: false,
+    currentSection: 0,
+    scrollProgress: 0,
+  });
 
   // Scroll zone thresholds
   const HERO_FIXING_THRESHOLD = 100; // Hero becomes fixed after 100px scroll
@@ -23,42 +27,54 @@ export const useScrollNarrative = () => {
   const NARRATIVE_SECTION_HEIGHT = 1800; // Height of the narrative section in pixels
 
   useEffect(() => {
+    let rafId = null;
+
     const unsubscribe = scrollY.on("change", (latest) => {
-      // Determine if hero should be fixed
-      setHeroFixed(latest > HERO_FIXING_THRESHOLD);
+      // Cancel previous RAF if still pending to prevent buildup
+      if (rafId) cancelAnimationFrame(rafId);
 
-      // Calculate scroll progress within narrative section
-      if (latest >= NARRATIVE_SECTION_START) {
-        const scrollIntoSection = latest - NARRATIVE_SECTION_START;
-        const progress = Math.min(
-          scrollIntoSection / NARRATIVE_SECTION_HEIGHT,
-          1
-        );
-        setScrollProgress(progress);
+      // Batch all state updates in single RAF for 60fps performance
+      rafId = requestAnimationFrame(() => {
+        const newHeroFixed = latest > HERO_FIXING_THRESHOLD;
+        let newProgress = 0;
+        let newSection = 0;
 
-        // Determine current section based on progress
-        // 4 sections: 0-25%, 25-50%, 50-75%, 75-100%
-        if (progress < 0.25) {
-          setCurrentSection(0);
-        } else if (progress < 0.5) {
-          setCurrentSection(1);
-        } else if (progress < 0.75) {
-          setCurrentSection(2);
-        } else {
-          setCurrentSection(3);
+        // Calculate scroll progress within narrative section
+        if (latest >= NARRATIVE_SECTION_START) {
+          const scrollIntoSection = latest - NARRATIVE_SECTION_START;
+          newProgress = Math.min(scrollIntoSection / NARRATIVE_SECTION_HEIGHT, 1);
+
+          // Determine current section based on progress
+          // 4 sections: 0-25%, 25-50%, 50-75%, 75-100%
+          if (newProgress < 0.25) {
+            newSection = 0;
+          } else if (newProgress < 0.5) {
+            newSection = 1;
+          } else if (newProgress < 0.75) {
+            newSection = 2;
+          } else {
+            newSection = 3;
+          }
         }
-      } else {
-        setScrollProgress(0);
-        setCurrentSection(0);
-      }
+
+        // Single batched state update instead of 3 separate setStates
+        setScrollState({
+          heroFixed: newHeroFixed,
+          scrollProgress: newProgress,
+          currentSection: newSection,
+        });
+      });
     });
 
-    return () => unsubscribe();
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      unsubscribe();
+    };
   }, [scrollY]);
 
   return {
-    heroFixed,
-    currentSection,
-    scrollProgress,
+    heroFixed: scrollState.heroFixed,
+    currentSection: scrollState.currentSection,
+    scrollProgress: scrollState.scrollProgress,
   };
 };

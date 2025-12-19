@@ -1,7 +1,3 @@
-"use client";
-
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import {
   FaFacebook,
   FaInstagram,
@@ -12,23 +8,21 @@ import {
 } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
-import HighlightText from "./components/HighlightText";
-import FlipCard from "./components/FlipCard";
-import Marquee from "./components/Marquee";
-import StickyScrollSection from "./components/StickyScrollSection";
-import StackSection from "./components/StackSection";
-import Nav from "./components/Nav";
+import dynamic from "next/dynamic";
+import { Nav, HighlightText, Marquee, StackSection, SubscribeButton } from "./components/ClientWrappers";
+
+// Code split heavy components for better performance
+const FlipCard = dynamic(() => import('./components/FlipCard'), {
+  loading: () => <div className="min-h-[400px] flex items-center justify-center"><div className="animate-pulse bg-gray-200 rounded-lg w-full h-96"></div></div>,
+  ssr: false  // Skip SSR for heavy animation component
+});
+
+const StickyScrollSection = dynamic(() => import('./components/StickyScrollSection'), {
+  loading: () => <div className="min-h-[600px] flex items-center justify-center"><div className="animate-pulse bg-gray-100 rounded-lg w-full h-[500px]"></div></div>,
+  ssr: false  // Skip SSR for heavy animation component
+});
 
 export default function Home() {
-  const [isFlashing, setIsFlashing] = useState(false);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIsFlashing((prev) => !prev);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <>
       <Nav />
@@ -101,32 +95,7 @@ export default function Home() {
                 </h2>
 
                 {/* Newsletter Form */}
-                <div className="relative w-full max-w-md mt-5">
-                  <div className="flex items-center rounded-full border border-[#EDE7DE] overflow-hidden">
-                    <input
-                      type="email"
-                      className="w-full bg-transparent py-2 px-8 text-[#EDE7DE] placeholder-[#EDE7DE] focus:outline-none text-sm"
-                      placeholder="Enter your email"
-                    />
-                    <motion.button
-                      className={`rounded-full ${
-                        isFlashing ? "bg-white" : "bg-[#EDE7DE]"
-                      } text-black py-0.5 px-4 text-sm mx-1 hover:bg-gray-300 transition-colors duration-300`}
-                      animate={{
-                        backgroundColor: isFlashing
-                          ? ["#EDE7DE", "#FFFFFF", "#EDE7DE"]
-                          : "#EDE7DE",
-                        scale: isFlashing ? [1, 1.05, 1] : 1,
-                      }}
-                      transition={{
-                        duration: 1,
-                        ease: "easeInOut",
-                      }}
-                    >
-                      Subscribe
-                    </motion.button>
-                  </div>
-                </div>
+                <SubscribeButton />
 
                 {/* Social Media Icons */}
                 <div className="flex gap-6 mt-5">
@@ -179,6 +148,8 @@ export default function Home() {
                 width={260}
                 height={120}
                 className="w-full h-auto"
+                priority={false}
+                loading="lazy"
               />
             </div>
           </div>

@@ -1,8 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useInfiniteAnimation } from "../hooks/useInfiniteAnimation";
 
 const Marquee = () => {
+  const { isVisible, elementRef } = useInfiniteAnimation();
+
   const keywords = [
     "Systems Thinking",
     "African Innovation",
@@ -18,19 +21,22 @@ const Marquee = () => {
   const duplicatedKeywords = [...keywords, ...keywords];
 
   return (
-    <div className="relative w-full overflow-hidden bg-black border-y border-white/20 py-6">
+    <div ref={elementRef} className="relative w-full overflow-hidden bg-black border-y border-white/20 py-6">
       <motion.div
         className="flex whitespace-nowrap"
-        animate={{
+        animate={isVisible ? {
           x: [0, -50 + "%"],
-        }}
+        } : { x: 0 }}
         transition={{
           x: {
-            repeat: Infinity,
+            repeat: isVisible ? Infinity : 0,
             repeatType: "loop",
             duration: 20,
             ease: "linear",
           },
+        }}
+        style={{
+          willChange: isVisible ? 'transform' : 'auto',
         }}
       >
         {duplicatedKeywords.map((keyword, index) => (

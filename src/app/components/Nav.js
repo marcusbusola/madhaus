@@ -9,12 +9,33 @@ const Nav = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
+    let rafId = null;
+    let lastScrollY = window.scrollY;
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      // Throttle to RAF to prevent excessive calls
+      if (rafId) return;
+
+      rafId = requestAnimationFrame(() => {
+        const currentScrollY = window.scrollY;
+        const newIsScrolled = currentScrollY > 20;
+
+        // Only update state if value actually changed
+        if ((lastScrollY > 20) !== newIsScrolled) {
+          setIsScrolled(newIsScrolled);
+        }
+
+        lastScrollY = currentScrollY;
+        rafId = null;
+      });
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    // Passive flag tells browser we won't preventDefault, enables optimizations
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   const navLinks = [
@@ -47,6 +68,7 @@ const Nav = () => {
               isScrolled ? "invert" : ""
             }`}
             style={{ opacity: 0.85 }}
+            priority={true}
           />
         </Link>
 
