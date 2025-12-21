@@ -98,12 +98,24 @@ const Section3_Spiral = ({ onOpenDrawer }) => {
           transition={{ duration: 0.5, delay: 1 }}
           className="text-center"
         >
-          <button
+          <motion.button
+            animate={{
+              opacity: [0.6, 1, 0.6],
+              textShadow: [
+                "0 0 0px rgba(255, 255, 255, 0)",
+                "0 0 10px rgba(255, 255, 255, 0.8)",
+                "0 0 0px rgba(255, 255, 255, 0)",
+              ],
+            }}
+            transition={{
+              opacity: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: 1 },
+              textShadow: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: 1 },
+            }}
             onClick={() => onOpenDrawer(drawerContent)}
-            className="mt-4 text-caption opacity-60 hover:opacity-100 transition-opacity"
+            className="mt-4 text-caption hover:opacity-100 transition-opacity"
           >
             + LEARN MORE
-          </button>
+          </motion.button>
         </motion.div>
       </div>
     </div>

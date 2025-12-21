@@ -52,20 +52,53 @@ const Section6_Close = () => {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="flex flex-col md:flex-row gap-4 items-center"
         >
-          <a
+          <motion.a
             href="mailto:pr@madhaus.africa"
             className="px-8 py-3 bg-white text-black text-body-sm font-semibold hover:bg-gray-200 transition-all duration-300"
+            animate={{
+              boxShadow: [
+                "0 0 0px rgba(255, 255, 255, 0)",
+                "0 0 20px rgba(255, 255, 255, 0.6)",
+                "0 0 30px rgba(255, 255, 255, 0.8)",
+                "0 0 20px rgba(255, 255, 255, 0.6)",
+                "0 0 0px rgba(255, 255, 255, 0)",
+              ],
+            }}
+            transition={{
+              boxShadow: {
+                duration: 2.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              },
+            }}
           >
             Partner With Us
-          </a>
-          <a
+          </motion.a>
+          <motion.a
             href="https://madhaus.substack.com"
             target="_blank"
             rel="noopener noreferrer"
             className="px-8 py-3 border border-white text-white text-body-sm font-semibold hover:bg-white hover:text-black transition-all duration-300"
+            animate={{
+              boxShadow: [
+                "0 0 0px rgba(255, 255, 255, 0)",
+                "0 0 20px rgba(255, 255, 255, 0.6)",
+                "0 0 30px rgba(255, 255, 255, 0.8)",
+                "0 0 20px rgba(255, 255, 255, 0.6)",
+                "0 0 0px rgba(255, 255, 255, 0)",
+              ],
+            }}
+            transition={{
+              boxShadow: {
+                duration: 2.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 0.75,
+              },
+            }}
           >
             Read Our Thinking
-          </a>
+          </motion.a>
         </motion.div>
 
         {/* Newsletter */}
@@ -86,16 +119,40 @@ const Section6_Close = () => {
           className="flex gap-6"
         >
           {socialLinks.map((social, index) => (
-            <a
+            <motion.a
               key={index}
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={social.href}
               className="bg-white text-black rounded-full w-10 h-10 flex items-center justify-center hover:bg-gray-300 transition-colors"
+              animate={{
+                boxShadow: [
+                  "0 0 0px rgba(255, 255, 255, 0)",
+                  "0 0 15px rgba(255, 255, 255, 0.8)",
+                  "0 0 25px rgba(255, 255, 255, 1)",
+                  "0 0 15px rgba(255, 255, 255, 0.8)",
+                  "0 0 0px rgba(255, 255, 255, 0)",
+                ],
+                scale: [1, 1.1, 1.15, 1.1, 1],
+              }}
+              transition={{
+                boxShadow: {
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: index * 0.3,
+                },
+                scale: {
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: index * 0.3,
+                },
+              }}
             >
               {social.icon}
-            </a>
+            </motion.a>
           ))}
         </motion.div>
       </div>

@@ -83,10 +83,20 @@ const Section5_Opportunity = ({ onOpenDrawer }) => {
         {/* Expand Button */}
         <motion.button
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 1 }}
+          animate={{
+            opacity: [0.6, 1, 0.6],
+            textShadow: [
+              "0 0 0px rgba(255, 255, 255, 0)",
+              "0 0 10px rgba(255, 255, 255, 0.8)",
+              "0 0 0px rgba(255, 255, 255, 0)",
+            ],
+          }}
+          transition={{
+            opacity: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.25 },
+            textShadow: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.25 },
+          }}
           onClick={() => onOpenDrawer(drawerContent)}
-          className="mt-8 text-caption opacity-60 hover:opacity-100 transition-opacity"
+          className="mt-8 text-caption hover:opacity-100 transition-opacity"
         >
           + LEARN MORE
         </motion.button>

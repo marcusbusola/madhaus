@@ -69,10 +69,20 @@ const Section4_PODS = ({ onOpenDrawer }) => {
         {/* Expand Button */}
         <motion.button
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.8 }}
+          animate={{
+            opacity: [0.6, 1, 0.6],
+            textShadow: [
+              "0 0 0px rgba(0, 0, 0, 0)",
+              "0 0 10px rgba(0, 0, 0, 0.5)",
+              "0 0 0px rgba(0, 0, 0, 0)",
+            ],
+          }}
+          transition={{
+            opacity: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: 1.5 },
+            textShadow: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: 1.5 },
+          }}
           onClick={() => onOpenDrawer(drawerContent)}
-          className="mt-8 text-caption opacity-60 hover:opacity-100 transition-opacity"
+          className="mt-8 text-caption hover:opacity-100 transition-opacity"
         >
           + LEARN MORE
         </motion.button>
