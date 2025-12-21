@@ -1,14 +1,23 @@
-import { Manrope } from "next/font/google";
+import { Cormorant_Garamond, Outfit } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+const cormorantGaramond = Cormorant_Garamond({
+  variable: "--font-cormorant",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "700"],  // Only load needed weights
-  display: "swap",                        // Prevent FOIT (Flash of Invisible Text)
-  preload: true,                          // Preload for faster initial render
-  fallback: ['system-ui', 'arial']       // Fallback fonts
+  weight: ["300", "400", "600", "700"],
+  display: "swap",
+  preload: true,
+  fallback: ['serif']
+});
+
+const outfit = Outfit({
+  variable: "--font-outfit",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  display: "swap",
+  preload: true,
+  fallback: ['system-ui', 'arial']
 });
 
 export const metadata = {
@@ -29,7 +38,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${manrope.variable} antialiased`}>
+      <body className={`${cormorantGaramond.variable} ${outfit.variable} antialiased`}>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-FSEDXP0GJ6"
           strategy="afterInteractive"
