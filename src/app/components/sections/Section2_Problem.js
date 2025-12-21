@@ -339,7 +339,7 @@ const Section2_Problem = ({ onOpenDrawer }) => {
     <div className="w-full h-full flex flex-col items-center justify-center px-8 bg-black text-white relative">
       {/* Section Indicator */}
       <div className="absolute top-8 right-8 text-caption opacity-40">
-        02 / 06
+        01 / 06
       </div>
 
       <div className="max-w-6xl w-full">

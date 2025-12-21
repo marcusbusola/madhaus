@@ -8,10 +8,10 @@ import ProgressIndicator from "./ProgressIndicator";
 import NoiseOverlay from "./NoiseOverlay";
 import ExpandDrawer from "./ExpandDrawer";
 
-// Import section components (we'll create these next)
+// Import section components
 import Section0_TitleCard from "./sections/Section0_TitleCard";
-import Section1_Vision from "./sections/Section1_Vision";
-import Section2_Problem from "./sections/Section2_Problem";
+import Section1_Problem from "./sections/Section2_Problem";
+import Section2_KnowledgeCommunityEmpowerment from "./sections/Section3_KnowledgeCommunityEmpowerment";
 import Section3_Spiral from "./sections/Section3_Spiral";
 import Section4_PODS from "./sections/Section4_PODS";
 import Section5_Opportunity from "./sections/Section5_Opportunity";
@@ -130,9 +130,9 @@ const PresentationContainer = () => {
       case 0:
         return <Section0_TitleCard {...sectionProps} />;
       case 1:
-        return <Section1_Vision {...sectionProps} />;
+        return <Section1_Problem {...sectionProps} />;
       case 2:
-        return <Section2_Problem {...sectionProps} />;
+        return <Section2_KnowledgeCommunityEmpowerment {...sectionProps} />;
       case 3:
         return <Section3_Spiral {...sectionProps} />;
       case 4:
