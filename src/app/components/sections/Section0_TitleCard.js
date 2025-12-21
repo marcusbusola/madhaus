@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Section0_TitleCard = ({ onNavigate }) => {
-  const [phase, setPhase] = useState("marquee"); // marquee, empty, question, button
+  const [phase, setPhase] = useState("marquee"); // marquee, slowing, empty, question, button
 
   const problems = [
     "broken systems",
@@ -23,24 +23,30 @@ const Section0_TitleCard = ({ onNavigate }) => {
   ];
 
   useEffect(() => {
-    // Show marquee for 4 seconds
-    const marqueeTimer = setTimeout(() => {
-      setPhase("empty");
-    }, 4000);
+    // Show marquee for 3 seconds, then start slowdown
+    const slowingTimer = setTimeout(() => {
+      setPhase("slowing");
+    }, 3000);
 
-    // Show empty space briefly (0.8s)
+    // Complete slowdown after 2.5s, then show empty
     const emptyTimer = setTimeout(() => {
+      setPhase("empty");
+    }, 5500);
+
+    // Show question after brief pause
+    const questionTimer = setTimeout(() => {
       setPhase("question");
-    }, 4800);
+    }, 6300);
 
     // Show button after question appears (1.5s later)
     const buttonTimer = setTimeout(() => {
       setPhase("button");
-    }, 6300);
+    }, 7800);
 
     return () => {
-      clearTimeout(marqueeTimer);
+      clearTimeout(slowingTimer);
       clearTimeout(emptyTimer);
+      clearTimeout(questionTimer);
       clearTimeout(buttonTimer);
     };
   }, []);
@@ -72,26 +78,29 @@ const Section0_TitleCard = ({ onNavigate }) => {
       <div className="flex-1 flex flex-col items-center justify-center max-w-4xl mx-auto w-full">
         <AnimatePresence mode="wait">
           {/* Marquee Phase */}
-          {phase === "marquee" && (
+          {(phase === "marquee" || phase === "slowing") && (
             <motion.div
               key="marquee"
               initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+              animate={{ opacity: phase === "slowing" ? 0 : 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{
+                opacity: { duration: 2.5, ease: "easeOut" }
+              }}
               className="w-full overflow-hidden space-y-6"
             >
               {/* First line - moving left */}
               <motion.div
-                className="flex gap-8 whitespace-nowrap text-h3 opacity-40"
+                className="flex gap-8 whitespace-nowrap text-h3"
+                style={{ opacity: 0.4 }}
                 animate={{
                   x: [0, -2000],
                 }}
                 transition={{
                   x: {
-                    duration: 20,
+                    duration: phase === "slowing" ? 60 : 20,
                     repeat: Infinity,
-                    ease: "linear",
+                    ease: phase === "slowing" ? "easeOut" : "linear",
                   },
                 }}
               >
@@ -105,15 +114,16 @@ const Section0_TitleCard = ({ onNavigate }) => {
 
               {/* Second line - moving right */}
               <motion.div
-                className="flex gap-8 whitespace-nowrap text-h3 opacity-40"
+                className="flex gap-8 whitespace-nowrap text-h3"
+                style={{ opacity: 0.4 }}
                 animate={{
                   x: [-2000, 0],
                 }}
                 transition={{
                   x: {
-                    duration: 20,
+                    duration: phase === "slowing" ? 60 : 20,
                     repeat: Infinity,
-                    ease: "linear",
+                    ease: phase === "slowing" ? "easeOut" : "linear",
                   },
                 }}
               >
@@ -148,17 +158,16 @@ const Section0_TitleCard = ({ onNavigate }) => {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="text-center space-y-12"
             >
-              <h1 className="text-h1 max-w-3xl">
+              <h1 className="text-h2 max-w-3xl">
                 What would you do if we had a blank slate?
               </h1>
 
               {/* Button appears after question */}
               {phase === "button" && (
                 <motion.button
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0 }}
                   animate={{
                     opacity: 1,
-                    y: 0,
                     boxShadow: [
                       "0 0 0px rgba(255, 255, 255, 0)",
                       "0 0 20px rgba(255, 255, 255, 0.8)",
@@ -168,8 +177,7 @@ const Section0_TitleCard = ({ onNavigate }) => {
                     ],
                   }}
                   transition={{
-                    opacity: { duration: 0.5 },
-                    y: { duration: 0.5 },
+                    opacity: { duration: 1, ease: "easeIn" },
                     boxShadow: {
                       duration: 2,
                       repeat: Infinity,
