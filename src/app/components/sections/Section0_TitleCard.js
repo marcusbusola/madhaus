@@ -79,10 +79,11 @@ const Section0_TitleCard = ({ onNavigate }) => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
-              className="w-full overflow-hidden"
+              className="w-full overflow-hidden space-y-6"
             >
+              {/* First line - moving left */}
               <motion.div
-                className="flex gap-8 whitespace-nowrap text-h3 opacity-60"
+                className="flex gap-8 whitespace-nowrap text-h3 opacity-40"
                 animate={{
                   x: [0, -2000],
                 }}
@@ -97,6 +98,28 @@ const Section0_TitleCard = ({ onNavigate }) => {
                 {/* Repeat problems array multiple times for seamless loop */}
                 {[...problems, ...problems, ...problems].map((problem, index) => (
                   <span key={index} className="inline-block">
+                    {problem}
+                  </span>
+                ))}
+              </motion.div>
+
+              {/* Second line - moving right */}
+              <motion.div
+                className="flex gap-8 whitespace-nowrap text-h3 opacity-40"
+                animate={{
+                  x: [-2000, 0],
+                }}
+                transition={{
+                  x: {
+                    duration: 20,
+                    repeat: Infinity,
+                    ease: "linear",
+                  },
+                }}
+              >
+                {/* Repeat problems array multiple times for seamless loop */}
+                {[...problems, ...problems, ...problems].map((problem, index) => (
+                  <span key={`reverse-${index}`} className="inline-block">
                     {problem}
                   </span>
                 ))}
