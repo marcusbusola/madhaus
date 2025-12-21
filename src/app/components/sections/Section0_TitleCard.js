@@ -28,20 +28,21 @@ const Section0_TitleCard = ({ onNavigate }) => {
       setPhase("slowing");
     }, 3000);
 
-    // Complete slowdown after 2.5s, then show empty
+    // Complete slowdown after 2s, then show empty
     const emptyTimer = setTimeout(() => {
       setPhase("empty");
-    }, 5500);
+    }, 5000);
 
     // Show question after brief pause
     const questionTimer = setTimeout(() => {
       setPhase("question");
-    }, 6300);
+    }, 5400);
 
-    // Show button after question appears (1.5s later)
+    // Show button after question fully appears + pause for reflection
+    // Question starts at 5.4s, takes ~2.1s to complete, then 0.8s pause
     const buttonTimer = setTimeout(() => {
       setPhase("button");
-    }, 7800);
+    }, 8300);
 
     return () => {
       clearTimeout(slowingTimer);
@@ -85,7 +86,7 @@ const Section0_TitleCard = ({ onNavigate }) => {
               animate={{ opacity: phase === "slowing" ? 0 : 1 }}
               exit={{ opacity: 0 }}
               transition={{
-                opacity: { duration: 2.5, ease: "easeOut" }
+                opacity: { duration: 2, ease: "easeOut" }
               }}
               className="w-full overflow-hidden space-y-6"
             >
@@ -153,13 +154,30 @@ const Section0_TitleCard = ({ onNavigate }) => {
           {(phase === "question" || phase === "button") && (
             <motion.div
               key="question"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
               className="text-center space-y-12"
             >
               <h1 className="text-h2 max-w-3xl">
-                What would you do if we had a blank slate?
+                {/* Words appear one by one */}
+                {["What", "would", "you", "do", "if", "we", "had", "a"].map((word, index) => (
+                  <motion.span
+                    key={index}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3, delay: index * 0.15 }}
+                    className="inline-block mr-2"
+                  >
+                    {word}
+                  </motion.span>
+                ))}
+                {/* "blank slate" appears together after a pause */}
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 8 * 0.15 + 0.4 }}
+                  className="inline-block"
+                >
+                  blank slate?
+                </motion.span>
               </h1>
 
               {/* Button appears after question */}
