@@ -55,7 +55,7 @@ const Section2_Problem = ({ onOpenDrawer }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
           className="text-h3 font-semibold"
-          style={{ fontFamily: "var(--font-cormorant)" }}
+          style={{ fontFamily: "var(--font-montserrat)" }}
         >
           Nothing changes because nobody maps why.
         </motion.p>

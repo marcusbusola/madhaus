@@ -56,7 +56,7 @@ const Section5_Opportunity = ({ onOpenDrawer }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-h3 font-light max-w-3xl mx-auto"
-          style={{ fontFamily: "var(--font-outfit)" }}
+          style={{ fontFamily: "var(--font-manrope)" }}
         >
           By 2050, 1 in 4 humans will be African.
         </motion.p>
@@ -75,7 +75,7 @@ const Section5_Opportunity = ({ onOpenDrawer }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
           className="text-h3 font-semibold"
-          style={{ fontFamily: "var(--font-cormorant)" }}
+          style={{ fontFamily: "var(--font-montserrat)" }}
         >
           This is the decade to design what comes next.
         </motion.p>

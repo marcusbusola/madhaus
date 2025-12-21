@@ -36,7 +36,7 @@ const Section1_Vision = ({ onOpenDrawer }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-h3 font-light max-w-3xl mx-auto"
-          style={{ fontFamily: "var(--font-outfit)" }}
+          style={{ fontFamily: "var(--font-manrope)" }}
         >
           Africa's engine room for turning questions into systems that work.
         </motion.p>

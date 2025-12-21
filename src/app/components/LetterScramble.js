@@ -86,7 +86,7 @@ const LetterScramble = ({ onComplete }) => {
         className={`text-h2 text-white ${
           isScrambling ? "font-mono" : "font-serif"
         } transition-all duration-300`}
-        style={{ fontFamily: isScrambling ? "monospace" : "var(--font-cormorant)" }}
+        style={{ fontFamily: isScrambling ? "monospace" : "var(--font-montserrat)" }}
       >
         {displayText}
       </p>

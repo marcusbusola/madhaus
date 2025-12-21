@@ -86,7 +86,7 @@ const Section3_Spiral = ({ onOpenDrawer }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
           className="text-h3 text-center font-light"
-          style={{ fontFamily: "var(--font-outfit)" }}
+          style={{ fontFamily: "var(--font-manrope)" }}
         >
           From bold questions to systems that last.
         </motion.p>
