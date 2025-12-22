@@ -10,8 +10,8 @@ import ExpandDrawer from "./ExpandDrawer";
 
 // Import section components
 import Section0_TitleCard from "./sections/Section0_TitleCard";
-import Section1_Problem from "./sections/Section2_Problem";
-import Section2_KnowledgeCommunityEmpowerment from "./sections/Section3_KnowledgeCommunityEmpowerment";
+import Section1_Problem from "./sections/Section1_Problem";
+import Section2_KnowledgeCommunityEmpowerment from "./sections/Section2_KnowledgeCommunityEmpowerment";
 import Section3_Spiral from "./sections/Section3_Spiral";
 import Section4_PODS from "./sections/Section4_PODS";
 import Section5_Opportunity from "./sections/Section5_Opportunity";
@@ -100,7 +100,7 @@ const PresentationContainer = () => {
   const handleSectionClick = (e) => {
     // Ignore clicks on buttons, links, inputs, or drawer
     if (
-      e.target.closest("button, a, input, .drawer-content") ||
+      e.target.closest("button, a, input, .drawer-content, .cursor-pointer, [role='button']") ||
       isDrawerOpen
     ) {
       return;

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const Section3_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, onOpenDrawer }) => {
+const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, onOpenDrawer }) => {
   const [stage, setStage] = useState(0); // 0: knowledge, 1: community, 2: empowerment, 3: resolve
   const [showKnowledgeSubtext, setShowKnowledgeSubtext] = useState(false);
   const [showCommunitySubtext, setShowCommunitySubtext] = useState(false);
@@ -90,7 +90,7 @@ const Section3_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
     <div className="w-full h-full flex flex-col items-center justify-center px-8 bg-black text-white relative">
       {/* Section Indicator */}
       <div className="absolute top-8 right-8 text-caption opacity-40">
-        03 / 07
+        02 / 06
       </div>
 
       <div className="w-full max-w-7xl">
@@ -302,4 +302,4 @@ const Section3_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
   );
 };
 
-export default Section3_KnowledgeCommunityEmpowerment;
+export default Section2_KnowledgeCommunityEmpowerment;

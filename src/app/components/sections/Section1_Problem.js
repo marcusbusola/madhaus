@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const Section2_Problem = ({ onOpenDrawer }) => {
+const Section1_Problem = ({ onOpenDrawer }) => {
   const [stage, setStage] = useState("grid"); // grid, selected, drawer
   const [hoveredIssue, setHoveredIssue] = useState(null);
   const [selectedIssue, setSelectedIssue] = useState(null);
@@ -13,13 +13,23 @@ const Section2_Problem = ({ onOpenDrawer }) => {
   const [showHow, setShowHow] = useState(false);
   const [showLearnMore, setShowLearnMore] = useState(false);
 
+  // Memoize percentages so they don't change on re-render
+  const stablePercentages = useMemo(() => ({
+    security: Math.floor(Math.random() * (35 - 18 + 1)) + 18,
+    poverty: Math.floor(Math.random() * (35 - 18 + 1)) + 18,
+    health: Math.floor(Math.random() * (35 - 18 + 1)) + 18,
+    employment: Math.floor(Math.random() * (35 - 18 + 1)) + 18,
+    housing: Math.floor(Math.random() * (35 - 18 + 1)) + 18,
+    energy: Math.floor(Math.random() * (35 - 18 + 1)) + 18,
+  }), []);
+
   const issues = [
     {
       id: "security",
       label: "Security",
       icon: "shield",
       stat: "Over 40% report feeling unsafe in daily life.",
-      percentage: Math.floor(Math.random() * (35 - 18 + 1)) + 18,
+      percentage: stablePercentages.security,
       provocation: {
         line1: "Most security conversations end at policing —",
         line2: "more officers, more patrols, more force.",
@@ -52,7 +62,7 @@ const Section2_Problem = ({ onOpenDrawer }) => {
       label: "Poverty",
       icon: "coin",
       stat: "Nearly half the population lives on less than $2 a day.",
-      percentage: Math.floor(Math.random() * (35 - 18 + 1)) + 18,
+      percentage: stablePercentages.poverty,
       provocation: {
         line1: "Poverty discourse is dominated by charity and aid —",
         line2: "give more, distribute more, intervene more.",
@@ -82,7 +92,7 @@ const Section2_Problem = ({ onOpenDrawer }) => {
       label: "Health",
       icon: "heart",
       stat: "1 in 10 deaths is linked to lack of basic care.",
-      percentage: Math.floor(Math.random() * (35 - 18 + 1)) + 18,
+      percentage: stablePercentages.health,
       provocation: {
         line1: "Health conversations focus on hospitals and drugs —",
         line2: "more supply, more access.",
@@ -112,7 +122,7 @@ const Section2_Problem = ({ onOpenDrawer }) => {
       label: "Employment",
       icon: "briefcase",
       stat: "Over 60% of young people work informally or are underemployed.",
-      percentage: Math.floor(Math.random() * (35 - 18 + 1)) + 18,
+      percentage: stablePercentages.employment,
       provocation: {
         line1: "Employment talk centers on skills and jobs —",
         line2: "train more people, create more positions.",
@@ -142,7 +152,7 @@ const Section2_Problem = ({ onOpenDrawer }) => {
       label: "Housing",
       icon: "house",
       stat: "Over 50% of urban residents live in informal housing.",
-      percentage: Math.floor(Math.random() * (35 - 18 + 1)) + 18,
+      percentage: stablePercentages.housing,
       provocation: {
         line1: "Housing conversations focus on units —",
         line2: "how many, how fast, how cheap.",
@@ -172,7 +182,7 @@ const Section2_Problem = ({ onOpenDrawer }) => {
       label: "Energy",
       icon: "bolt",
       stat: "Almost half the population lacks reliable electricity.",
-      percentage: Math.floor(Math.random() * (35 - 18 + 1)) + 18,
+      percentage: stablePercentages.energy,
       provocation: {
         line1: "Energy debates are about megawatts and grids —",
         line2: "more generation, more infrastructure.",
@@ -226,6 +236,13 @@ const Section2_Problem = ({ onOpenDrawer }) => {
       onOpenDrawer(drawerContent);
     }
   };
+
+  // Development logging to verify state updates
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Section1 State:', { stage, selectedIssue, showLearnMore, showSocialProof, showReframe, showProvocation, showHow });
+    }
+  }, [stage, selectedIssue, showLearnMore, showSocialProof, showReframe, showProvocation, showHow]);
 
   // Icon components
   const IssueIcon = ({ type, className = "" }) => {
@@ -363,14 +380,22 @@ const Section2_Problem = ({ onOpenDrawer }) => {
                   key={issue.id}
                   initial={{ opacity: 0 }}
                   animate={{
-                    opacity: hoveredIssue && hoveredIssue !== issue.id ? 0.4 : 1,
+                    opacity: hoveredIssue && hoveredIssue !== issue.id ? 0.7 : 1,
                     scale: hoveredIssue === issue.id ? 1.05 : 1,
                   }}
                   transition={{ duration: 0.3 }}
                   onMouseEnter={() => setHoveredIssue(issue.id)}
                   onMouseLeave={() => setHoveredIssue(null)}
                   onClick={() => handleSelect(issue.id)}
-                  className="flex flex-col items-center justify-center p-6 cursor-pointer group"
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`Select ${issue.label} issue`}
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      handleSelect(issue.id);
+                    }
+                  }}
+                  className="flex flex-col items-center justify-center p-6 cursor-pointer group relative z-10"
                 >
                   {/* Icon */}
                   <motion.div
@@ -382,7 +407,7 @@ const Section2_Problem = ({ onOpenDrawer }) => {
                   </motion.div>
 
                   {/* Label */}
-                  <h3 className="text-h3 mt-4 mb-2">{issue.label}</h3>
+                  <h3 className="text-h3 mt-4 mb-2 text-white">{issue.label}</h3>
 
                   {/* Stat (appears on hover) */}
                   <AnimatePresence>
@@ -392,7 +417,7 @@ const Section2_Problem = ({ onOpenDrawer }) => {
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="text-body text-center opacity-80"
+                        className="text-body text-center opacity-80 text-white"
                       >
                         {issue.stat}
                       </motion.p>
@@ -425,7 +450,7 @@ const Section2_Problem = ({ onOpenDrawer }) => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
-                  className="text-body opacity-60"
+                  className="text-body opacity-60 text-white"
                 >
                   You and {issues.find((i) => i.id === selectedIssue)?.percentage}% of visitors started here.
                 </motion.p>
@@ -487,7 +512,7 @@ const Section2_Problem = ({ onOpenDrawer }) => {
                 <motion.button
                   initial={{ opacity: 0 }}
                   animate={{
-                    opacity: [0.6, 1, 0.6],
+                    opacity: [0.8, 1, 0.8],
                     textShadow: [
                       "0 0 0px rgba(255, 255, 255, 0)",
                       "0 0 10px rgba(255, 255, 255, 0.8)",
@@ -499,7 +524,7 @@ const Section2_Problem = ({ onOpenDrawer }) => {
                     textShadow: { duration: 2, repeat: Infinity, ease: "easeInOut" },
                   }}
                   onClick={handleLearnMore}
-                  className="mt-8 text-caption hover:opacity-100 transition-opacity"
+                  className="mt-8 text-caption hover:opacity-100 transition-opacity cursor-pointer relative z-10"
                 >
                   + LEARN MORE
                 </motion.button>
@@ -512,4 +537,4 @@ const Section2_Problem = ({ onOpenDrawer }) => {
   );
 };
 
-export default Section2_Problem;
+export default Section1_Problem;
