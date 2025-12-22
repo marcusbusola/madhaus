@@ -3,11 +3,42 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const Section3_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection }) => {
+const Section3_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, onOpenDrawer }) => {
   const [stage, setStage] = useState(0); // 0: knowledge, 1: community, 2: empowerment, 3: resolve
   const [showKnowledgeSubtext, setShowKnowledgeSubtext] = useState(false);
   const [showCommunitySubtext, setShowCommunitySubtext] = useState(false);
   const [showEmpowermentSubtext, setShowEmpowermentSubtext] = useState(false);
+
+  // Drawer content with detailed pillar descriptions
+  const drawerContent = (
+    <div className="space-y-8">
+      <p className="text-h3 font-semibold">Madhaus is built on three pillars:</p>
+
+      <div className="space-y-4">
+        <h4 className="text-h4 font-semibold tracking-wider">KNOWLEDGE</h4>
+        <p className="text-body">
+          We produce research, explainers, and content that makes complex systems understandable.
+          Not academic papers — clear, visual, honest breakdowns of how things actually work.
+        </p>
+      </div>
+
+      <div className="space-y-4">
+        <h4 className="text-h4 font-semibold tracking-wider">COMMUNITY</h4>
+        <p className="text-body">
+          We connect thinkers, builders, and questioners across the continent.
+          People who are tired of complaining and ready to collaborate.
+        </p>
+      </div>
+
+      <div className="space-y-4">
+        <h4 className="text-h4 font-semibold tracking-wider">EMPOWERMENT</h4>
+        <p className="text-body">
+          We provide the resources to act — from grants and mentorship to lab space and partnerships.
+          Ideas deserve more than a tweet. They deserve a real shot.
+        </p>
+      </div>
+    </div>
+  );
 
   useEffect(() => {
     // Stage 1: Knowledge (0s - 4s)
@@ -234,7 +265,7 @@ const Section3_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection }) 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.8 }}
-              className="text-center"
+              className="text-center space-y-8"
             >
               <p
                 className="text-[clamp(1.5rem,4vw,2.5rem)] font-semibold"
@@ -242,6 +273,27 @@ const Section3_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection }) 
               >
                 This is what Madhaus builds.
               </p>
+
+              {/* Learn More Button */}
+              <motion.button
+                initial={{ opacity: 0 }}
+                animate={{
+                  opacity: [0.6, 1, 0.6],
+                  textShadow: [
+                    "0 0 0px rgba(255, 255, 255, 0)",
+                    "0 0 10px rgba(255, 255, 255, 0.8)",
+                    "0 0 0px rgba(255, 255, 255, 0)",
+                  ],
+                }}
+                transition={{
+                  opacity: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.5 },
+                  textShadow: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.5 },
+                }}
+                onClick={() => onOpenDrawer && onOpenDrawer(drawerContent)}
+                className="mt-4 text-caption hover:opacity-100 transition-opacity"
+              >
+                + LEARN MORE
+              </motion.button>
             </motion.div>
           )}
         </AnimatePresence>
