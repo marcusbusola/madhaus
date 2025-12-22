@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const Section3_KnowledgeCommunityEmpowerment = () => {
+const Section3_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection }) => {
   const [stage, setStage] = useState(0); // 0: knowledge, 1: community, 2: empowerment, 3: resolve
   const [showKnowledgeSubtext, setShowKnowledgeSubtext] = useState(false);
   const [showCommunitySubtext, setShowCommunitySubtext] = useState(false);
@@ -37,6 +37,13 @@ const Section3_KnowledgeCommunityEmpowerment = () => {
       setStage(3); // Show resolve line
     }, 12000);
 
+    // Auto-advance to next section at 14s
+    const autoAdvanceTimer = setTimeout(() => {
+      if (onNavigate) {
+        onNavigate(currentSection + 1);
+      }
+    }, 14000);
+
     return () => {
       clearTimeout(knowledgeSubtextTimer);
       clearTimeout(communityTimer);
@@ -44,99 +51,40 @@ const Section3_KnowledgeCommunityEmpowerment = () => {
       clearTimeout(empowermentTimer);
       clearTimeout(empowermentSubtextTimer);
       clearTimeout(resolveTimer);
+      clearTimeout(autoAdvanceTimer);
     };
-  }, []);
-
-  const pillars = [
-    {
-      id: "knowledge",
-      title: "KNOWLEDGE",
-      headline: "To change systems, you need to understand them.",
-      subtext: (
-        <>
-          Not in abstract language.
-          <br />
-          You deserve information that is truthful, scientific,
-          <br />
-          and grounded in lived reality —
-          <br />
-          explained in ways that actually make sense.
-        </>
-      ),
-      show: stage >= 0,
-      showSubtext: showKnowledgeSubtext,
-    },
-    {
-      id: "community",
-      title: "COMMUNITY",
-      headline: "But understanding alone isn't enough.",
-      subtext: (
-        <>
-          Change happens when people find each other —
-          <br />
-          people who want to do something,
-          <br />
-          not just say something.
-        </>
-      ),
-      show: stage >= 1,
-      showSubtext: showCommunitySubtext,
-    },
-    {
-      id: "empowerment",
-      title: "EMPOWERMENT",
-      headline: "If you want to do something, you need resources.",
-      subtext: (
-        <>
-          Not just inspiration. Tools. Space. Support.
-          <br />
-          A place to turn frustration into action,
-          <br />
-          and ideas into something real.
-        </>
-      ),
-      show: stage >= 2,
-      showSubtext: showEmpowermentSubtext,
-    },
-  ];
-
-  const visiblePillars = pillars.filter((p) => p.show);
+  }, [onNavigate, currentSection]);
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center px-8 bg-black text-white relative">
       {/* Section Indicator */}
       <div className="absolute top-8 right-8 text-caption opacity-40">
-        02 / 06
+        03 / 07
       </div>
 
       <div className="w-full max-w-7xl">
         {/* Triptych Container */}
-        <div
-          className={`grid gap-12 mb-16 ${
-            stage === 0
-              ? "grid-cols-1 place-items-center"
-              : stage === 1
-              ? "grid-cols-2 md:grid-cols-2"
-              : "grid-cols-1 md:grid-cols-3"
-          }`}
-        >
-          {visiblePillars.map((pillar, index) => (
+        <div className="relative flex flex-col md:flex-row justify-center items-start gap-12 mb-16 min-h-[500px] md:min-h-[600px]">
+          {/* Knowledge Pillar */}
+          {stage >= 0 && (
             <motion.div
-              key={pillar.id}
               initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
+              animate={{
+                opacity: 1,
+                x: [0, "-30vw", "-35vw"][Math.min(stage, 2)],
+              }}
               transition={{
                 duration: 0.8,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="flex flex-col space-y-6"
+              className="flex flex-col space-y-6 w-full md:w-auto md:max-w-sm md:translate-x-0"
             >
               {/* Pillar Title */}
               <h2
                 className="text-[clamp(2rem,5vw,4rem)] font-bold tracking-wider"
                 style={{ fontFamily: "var(--font-montserrat)" }}
               >
-                {pillar.title}
+                KNOWLEDGE
               </h2>
 
               {/* Headline */}
@@ -147,24 +95,136 @@ const Section3_KnowledgeCommunityEmpowerment = () => {
                 className="text-[clamp(1.25rem,3vw,2rem)] leading-relaxed"
                 style={{ fontFamily: "var(--font-montserrat)" }}
               >
-                {pillar.headline}
+                To change systems, you need to understand them.
               </motion.p>
 
               {/* Subtext */}
               <AnimatePresence>
-                {pillar.showSubtext && (
+                {showKnowledgeSubtext && (
                   <motion.p
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
-                    className="text-body leading-relaxed opacity-60 max-w-md"
+                    className="text-body leading-relaxed max-w-md"
+                    style={{ color: "#888888" }}
                   >
-                    {pillar.subtext}
+                    Not in abstract language.
+                    <br />
+                    You deserve information that is truthful, scientific,
+                    <br />
+                    and grounded in lived reality —
+                    <br />
+                    explained in ways that actually make sense.
                   </motion.p>
                 )}
               </AnimatePresence>
             </motion.div>
-          ))}
+          )}
+
+          {/* Community Pillar */}
+          {stage >= 1 && (
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{
+                opacity: 1,
+                x: stage === 1 ? 0 : "-5vw",
+              }}
+              transition={{
+                duration: 0.8,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="flex flex-col space-y-6 w-full md:w-auto md:max-w-sm md:translate-x-0"
+            >
+              {/* Pillar Title */}
+              <h2
+                className="text-[clamp(2rem,5vw,4rem)] font-bold tracking-wider"
+                style={{ fontFamily: "var(--font-montserrat)" }}
+              >
+                COMMUNITY
+              </h2>
+
+              {/* Headline */}
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.8, duration: 0.6 }}
+                className="text-[clamp(1.25rem,3vw,2rem)] leading-relaxed"
+                style={{ fontFamily: "var(--font-montserrat)" }}
+              >
+                But understanding alone isn&apos;t enough.
+              </motion.p>
+
+              {/* Subtext */}
+              <AnimatePresence>
+                {showCommunitySubtext && (
+                  <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                    className="text-body leading-relaxed max-w-md"
+                    style={{ color: "#888888" }}
+                  >
+                    Change happens when people find each other —
+                    <br />
+                    people who want to do something,
+                    <br />
+                    not just say something.
+                  </motion.p>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          )}
+
+          {/* Empowerment Pillar */}
+          {stage >= 2 && (
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{
+                duration: 0.8,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="flex flex-col space-y-6 w-full md:w-auto md:max-w-sm"
+            >
+              {/* Pillar Title */}
+              <h2
+                className="text-[clamp(2rem,5vw,4rem)] font-bold tracking-wider"
+                style={{ fontFamily: "var(--font-montserrat)" }}
+              >
+                EMPOWERMENT
+              </h2>
+
+              {/* Headline */}
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.8, duration: 0.6 }}
+                className="text-[clamp(1.25rem,3vw,2rem)] leading-relaxed"
+                style={{ fontFamily: "var(--font-montserrat)" }}
+              >
+                If you want to do something, you need resources.
+              </motion.p>
+
+              {/* Subtext */}
+              <AnimatePresence>
+                {showEmpowermentSubtext && (
+                  <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                    className="text-body leading-relaxed max-w-md"
+                    style={{ color: "#888888" }}
+                  >
+                    Not just inspiration. Tools. Space. Support.
+                    <br />
+                    A place to turn frustration into action,
+                    <br />
+                    and ideas into something real.
+                  </motion.p>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          )}
         </div>
 
         {/* Resolve Line */}
