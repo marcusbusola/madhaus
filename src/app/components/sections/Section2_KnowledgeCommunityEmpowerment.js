@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, onOpenDrawer }) => {
@@ -8,6 +8,8 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
   const [showKnowledgeSubtext, setShowKnowledgeSubtext] = useState(false);
   const [showCommunitySubtext, setShowCommunitySubtext] = useState(false);
   const [showEmpowermentSubtext, setShowEmpowermentSubtext] = useState(false);
+  const resolveTimersRef = useRef([]);
+  const hasStartedResolveRef = useRef(false);
 
   // Drawer content with detailed pillar descriptions
   const drawerContent = (
@@ -64,27 +66,37 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
       setShowEmpowermentSubtext(true);
     }, 9500); // 8s + 1.5s
 
-    const resolveTimer = setTimeout(() => {
-      setStage(3); // Show resolve line
-    }, 12000);
-
-    // Auto-advance to next section at 14s
-    const autoAdvanceTimer = setTimeout(() => {
-      if (onNavigate) {
-        onNavigate(currentSection + 1);
-      }
-    }, 14000);
-
     return () => {
       clearTimeout(knowledgeSubtextTimer);
       clearTimeout(communityTimer);
       clearTimeout(communitySubtextTimer);
       clearTimeout(empowermentTimer);
       clearTimeout(empowermentSubtextTimer);
-      clearTimeout(resolveTimer);
-      clearTimeout(autoAdvanceTimer);
     };
   }, [onNavigate, currentSection]);
+
+  useEffect(() => {
+    if (stage !== 2 || hasStartedResolveRef.current) {
+      return;
+    }
+    hasStartedResolveRef.current = true;
+    resolveTimersRef.current.push(
+      setTimeout(() => {
+        setStage(3); // Show resolve line
+      }, 4000)
+    );
+    resolveTimersRef.current.push(
+      setTimeout(() => {
+        if (onNavigate) {
+          onNavigate(currentSection + 1);
+        }
+      }, 6000)
+    );
+    return () => {
+      resolveTimersRef.current.forEach((timerId) => clearTimeout(timerId));
+      resolveTimersRef.current = [];
+    };
+  }, [stage, onNavigate, currentSection]);
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center px-8 bg-black text-white relative">
@@ -95,11 +107,15 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
 
       <div className="w-full max-w-7xl">
         {/* Triptych Container */}
-        <div className="relative flex flex-col md:flex-row justify-center items-start gap-12 mb-16 min-h-[500px] md:min-h-[600px]">
+        <div
+          className={`relative flex flex-col md:flex-row items-start gap-12 mb-16 min-h-[500px] md:min-h-[600px] ${
+            stage === 3 ? "md:justify-start" : "md:justify-center"
+          }`}
+        >
           {/* Knowledge Pillar */}
           {stage >= 0 && (
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
+              initial={{ opacity: 0 }}
               animate={{
                 opacity: 1,
                 x: [0, "-30vw", "-35vw"][Math.min(stage, 2)],
@@ -155,7 +171,7 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
           {/* Community Pillar */}
           {stage >= 1 && (
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
+              initial={{ opacity: 0 }}
               animate={{
                 opacity: 1,
                 x: stage === 1 ? 0 : "-5vw",
@@ -209,7 +225,7 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
           {/* Empowerment Pillar */}
           {stage >= 2 && (
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
+              initial={{ opacity: 0 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{
                 duration: 0.8,
@@ -265,15 +281,9 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.8 }}
-              className="text-center space-y-8"
+              className="text-center space-y-8 md:ml-auto border border-white/20 p-8 w-full max-w-sm"
+              style={{ aspectRatio: "1 / 1" }}
             >
-              <p
-                className="text-[clamp(1.5rem,4vw,2.5rem)] font-semibold"
-                style={{ fontFamily: "var(--font-montserrat)" }}
-              >
-                This is what Madhaus builds.
-              </p>
-
               {/* Learn More Button */}
               <motion.button
                 initial={{ opacity: 0 }}
