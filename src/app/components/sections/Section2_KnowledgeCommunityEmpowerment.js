@@ -118,7 +118,7 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
               initial={{ opacity: 0 }}
               animate={{
                 opacity: 1,
-                x: [0, "-30vw", "-35vw"][Math.min(stage, 2)],
+                x: [0, "-30%", "-35%"][Math.min(stage, 2)],
               }}
               transition={{
                 duration: 0.8,
@@ -174,7 +174,7 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
               initial={{ opacity: 0 }}
               animate={{
                 opacity: 1,
-                x: stage === 1 ? 0 : "-5vw",
+                x: stage === 1 ? 0 : "-5%",
               }}
               transition={{
                 duration: 0.8,

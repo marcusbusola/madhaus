@@ -9,7 +9,7 @@ const IssueIcon = ({ type, className = "", drawDelay = 0, animateDraw = true }) 
     viewBox: "0 0 24 24",
     fill: "none",
     stroke: "currentColor",
-    strokeWidth: 1.25,
+    strokeWidth: 1,
     strokeLinecap: "round",
     strokeLinejoin: "round",
     className: `w-16 h-16 ${className}`,
@@ -555,25 +555,32 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
                         {/* Icon */}
                         <motion.div
                           layoutId={`issue-icon-${issue.id}`}
-                          animate={
-                            shouldPulse
-                              ? {
-                                  scale: [1, 1.05, 1],
-                                  opacity: 1,
-                                  filter: [
-                                    "drop-shadow(0 0 6px rgba(255, 255, 255, 0.2))",
-                                    "drop-shadow(0 0 14px rgba(255, 255, 255, 0.5))",
-                                    "drop-shadow(0 0 6px rgba(255, 255, 255, 0.2))",
-                                  ],
-                                }
-                              : { scale: 1, opacity: 0.9, filter: "none" }
-                          }
+                          className="relative flex items-center justify-center"
+                          animate={shouldPulse ? { scale: [1, 1.05, 1], opacity: 1 } : { scale: 1, opacity: 0.9 }}
                           transition={
                             shouldPulse
                               ? { duration: 2.8, repeat: Infinity, ease: "easeInOut" }
                               : { duration: 0.2 }
                           }
                         >
+                          <motion.span
+                            className="absolute inset-0 -z-10 rounded-full"
+                            style={{
+                              background:
+                                "radial-gradient(circle, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 70%)",
+                              filter: "blur(10px)",
+                            }}
+                            animate={
+                              shouldPulse
+                                ? { opacity: [0.2, 0.6, 0.2], scale: [1, 1.25, 1] }
+                                : { opacity: 0, scale: 1 }
+                            }
+                            transition={
+                              shouldPulse
+                                ? { duration: 3.2, repeat: Infinity, ease: "easeInOut" }
+                                : { duration: 0.2 }
+                            }
+                          />
                           <IssueIcon
                             type={issue.icon}
                             drawDelay={index * 0.1}
@@ -626,78 +633,73 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
                   </motion.div>
                 )}
 
-                {/* Social Proof */}
-                <AnimatePresence>
-                  {showSocialProof && (
-                    <motion.p
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5 }}
-                      className="text-body opacity-60 text-white"
-                    >
-                      You and {issues.find((i) => i.id === selectedIssue)?.percentage}% of visitors started here.
-                    </motion.p>
-                  )}
-                </AnimatePresence>
+                <div className="flex flex-col items-center space-y-6 min-h-[200px]">
+                  {/* Social Proof */}
+                  <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: showSocialProof ? 1 : 0, y: showSocialProof ? 0 : 10 }}
+                    transition={{ duration: 0.5 }}
+                    className="text-body opacity-60 text-white"
+                    aria-hidden={!showSocialProof}
+                  >
+                    You and {issues.find((i) => i.id === selectedIssue)?.percentage}% of visitors started here.
+                  </motion.p>
 
-                {/* Reframe */}
-                <AnimatePresence>
-                  {showReframe && (
-                    <motion.p
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5 }}
-                      className="text-h3 text-center"
-                    >
-                      But here&apos;s the harder question...
-                    </motion.p>
-                  )}
-                </AnimatePresence>
+                  {/* Reframe */}
+                  <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: showReframe ? 1 : 0, y: showReframe ? 0 : 10 }}
+                    transition={{ duration: 0.5 }}
+                    className="text-h3 text-center"
+                    aria-hidden={!showReframe}
+                  >
+                    But here&apos;s the harder question...
+                  </motion.p>
 
-                {/* How? */}
-                <AnimatePresence>
-                  {showHow && (
-                    <motion.p
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5 }}
-                      className="text-h2 font-semibold"
-                    >
-                      How?
-                    </motion.p>
-                  )}
-                </AnimatePresence>
+                  {/* How? */}
+                  <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: showHow ? 1 : 0, y: showHow ? 0 : 10 }}
+                    transition={{ duration: 0.5 }}
+                    className="text-h2 font-semibold"
+                    aria-hidden={!showHow}
+                  >
+                    How?
+                  </motion.p>
 
-                {/* Learn More Button */}
-                <AnimatePresence>
-                  {showLearnMore && (
-                    <motion.button
-                      initial={{ opacity: 0 }}
-                      animate={{
-                        opacity: [0.7, 1, 0.7],
-                        textShadow: [
-                          "0 0 0px rgba(255, 255, 255, 0)",
-                          "0 0 12px rgba(255, 255, 255, 0.9)",
-                          "0 0 0px rgba(255, 255, 255, 0)",
-                        ],
-                        filter: [
-                          "drop-shadow(0 0 0px rgba(255, 255, 255, 0))",
-                          "drop-shadow(0 0 16px rgba(255, 255, 255, 0.7))",
-                          "drop-shadow(0 0 0px rgba(255, 255, 255, 0))",
-                        ],
-                      }}
-                      transition={{
-                        opacity: { duration: 2.4, repeat: Infinity, ease: "easeInOut" },
-                        textShadow: { duration: 2.4, repeat: Infinity, ease: "easeInOut" },
-                        filter: { duration: 2.4, repeat: Infinity, ease: "easeInOut" },
-                      }}
-                      onClick={handleLearnMore}
-                      className="mt-8 text-caption hover:opacity-100 transition-opacity cursor-pointer relative z-10"
-                    >
-                      + LEARN MORE
-                    </motion.button>
-                  )}
-                </AnimatePresence>
+                  {/* Learn More Button */}
+                  <motion.button
+                    initial={{ opacity: 0 }}
+                    animate={
+                      showLearnMore
+                        ? {
+                            opacity: [0.7, 1, 0.7],
+                            textShadow: [
+                              "0 0 0px rgba(255, 255, 255, 0)",
+                              "0 0 12px rgba(255, 255, 255, 0.9)",
+                              "0 0 0px rgba(255, 255, 255, 0)",
+                            ],
+                            filter: [
+                              "drop-shadow(0 0 0px rgba(255, 255, 255, 0))",
+                              "drop-shadow(0 0 16px rgba(255, 255, 255, 0.7))",
+                              "drop-shadow(0 0 0px rgba(255, 255, 255, 0))",
+                            ],
+                          }
+                        : { opacity: 0 }
+                    }
+                    transition={{
+                      opacity: { duration: 2.4, repeat: showLearnMore ? Infinity : 0, ease: "easeInOut" },
+                      textShadow: { duration: 2.4, repeat: showLearnMore ? Infinity : 0, ease: "easeInOut" },
+                      filter: { duration: 2.4, repeat: showLearnMore ? Infinity : 0, ease: "easeInOut" },
+                    }}
+                    onClick={handleLearnMore}
+                    className="mt-2 text-caption hover:opacity-100 transition-opacity cursor-pointer relative z-10"
+                    style={{ pointerEvents: showLearnMore ? "auto" : "none" }}
+                    aria-hidden={!showLearnMore}
+                  >
+                    + LEARN MORE
+                  </motion.button>
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
