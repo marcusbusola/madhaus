@@ -135,7 +135,6 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
   const [selectedIssue, setSelectedIssue] = useState(null);
   const [showSocialProof, setShowSocialProof] = useState(false);
   const [showReframe, setShowReframe] = useState(false);
-  const [showProvocation, setShowProvocation] = useState(false);
   const [showHow, setShowHow] = useState(false);
   const [showLearnMore, setShowLearnMore] = useState(false);
   const [hasOpenedDrawer, setHasOpenedDrawer] = useState(false);
@@ -422,7 +421,6 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
     setIsCollapsing(true);
     setShowSocialProof(false);
     setShowReframe(false);
-    setShowProvocation(false);
     setShowHow(false);
     setShowLearnMore(false);
     setSelectedIssue(issue);
@@ -432,9 +430,8 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
     selectionTimersRef.current.push(setTimeout(() => setIsCollapsing(false), 600));
     selectionTimersRef.current.push(setTimeout(() => setShowSocialProof(true), 1100));
     selectionTimersRef.current.push(setTimeout(() => setShowReframe(true), 2600));
-    selectionTimersRef.current.push(setTimeout(() => setShowProvocation(true), 3600));
-    selectionTimersRef.current.push(setTimeout(() => setShowHow(true), 4100));
-    selectionTimersRef.current.push(setTimeout(() => setShowLearnMore(true), 4100));
+    selectionTimersRef.current.push(setTimeout(() => setShowHow(true), 3600));
+    selectionTimersRef.current.push(setTimeout(() => setShowLearnMore(true), 4200));
   };
 
   const handleLearnMore = () => {
@@ -493,9 +490,9 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
   // Development logging to verify state updates
   useEffect(() => {
     if (process.env.NODE_ENV === 'development') {
-      console.log('Section1 State:', { stage, selectedIssue, showLearnMore, showSocialProof, showReframe, showProvocation, showHow });
+      console.log('Section1 State:', { stage, selectedIssue, showLearnMore, showSocialProof, showReframe, showHow });
     }
-  }, [stage, selectedIssue, showLearnMore, showSocialProof, showReframe, showProvocation, showHow]);
+  }, [stage, selectedIssue, showLearnMore, showSocialProof, showReframe, showHow]);
 
   const showGrid = stage === "grid" || isCollapsing;
 
@@ -520,7 +517,7 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8 }}
-                  className="text-h1 text-center"
+                  className="text-h2 text-center"
                 >
                   would you change:
                 </motion.h2>
@@ -657,27 +654,6 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
                   )}
                 </AnimatePresence>
 
-                {/* Provocation */}
-                <AnimatePresence>
-                  {showProvocation && selectedIssue && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5 }}
-                      className="text-body-lg text-center space-y-4 max-w-2xl"
-                    >
-                      {Object.entries(issues.find((i) => i.id === selectedIssue)?.provocation || {}).map(
-                        ([key, line]) =>
-                          line && (
-                            <p key={key} className={key === "line3" ? "h-4" : ""}>
-                              {line}
-                            </p>
-                          )
-                      )}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
                 {/* How? */}
                 <AnimatePresence>
                   {showHow && (
@@ -698,16 +674,22 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
                     <motion.button
                       initial={{ opacity: 0 }}
                       animate={{
-                        opacity: [0.8, 1, 0.8],
+                        opacity: [0.7, 1, 0.7],
                         textShadow: [
                           "0 0 0px rgba(255, 255, 255, 0)",
-                          "0 0 10px rgba(255, 255, 255, 0.8)",
+                          "0 0 12px rgba(255, 255, 255, 0.9)",
                           "0 0 0px rgba(255, 255, 255, 0)",
+                        ],
+                        filter: [
+                          "drop-shadow(0 0 0px rgba(255, 255, 255, 0))",
+                          "drop-shadow(0 0 16px rgba(255, 255, 255, 0.7))",
+                          "drop-shadow(0 0 0px rgba(255, 255, 255, 0))",
                         ],
                       }}
                       transition={{
-                        opacity: { duration: 2, repeat: Infinity, ease: "easeInOut" },
-                        textShadow: { duration: 2, repeat: Infinity, ease: "easeInOut" },
+                        opacity: { duration: 2.4, repeat: Infinity, ease: "easeInOut" },
+                        textShadow: { duration: 2.4, repeat: Infinity, ease: "easeInOut" },
+                        filter: { duration: 2.4, repeat: Infinity, ease: "easeInOut" },
                       }}
                       onClick={handleLearnMore}
                       className="mt-8 text-caption hover:opacity-100 transition-opacity cursor-pointer relative z-10"

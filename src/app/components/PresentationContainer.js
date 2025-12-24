@@ -17,9 +17,9 @@ import Section4_PODS from "./sections/Section4_PODS";
 import Section5_Opportunity from "./sections/Section5_Opportunity";
 import Section6_Close from "./sections/Section6_Close";
 
-const SECTION_DURATION = 8000; // 8 seconds
+const SECTION_DURATION = 15000; // 15 seconds
 const SECTION_DURATIONS = {
-  2: 14000,
+  2: 22000,
 };
 
 const PresentationContainer = () => {
