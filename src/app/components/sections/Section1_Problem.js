@@ -9,7 +9,7 @@ const IssueIcon = ({ type, className = "", drawDelay = 0, animateDraw = true }) 
     viewBox: "0 0 24 24",
     fill: "none",
     stroke: "currentColor",
-    strokeWidth: 1.5,
+    strokeWidth: 1.25,
     strokeLinecap: "round",
     strokeLinejoin: "round",
     className: `w-16 h-16 ${className}`,
@@ -558,10 +558,22 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
                         {/* Icon */}
                         <motion.div
                           layoutId={`issue-icon-${issue.id}`}
-                          animate={shouldPulse ? { scale: [1, 1.05, 1] } : { scale: 1 }}
+                          animate={
+                            shouldPulse
+                              ? {
+                                  scale: [1, 1.05, 1],
+                                  opacity: 1,
+                                  filter: [
+                                    "drop-shadow(0 0 6px rgba(255, 255, 255, 0.2))",
+                                    "drop-shadow(0 0 14px rgba(255, 255, 255, 0.5))",
+                                    "drop-shadow(0 0 6px rgba(255, 255, 255, 0.2))",
+                                  ],
+                                }
+                              : { scale: 1, opacity: 0.9, filter: "none" }
+                          }
                           transition={
                             shouldPulse
-                              ? { duration: 1.2, repeat: Infinity, ease: "easeInOut" }
+                              ? { duration: 2.8, repeat: Infinity, ease: "easeInOut" }
                               : { duration: 0.2 }
                           }
                         >
