@@ -12,7 +12,7 @@ const Section3_Spiral = ({ onOpenDrawer }) => {
         <div>
           <h4 className="text-body-lg font-semibold mb-2">01 QUESTION</h4>
           <p className="text-body">
-            We start with what others won't ask. Why does this keep happening?
+            We start with what others won&apos;t ask. Why does this keep happening?
             Who benefits from it staying broken?
           </p>
         </div>

@@ -14,8 +14,11 @@ const StickyScrollSection = () => {
   const [isSticky, setIsSticky] = useState(true);
 
   // Track visited sections for subtitle
-  const [visitedSections, setVisitedSections] = useState([]);
   const [activeSectionIndex, setActiveSectionIndex] = useState(-1);
+
+  const visitedSections = activeSectionIndex === -1
+    ? []
+    : contentBlocks.slice(0, activeSectionIndex + 1);
 
   // Content data structure
   const contentBlocks = [
@@ -78,14 +81,7 @@ const StickyScrollSection = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Build visited list based on active section index (progressive down, clears when moving up)
-  useEffect(() => {
-    if (activeSectionIndex === -1) {
-      setVisitedSections([]);
-    } else {
-      setVisitedSections(contentBlocks.slice(0, activeSectionIndex + 1));
-    }
-  }, [activeSectionIndex]);
+  
 
   // Function to render content block
   const renderContentBlock = (block) => (

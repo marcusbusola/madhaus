@@ -11,7 +11,7 @@ const Section4_PODS = ({ onOpenDrawer }) => {
         from impact.
       </p>
       <p className="text-body">
-        PODS is our experiment to fix this. We're building a deployment layer
+        PODS is our experiment to fix this.         We&apos;re building a deployment layer
         that matches corps members to high-impact projects in their communities.
       </p>
 
@@ -26,8 +26,8 @@ const Section4_PODS = ({ onOpenDrawer }) => {
       </div>
 
       <p className="text-body">
-        If it works, PODS becomes Africa's largest talent-to-impact pipeline. If
-        it doesn't, we'll learn why — and design something better.
+        If it works, PODS becomes Africa&apos;s largest talent-to-impact pipeline. If
+        it doesn&apos;t, we&apos;ll learn why — and design something better.
       </p>
 
       <p className="text-body-lg font-semibold">Proof-of-concept launching 2025.</p>

@@ -32,7 +32,7 @@ const Section6_Close = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-h1 text-center"
         >
-          We're building the engine.
+          We&apos;re building the engine.
         </motion.h2>
 
         <motion.p
@@ -41,7 +41,7 @@ const Section6_Close = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-body-lg text-center opacity-80 max-w-2xl"
         >
-          If you believe Africa's future will be designed by Africans, let's
+          If you believe Africa&apos;s future will be designed by Africans, let&apos;s
           talk.
         </motion.p>
 

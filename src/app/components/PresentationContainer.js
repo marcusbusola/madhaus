@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { AnimatePresence } from "framer-motion";
 import Section from "./Section";
 import ProgressBar from "./ProgressBar";
@@ -18,6 +18,9 @@ import Section5_Opportunity from "./sections/Section5_Opportunity";
 import Section6_Close from "./sections/Section6_Close";
 
 const SECTION_DURATION = 8000; // 8 seconds
+const SECTION_DURATIONS = {
+  2: 14000,
+};
 
 const PresentationContainer = () => {
   const [currentSection, setCurrentSection] = useState(0);
@@ -29,7 +32,7 @@ const PresentationContainer = () => {
   const timerRef = useRef(null);
 
   // Navigation function
-  const navigateToSection = (targetSection) => {
+  const navigateToSection = useCallback((targetSection) => {
     if (targetSection >= 0 && targetSection <= 6 && targetSection !== currentSection) {
       setDirection(targetSection > currentSection ? 1 : -1);
       setPreviousSection(currentSection);
@@ -37,32 +40,32 @@ const PresentationContainer = () => {
       setProgressPercentage(0);
       setIsDrawerOpen(false);
     }
-  };
+  }, [currentSection]);
 
   // Advance to next section
-  const advanceSection = () => {
+  const advanceSection = useCallback(() => {
     if (currentSection < 6) {
       navigateToSection(currentSection + 1);
     }
-  };
+  }, [currentSection, navigateToSection]);
 
   // Auto-advance timer using requestAnimationFrame
   useEffect(() => {
     // No auto-advance on Section 0 (title), Section 6 (end), or when drawer is open
-    if (currentSection === 0 || currentSection === 6 || isDrawerOpen) {
-      setProgressPercentage(0);
+    if (currentSection === 0 || currentSection === 1 || currentSection === 6 || isDrawerOpen) {
       return;
     }
 
+    const sectionDuration = SECTION_DURATIONS[currentSection] ?? SECTION_DURATION;
     let startTime = Date.now();
     let animationFrameId;
 
     const tick = () => {
       const elapsed = Date.now() - startTime;
-      const progress = (elapsed / SECTION_DURATION) * 100;
+      const progress = (elapsed / sectionDuration) * 100;
       setProgressPercentage(Math.min(progress, 100));
 
-      if (elapsed >= SECTION_DURATION) {
+      if (elapsed >= sectionDuration) {
         advanceSection();
       } else {
         animationFrameId = requestAnimationFrame(tick);
@@ -76,7 +79,7 @@ const PresentationContainer = () => {
         cancelAnimationFrame(animationFrameId);
       }
     };
-  }, [currentSection, isDrawerOpen]);
+  }, [currentSection, isDrawerOpen, advanceSection]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -94,7 +97,7 @@ const PresentationContainer = () => {
 
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
-  }, [currentSection, isDrawerOpen]);
+  }, [currentSection, isDrawerOpen, navigateToSection]);
 
   // Click-anywhere to advance (except on interactive elements)
   const handleSectionClick = (e) => {
@@ -117,12 +120,16 @@ const PresentationContainer = () => {
     setDrawerContent(content);
     setIsDrawerOpen(true);
   };
+  const handleCloseDrawer = () => {
+    setIsDrawerOpen(false);
+  };
 
   // Render current section
   const renderCurrentSection = () => {
     const sectionProps = {
       onNavigate: navigateToSection,
       onOpenDrawer: handleOpenDrawer,
+      onCloseDrawer: handleCloseDrawer,
       currentSection,
     };
 
@@ -179,7 +186,7 @@ const PresentationContainer = () => {
       {/* Expand Drawer */}
       <ExpandDrawer
         isOpen={isDrawerOpen}
-        onClose={() => setIsDrawerOpen(false)}
+        onClose={handleCloseDrawer}
         content={drawerContent}
       />
     </div>

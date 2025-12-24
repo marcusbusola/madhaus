@@ -10,22 +10,28 @@ const Pillars = () => {
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: false, amount: 0.2 });
 
+  const animationStarted = useRef(false);
   useEffect(() => {
-    if (isInView && sneakPeekIndex === -1) {
+    if (isInView && !animationStarted.current) {
+      animationStarted.current = true;
       // Trigger staggered sneak peek
-      setSneakPeekIndex(0);
+      const timer0 = setTimeout(() => setSneakPeekIndex(0), 0);
 
       const timer1 = setTimeout(() => setSneakPeekIndex(1), 800);
       const timer2 = setTimeout(() => setSneakPeekIndex(2), 1600);
-      const timer3 = setTimeout(() => setSneakPeekIndex(-1), 4000);
+      const timer3 = setTimeout(() => {
+        setSneakPeekIndex(-1);
+        animationStarted.current = false;
+      }, 4000);
 
       return () => {
+        clearTimeout(timer0);
         clearTimeout(timer1);
         clearTimeout(timer2);
         clearTimeout(timer3);
       };
     }
-  }, [isInView, sneakPeekIndex]);
+  }, [isInView]);
 
   const pillarsData = [
     {

@@ -1,6 +1,14 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import { useCallback, useRef, useState, useEffect } from "react";
+
+const SOUND_FILES = [
+  "/sounds/keyboard-click-1.mp3",
+  "/sounds/keyboard-click-2.mp3",
+  "/sounds/keyboard-click-3.mp3",
+  "/sounds/keyboard-click-4.mp3",
+];
 
 /**
  * Custom hook for managing typewriter sound effects
@@ -16,14 +24,6 @@ export const useTypewriterSound = () => {
   const audioRefs = useRef([]);
   const [soundEnabled, setSoundEnabled] = useState(false); // Start disabled to respect autoplay
   const [isReady, setIsReady] = useState(false);
-
-  // Sound file paths (4 variations for natural sound)
-  const SOUND_FILES = [
-    "/sounds/keyboard-click-1.mp3",
-    "/sounds/keyboard-click-2.mp3",
-    "/sounds/keyboard-click-3.mp3",
-    "/sounds/keyboard-click-4.mp3",
-  ];
 
   // Preload sounds on mount
   useEffect(() => {

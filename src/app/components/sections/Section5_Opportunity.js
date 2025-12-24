@@ -6,10 +6,10 @@ const Section5_Opportunity = ({ onOpenDrawer }) => {
   const drawerContent = (
     <div className="space-y-6">
       <div>
-        <h4 className="text-h3 font-semibold mb-3">AFRICA'S YOUTH EXPLOSION</h4>
+        <h4 className="text-h3 font-semibold mb-3">AFRICA&apos;S YOUTH EXPLOSION</h4>
         <p className="text-body">
-          The continent's median age is 19. By 2050, Africa will have the
-          world's largest workforce. But current institutions — education,
+          The continent&apos;s median age is 19. By 2050, Africa will have the
+          world&apos;s largest workforce. But current institutions — education,
           healthcare, governance, infrastructure — are already failing at
           current scale.
         </p>
@@ -18,7 +18,7 @@ const Section5_Opportunity = ({ onOpenDrawer }) => {
       <div>
         <h4 className="text-h3 font-semibold mb-3">THE MEDIA GAP</h4>
         <p className="text-body">
-          African media is 90% reactive news cycles, 10% solutions. There's no
+          African media is 90% reactive news cycles, 10% solutions. There&apos;s no
           African equivalent of Vox, Bloomberg, or IDEO — institutions that
           translate complexity into understanding and action.
         </p>
@@ -27,7 +27,7 @@ const Section5_Opportunity = ({ onOpenDrawer }) => {
       <div>
         <h4 className="text-h3 font-semibold mb-3">THE TALENT SURPLUS</h4>
         <p className="text-body">
-          Africa doesn't lack ideas or builders. It lacks infrastructure to
+          Africa doesn&apos;t lack ideas or builders. It lacks infrastructure to
           connect talent to problems worth solving, and content that equips
           citizens to understand the systems shaping their lives.
         </p>
@@ -67,7 +67,7 @@ const Section5_Opportunity = ({ onOpenDrawer }) => {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="text-body-lg opacity-80 max-w-2xl mx-auto"
         >
-          The systems built for 50 million won't hold 500 million.
+          The systems built for 50 million won&apos;t hold 500 million.
         </motion.p>
 
         <motion.p

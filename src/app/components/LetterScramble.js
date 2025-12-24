@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 
 const LetterScramble = ({ onComplete }) => {
@@ -9,17 +9,7 @@ const LetterScramble = ({ onComplete }) => {
   const [displayText, setDisplayText] = useState(text1);
   const [isScrambling, setIsScrambling] = useState(false);
 
-  useEffect(() => {
-    // Wait 2 seconds, then start scrambling
-    const timer = setTimeout(() => {
-      setIsScrambling(true);
-      scrambleText();
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  const scrambleText = () => {
+  const scrambleText = useCallback(() => {
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
     const scrambleDuration = 600; // 0.6s scramble out
     const holdDuration = 300; // 0.3s chaos
@@ -73,7 +63,17 @@ const LetterScramble = ({ onComplete }) => {
         }, 500);
       }
     }, (scrambleDuration + holdDuration + reformDuration) / totalFrames);
-  };
+  }, [onComplete, text1, text2]);
+
+  useEffect(() => {
+    // Wait 2 seconds, then start scrambling
+    const timer = setTimeout(() => {
+      setIsScrambling(true);
+      scrambleText();
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [scrambleText]);
 
   return (
     <motion.div

@@ -150,10 +150,10 @@ export default function HackTheJamRegister() {
               />
             </div>
 
-            <div className="mb-10">
-              <label className="block text-white font-medium mb-4 text-sm">
+            <fieldset className="mb-10">
+              <legend className="block text-white font-medium mb-4 text-sm">
                 Do you already have an idea for the hackathon? *
-              </label>
+              </legend>
               <div className="flex gap-5 mt-3">
                 <div className="flex items-center gap-2 text-white">
                   <input
@@ -178,12 +178,12 @@ export default function HackTheJamRegister() {
                   <label htmlFor="noIdea" className="text-sm">No, I&apos;m looking for ideas</label>
                 </div>
               </div>
-            </div>
+            </fieldset>
 
-            <div className="mb-10">
-              <label className="block text-white font-medium mb-4 text-sm">
+            <fieldset className="mb-10">
+              <legend className="block text-white font-medium mb-4 text-sm">
                 Are you an NYSC Corper? *
-              </label>
+              </legend>
               <div className="flex gap-5 mt-3">
                 <div className="flex items-center gap-2 text-white">
                   <input
@@ -210,7 +210,7 @@ export default function HackTheJamRegister() {
                   <label htmlFor="notCorper" className="text-sm">No</label>
                 </div>
               </div>
-            </div>
+            </fieldset>
 
             <div id="serviceLocationGroup" style={{ display: 'none' }} className="mb-10">
               <label htmlFor="serviceLocation" className="block text-white font-medium mb-2 text-sm">
