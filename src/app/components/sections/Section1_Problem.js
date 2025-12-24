@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 
 // Icon components
@@ -9,7 +9,7 @@ const IssueIcon = ({ type, className = "", drawDelay = 0, animateDraw = true }) 
     viewBox: "0 0 24 24",
     fill: "none",
     stroke: "currentColor",
-    strokeWidth: 2,
+    strokeWidth: 1.5,
     strokeLinecap: "round",
     strokeLinejoin: "round",
     className: `w-16 h-16 ${className}`,
@@ -19,7 +19,10 @@ const IssueIcon = ({ type, className = "", drawDelay = 0, animateDraw = true }) 
     ? {
         initial: { pathLength: 0, opacity: 0 },
         animate: { pathLength: 1, opacity: 1 },
-        transition: { duration: 1.5, ease: "easeInOut", delay: drawDelay },
+        transition: {
+          pathLength: { duration: 3, ease: "easeInOut", delay: drawDelay },
+          opacity: { duration: 0.5, delay: drawDelay },
+        },
       }
     : {
         initial: false,
@@ -29,85 +32,98 @@ const IssueIcon = ({ type, className = "", drawDelay = 0, animateDraw = true }) 
   const icons = {
     shield: (
       <svg {...iconProps}>
-        <motion.path
-          d="M12 3 L22 7 L22 13 C22 18 17 22 12 24 C7 22 2 18 2 13 L2 7 Z"
-          stroke="currentColor"
-          {...drawProps}
-        />
-      </svg>
-    ),
-    coin: (
-      <svg {...iconProps}>
-        <motion.circle
-          cx="12"
-          cy="12"
-          r="10"
-          stroke="currentColor"
-          {...drawProps}
-        />
-        <motion.line
-          x1="2"
-          y1="12"
-          x2="22"
-          y2="12"
-          stroke="currentColor"
-          {...drawProps}
-        />
-      </svg>
-    ),
-    heart: (
-      <svg {...iconProps}>
-        <motion.path
-          d="M12 21 C12 21 3 14 3 8 C3 5 6 3 9 3 C10.5 3 12 4 12 6 C12 4 13.5 3 15 3 C18 3 21 5 21 8 C21 14 12 21 12 21 Z"
-          stroke="currentColor"
-          {...drawProps}
-        />
-      </svg>
-    ),
-    briefcase: (
-      <svg {...iconProps}>
-        <motion.rect
-          x="2"
-          y="8"
-          width="20"
-          height="12"
-          rx="2"
-          stroke="currentColor"
-          {...drawProps}
-        />
-        <motion.path
-          d="M8 8 L8 5 C8 4 9 3 10 3 L14 3 C15 3 16 4 16 5 L16 8"
-          stroke="currentColor"
-          {...drawProps}
-        />
-      </svg>
-    ),
-    house: (
-      <svg {...iconProps}>
-        <motion.path
-          d="M3 12 L12 3 L21 12"
-          stroke="currentColor"
-          {...drawProps}
-        />
-        <motion.rect
-          x="5"
-          y="12"
-          width="14"
-          height="10"
-          stroke="currentColor"
-          {...drawProps}
-        />
-      </svg>
-    ),
-    bolt: (
-      <svg {...iconProps}>
-        <motion.path
-          d="M13 2 L4 14 L11 14 L10 22 L20 10 L13 10 Z"
-          stroke="currentColor"
-          {...drawProps}
-        />
-      </svg>
-    ),
+          <motion.path
+            d="M12 3 C15 4.2 18.2 5.4 21 6.7 C21.2 9 21 11 21 13.2 C21 17.8 16.4 21.4 12 23.1 C7.6 21.4 3 17.8 3 13.1 C3 11 2.8 8.8 3.1 6.7 C6 5.4 9 4.1 12 3 Z"
+            stroke="currentColor"
+            {...drawProps}
+          />
+        </svg>
+      ),
+      coin: (
+        <svg {...iconProps}>
+          <motion.circle
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            {...drawProps}
+          />
+          <motion.path
+            d="M3 12.2 C7.5 11.8 16.5 12.6 21 12.1"
+            stroke="currentColor"
+            {...drawProps}
+          />
+        </svg>
+      ),
+      heart: (
+        <svg {...iconProps}>
+          <motion.path
+            d="M12 20.5 C11 20 6.5 16 4.5 12.5 C3.2 10.3 4.5 6.8 7.4 6.1 C9.4 5.6 11.4 6.6 12 8.3 C12.6 6.6 14.6 5.6 16.6 6.1 C19.5 6.8 20.8 10.3 19.5 12.5 C17.5 16 13 20 12 20.5 Z"
+            stroke="currentColor"
+            {...drawProps}
+          />
+        </svg>
+      ),
+      briefcase: (
+        <svg {...iconProps}>
+          <motion.path
+            d="M4 8.2 C4.2 7.4 5 6.8 6 6.9 L18 7 C19.2 7.1 20 7.8 20 8.8 L20 18.2 C20 19.3 19.2 20.1 18.1 20.1 L6 20 C4.8 20 4.1 19.3 4 18.2 Z"
+            stroke="currentColor"
+            {...drawProps}
+          />
+          <motion.path
+            d="M9 7.1 C9 5.4 9.6 4.8 10.8 4.8 L13.2 4.8 C14.4 4.8 15 5.4 15 7.1"
+            stroke="currentColor"
+            {...drawProps}
+          />
+        </svg>
+      ),
+      house: (
+        <svg {...iconProps}>
+          <motion.path
+            d="M3.5 12.2 C6.5 9 9 6.4 12 4.2 C15 6.4 17.5 9 20.5 12.2"
+            stroke="currentColor"
+            {...drawProps}
+          />
+          <motion.path
+            d="M6 12.2 C5.5 15.5 5.8 18 6 20 C10 20.4 14 20.4 18 20 C18.3 18 18.5 15.5 18 12.2"
+            stroke="currentColor"
+            {...drawProps}
+          />
+        </svg>
+      ),
+      bolt: (
+        <svg {...iconProps}>
+          <motion.path
+            d="M13.2 2.5 C10.5 6 8.2 8.8 5 12.8 C7.8 12.6 9.8 12.7 12 12.6 C11 15.7 10.6 18.2 10 21.5 C13.5 17.5 16.2 14.5 19.5 10.5 C17 10.6 15 10.6 12.8 10.7 Z"
+            stroke="currentColor"
+            {...drawProps}
+          />
+        </svg>
+      ),
+      book: (
+        <svg {...iconProps}>
+          <motion.path
+            d="M2.5 4.5 C5.5 4 9 5.2 12 6.6 C15 5.2 18.5 4 21.5 4.5 C21.8 8.5 21.6 12.5 21.4 19.5 C18.2 19.2 15.2 20.2 12 21.5 C8.8 20.2 5.8 19.2 2.6 19.5 C2.4 12.5 2.2 8.5 2.5 4.5"
+            stroke="currentColor"
+            {...drawProps}
+          />
+          <motion.path
+            d="M12 6.6 C12.1 10.5 12 14.5 12 21.5"
+            stroke="currentColor"
+            {...drawProps}
+          />
+        </svg>
+      ),
+      road: (
+        <svg {...iconProps}>
+          <motion.path
+            d="M8.5 21.5 C9.5 15 10.2 8.5 11.2 2.5 M15.5 21.5 C14.5 15 13.8 8.5 12.8 2.5 M12 9.5 C12.1 10.3 11.9 11 12 11.8 M12 14.5 C12.1 15.3 11.9 16 12 16.8 M12 19.3 C12.1 20.1 11.9 20.8 12 21.6"
+            stroke="currentColor"
+            {...drawProps}
+          />
+        </svg>
+      ),
   };
 
   return icons[type] || null;
@@ -135,6 +151,8 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
     employment: Math.floor(Math.random() * (35 - 18 + 1)) + 18,
     housing: Math.floor(Math.random() * (35 - 18 + 1)) + 18,
     energy: Math.floor(Math.random() * (35 - 18 + 1)) + 18,
+    education: Math.floor(Math.random() * (35 - 18 + 1)) + 18,
+    transportation: Math.floor(Math.random() * (35 - 18 + 1)) + 18,
   }));
 
   const issues = [
@@ -321,6 +339,66 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
         ),
       },
     },
+    {
+      id: "education",
+      label: "Education",
+      icon: "book",
+      stat: "Over 20 million children are out of school. Millions more learn almost nothing.",
+      percentage: stablePercentages.education,
+      provocation: {
+        line1: "Education conversations focus on access —",
+        line2: "more schools, more enrollment, more seats.",
+        line3: "",
+        line4: "Fewer ask what's actually being taught,",
+        line5: "why graduates can't find work,",
+        line6: "or whether the system prepares anyone for the world that exists.",
+      },
+      drawer: {
+        content: (
+          <div className="space-y-6">
+            <p className="text-body-lg">
+              Education isn't just about classrooms. It's a system — shaped by curriculum politics, teacher economics, colonial inheritance, and what society decides is worth knowing.
+            </p>
+            <p className="text-body">
+              We have enrollment targets. We don't have enough people asking what education is actually for, or why the current model keeps producing the same outcomes.
+            </p>
+            <p className="text-body font-semibold">
+              Madhaus exists to ask those questions. A space where we can reimagine what learning could look like — not just more of what isn't working.
+            </p>
+          </div>
+        ),
+      },
+    },
+    {
+      id: "transportation",
+      label: "Transportation",
+      icon: "road",
+      stat: "The average Lagos commuter spends 4+ hours in traffic daily.",
+      percentage: stablePercentages.transportation,
+      provocation: {
+        line1: "Transportation debates are about roads and vehicles —",
+        line2: "more lanes, more buses, more infrastructure.",
+        line3: "",
+        line4: "Fewer ask why cities are designed this way,",
+        line5: "who benefits from the current layout,",
+        line6: "or why public systems keep losing to private alternatives.",
+      },
+      drawer: {
+        content: (
+          <div className="space-y-6">
+            <p className="text-body-lg">
+              Transportation isn't a traffic problem. It's an urban design problem — shaped by where housing is built, where jobs are located, who owns land, and decades of decisions that prioritized cars over people.
+            </p>
+            <p className="text-body">
+              We have road projects. We don't have enough spaces to ask why the city moves the way it does, or to imagine alternatives that don't require everyone to own a vehicle.
+            </p>
+            <p className="text-body font-semibold">
+              Madhaus is that space. Where we can think about mobility as a system — and design for cities that actually work for the people living in them.
+            </p>
+          </div>
+        ),
+      },
+    },
   ];
 
   const clearSelectionTimers = () => {
@@ -444,11 +522,11 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
                   transition={{ duration: 0.8 }}
                   className="text-h1 text-center"
                 >
-                  What keeps you up at night?
+                  would you change:
                 </motion.h2>
 
                 {/* Grid */}
-                <div className="grid grid-cols-3 gap-8">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                   {issues.map((issue, index) => {
                     const isHovered = hoveredIssue === issue.id;
                     const isDimmed = hoveredIssue && hoveredIssue !== issue.id;
