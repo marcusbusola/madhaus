@@ -124,7 +124,7 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
                 duration: 0.8,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="flex flex-col space-y-4 w-full md:w-auto md:max-w-sm md:translate-x-0"
+              className="flex flex-col space-y-4 w-full md:w-auto md:max-w-xs md:translate-x-0"
             >
               {/* Pillar Title */}
               <h2
@@ -180,7 +180,7 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
                 duration: 0.8,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="flex flex-col space-y-4 w-full md:w-auto md:max-w-sm md:translate-x-0"
+              className="flex flex-col space-y-4 w-full md:w-auto md:max-w-xs md:translate-x-0"
             >
               {/* Pillar Title */}
               <h2
@@ -231,7 +231,7 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
                 duration: 0.8,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="flex flex-col space-y-4 w-full md:w-auto md:max-w-sm"
+              className="flex flex-col space-y-4 w-full md:w-auto md:max-w-xs"
             >
               {/* Pillar Title */}
               <h2
@@ -281,7 +281,7 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.8 }}
-              className="text-center space-y-8 md:ml-auto border border-white/20 p-8 w-full max-w-sm"
+              className="flex flex-col items-center justify-center text-center space-y-8 md:ml-auto border border-white/20 p-8 w-full max-w-sm"
               style={{ aspectRatio: "1 / 1" }}
             >
               {/* Learn More Button */}
