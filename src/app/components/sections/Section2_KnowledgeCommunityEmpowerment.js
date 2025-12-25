@@ -108,7 +108,7 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
       <div className="w-full max-w-7xl">
         {/* Triptych Container */}
         <div
-          className={`relative flex flex-col md:flex-row items-start gap-12 mb-16 min-h-[500px] md:min-h-[600px] ${
+          className={`relative flex flex-col md:flex-row items-center gap-8 md:gap-10 mb-12 min-h-[500px] md:min-h-[600px] ${
             stage === 3 ? "md:justify-start" : "md:justify-center"
           }`}
         >
@@ -124,11 +124,11 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
                 duration: 0.8,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="flex flex-col space-y-6 w-full md:w-auto md:max-w-sm md:translate-x-0"
+              className="flex flex-col space-y-4 w-full md:w-auto md:max-w-sm md:translate-x-0"
             >
               {/* Pillar Title */}
               <h2
-                className="text-[clamp(2rem,5vw,4rem)] font-bold tracking-wider"
+                className="text-[clamp(1.75rem,4.5vw,3.25rem)] font-bold tracking-wider"
                 style={{ fontFamily: "var(--font-montserrat)" }}
               >
                 KNOWLEDGE
@@ -139,7 +139,7 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.8, duration: 0.6 }}
-                className="text-[clamp(1.25rem,3vw,2rem)] leading-relaxed"
+                className="text-[clamp(1.1rem,2.6vw,1.75rem)] leading-relaxed"
                 style={{ fontFamily: "var(--font-montserrat)" }}
               >
                 To change systems, you need to understand them.
@@ -180,11 +180,11 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
                 duration: 0.8,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="flex flex-col space-y-6 w-full md:w-auto md:max-w-sm md:translate-x-0"
+              className="flex flex-col space-y-4 w-full md:w-auto md:max-w-sm md:translate-x-0"
             >
               {/* Pillar Title */}
               <h2
-                className="text-[clamp(2rem,5vw,4rem)] font-bold tracking-wider"
+                className="text-[clamp(1.75rem,4.5vw,3.25rem)] font-bold tracking-wider"
                 style={{ fontFamily: "var(--font-montserrat)" }}
               >
                 COMMUNITY
@@ -195,7 +195,7 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.8, duration: 0.6 }}
-                className="text-[clamp(1.25rem,3vw,2rem)] leading-relaxed"
+                className="text-[clamp(1.1rem,2.6vw,1.75rem)] leading-relaxed"
                 style={{ fontFamily: "var(--font-montserrat)" }}
               >
                 But understanding alone isn&apos;t enough.
@@ -231,11 +231,11 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
                 duration: 0.8,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="flex flex-col space-y-6 w-full md:w-auto md:max-w-sm"
+              className="flex flex-col space-y-4 w-full md:w-auto md:max-w-sm"
             >
               {/* Pillar Title */}
               <h2
-                className="text-[clamp(2rem,5vw,4rem)] font-bold tracking-wider"
+                className="text-[clamp(1.75rem,4.5vw,3.25rem)] font-bold tracking-wider"
                 style={{ fontFamily: "var(--font-montserrat)" }}
               >
                 EMPOWERMENT
@@ -246,7 +246,7 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.8, duration: 0.6 }}
-                className="text-[clamp(1.25rem,3vw,2rem)] leading-relaxed"
+                className="text-[clamp(1.1rem,2.6vw,1.75rem)] leading-relaxed"
                 style={{ fontFamily: "var(--font-montserrat)" }}
               >
                 If you want to do something, you need resources.
