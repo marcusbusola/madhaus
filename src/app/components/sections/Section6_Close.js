@@ -30,9 +30,9 @@ const Section6_Close = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-h1 text-center"
+          className="text-h2 text-center"
         >
-          We&apos;re building the engine.
+          Join the madness.
         </motion.h2>
 
         <motion.p
@@ -54,7 +54,7 @@ const Section6_Close = () => {
         >
           <motion.a
             href="mailto:pr@madhaus.africa"
-            className="px-8 py-3 bg-white text-black text-body-sm font-semibold hover:bg-gray-200 transition-all duration-300"
+            className="light-border px-8 py-3 border border-white text-white text-body-sm uppercase tracking-wider hover:bg-white hover:text-black transition-all duration-300"
             animate={{
               boxShadow: [
                 "0 0 0px rgba(255, 255, 255, 0)",
@@ -78,7 +78,7 @@ const Section6_Close = () => {
             href="https://madhaus.substack.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-8 py-3 border border-white text-white text-body-sm font-semibold hover:bg-white hover:text-black transition-all duration-300"
+            className="light-border px-8 py-3 border border-white text-white text-body-sm uppercase tracking-wider hover:bg-white hover:text-black transition-all duration-300"
             animate={{
               boxShadow: [
                 "0 0 0px rgba(255, 255, 255, 0)",
@@ -102,15 +102,6 @@ const Section6_Close = () => {
         </motion.div>
 
         {/* Newsletter */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="w-full max-w-md"
-        >
-          <SubscribeButton />
-        </motion.div>
-
         {/* Social Media Icons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
