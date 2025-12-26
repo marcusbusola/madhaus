@@ -154,7 +154,7 @@ const Section0_TitleCard = ({ onNavigate }) => {
           {(phase === "question" || phase === "button") && (
             <motion.div
               key="question"
-              className="text-center space-y-12"
+              className="text-center space-y-16"
             >
               <h1 className="text-h2 max-w-3xl relative">
                 <span className="invisible block" aria-hidden="true">
