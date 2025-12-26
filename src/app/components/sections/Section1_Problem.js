@@ -567,17 +567,17 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
                             className="absolute inset-0 z-0 rounded-full pointer-events-none"
                             style={{
                               background:
-                                "radial-gradient(circle, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 70%)",
-                              filter: "blur(10px)",
+                                "radial-gradient(circle, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 75%)",
+                              filter: "blur(16px)",
                             }}
                             animate={
                               shouldPulse
-                                ? { opacity: [0.2, 0.6, 0.2], scale: [1, 1.25, 1] }
+                                ? { opacity: [0.25, 0.85, 0.25], scale: [1, 1.45, 1] }
                               : { opacity: 0, scale: 1 }
                             }
                             transition={
                               shouldPulse
-                                ? { duration: 3.2, repeat: Infinity, ease: "easeInOut" }
+                                ? { duration: 3.6, repeat: Infinity, ease: "easeInOut" }
                               : { duration: 0.2 }
                             }
                           />
