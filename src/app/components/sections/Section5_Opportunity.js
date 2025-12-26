@@ -70,16 +70,6 @@ const Section5_Opportunity = ({ onOpenDrawer }) => {
           The systems built for 50 million won&apos;t hold 500 million.
         </motion.p>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="text-h3 font-semibold"
-          style={{ fontFamily: "var(--font-montserrat)" }}
-        >
-          This is the decade to design what comes next.
-        </motion.p>
-
         {/* Expand Button */}
         <motion.button
           initial={{ opacity: 0 }}
