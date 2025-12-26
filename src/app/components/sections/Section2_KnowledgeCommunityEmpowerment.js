@@ -98,8 +98,6 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
     };
   }, [stage, onNavigate, currentSection]);
 
-  const isResolve = stage === 3;
-
   return (
     <div className="w-full h-full flex flex-col items-center justify-center px-6 md:px-10 bg-black text-white relative">
       {/* Section Indicator */}
@@ -109,16 +107,8 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
 
       <div className="w-full max-w-6xl mx-auto">
         {/* Triptych Container */}
-        <div
-          className={`relative flex flex-col md:flex-row items-center gap-10 md:gap-12 ${
-            isResolve ? "md:justify-between" : "md:justify-center"
-          }`}
-        >
-          <motion.div
-            className="w-full md:max-w-4xl"
-            animate={{ x: isResolve ? -60 : 0 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          >
+        <div className="relative flex flex-col items-center gap-10 md:gap-12">
+          <div className="w-full">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 items-start">
               {/* Knowledge Pillar */}
               {stage >= 0 && (
@@ -266,19 +256,17 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
                 </motion.div>
               )}
             </div>
-          </motion.div>
+          </div>
 
-          {/* Resolve Line */}
+          {/* Learn More */}
           <AnimatePresence>
             {stage === 3 && (
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5, duration: 0.8 }}
-                className="flex flex-col items-center justify-center text-center space-y-6 border border-white/20 p-6 w-full max-w-[240px] md:max-w-[260px]"
-                style={{ aspectRatio: "1 / 1" }}
+                className="flex items-center justify-center w-full"
               >
-                {/* Learn More Button */}
                 <motion.button
                   initial={{ opacity: 0 }}
                   animate={{
@@ -294,7 +282,7 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
                     textShadow: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.5 },
                   }}
                   onClick={() => onOpenDrawer && onOpenDrawer(drawerContent)}
-                  className="px-6 py-2 text-caption uppercase tracking-wider border border-white/40 hover:border-white hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-white/60 transition"
+                  className="light-border px-8 py-3 border border-white text-white text-body-sm uppercase tracking-wider hover:bg-white hover:text-black transition-all duration-300"
                 >
                   Learn more
                 </motion.button>

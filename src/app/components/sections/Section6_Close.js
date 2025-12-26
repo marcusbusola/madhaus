@@ -78,7 +78,7 @@ const Section6_Close = () => {
             href="https://madhaus.substack.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-8 py-3 bg-white text-black text-body-sm uppercase tracking-wider hover:bg-gray-200 transition-all duration-300"
+            className="px-8 py-3 bg-white text-black text-body-sm uppercase tracking-wider rounded-full hover:bg-gray-200 transition-all duration-300"
             animate={{
               boxShadow: [
                 "0 0 0px rgba(255, 255, 255, 0)",
