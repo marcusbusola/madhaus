@@ -555,7 +555,7 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
                         {/* Icon */}
                         <motion.div
                           layoutId={`issue-icon-${issue.id}`}
-                          className="relative flex items-center justify-center"
+                          className="relative flex items-center justify-center overflow-visible"
                           animate={shouldPulse ? { scale: [1, 1.05, 1], opacity: 1 } : { scale: 1, opacity: 0.9 }}
                           transition={
                             shouldPulse
@@ -564,7 +564,7 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
                           }
                         >
                           <motion.span
-                            className="absolute inset-0 -z-10 rounded-full"
+                            className="absolute inset-0 z-0 rounded-full pointer-events-none"
                             style={{
                               background:
                                 "radial-gradient(circle, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 70%)",
@@ -573,19 +573,21 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
                             animate={
                               shouldPulse
                                 ? { opacity: [0.2, 0.6, 0.2], scale: [1, 1.25, 1] }
-                                : { opacity: 0, scale: 1 }
+                              : { opacity: 0, scale: 1 }
                             }
                             transition={
                               shouldPulse
                                 ? { duration: 3.2, repeat: Infinity, ease: "easeInOut" }
-                                : { duration: 0.2 }
+                              : { duration: 0.2 }
                             }
                           />
-                          <IssueIcon
-                            type={issue.icon}
-                            drawDelay={index * 0.1}
-                            animateDraw={stage === "grid"}
-                          />
+                          <span className="relative z-10">
+                            <IssueIcon
+                              type={issue.icon}
+                              drawDelay={index * 0.1}
+                              animateDraw={stage === "grid"}
+                            />
+                          </span>
                         </motion.div>
 
                         {/* Label */}
