@@ -78,7 +78,7 @@ const Section6_Close = () => {
             href="https://madhaus.substack.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="light-border px-8 py-3 border border-white text-white text-body-sm uppercase tracking-wider hover:bg-white hover:text-black transition-all duration-300"
+            className="px-8 py-3 bg-white text-black text-body-sm uppercase tracking-wider hover:bg-gray-200 transition-all duration-300"
             animate={{
               boxShadow: [
                 "0 0 0px rgba(255, 255, 255, 0)",
@@ -117,30 +117,6 @@ const Section6_Close = () => {
               rel="noopener noreferrer"
               aria-label={social.href}
               className="bg-white text-black rounded-full w-10 h-10 flex items-center justify-center hover:bg-gray-300 transition-colors"
-              animate={{
-                boxShadow: [
-                  "0 0 0px rgba(255, 255, 255, 0)",
-                  "0 0 15px rgba(255, 255, 255, 0.8)",
-                  "0 0 25px rgba(255, 255, 255, 1)",
-                  "0 0 15px rgba(255, 255, 255, 0.8)",
-                  "0 0 0px rgba(255, 255, 255, 0)",
-                ],
-                scale: [1, 1.1, 1.15, 1.1, 1],
-              }}
-              transition={{
-                boxShadow: {
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: index * 0.3,
-                },
-                scale: {
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: index * 0.3,
-                },
-              }}
             >
               {social.icon}
             </motion.a>
