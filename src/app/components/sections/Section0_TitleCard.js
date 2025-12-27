@@ -158,11 +158,11 @@ const Section0_TitleCard = ({ onNavigate }) => {
             >
               <h1 className="text-h2 max-w-3xl relative">
                 <span className="invisible block" aria-hidden="true">
-                  What would you do if we had a blank slate?
+                  What if we started over?
                 </span>
                 <span className="absolute inset-0 text-center" aria-hidden="true">
                   {/* All words rendered from start to prevent layout shift */}
-                  {["What", "would", "you", "do", "if", "we", "had", "a"].map((word, index) => (
+                  {["What", "if", "we", "started", "over?"].map((word, index) => (
                     <motion.span
                       key={index}
                       initial={{ opacity: 0 }}
@@ -173,17 +173,8 @@ const Section0_TitleCard = ({ onNavigate }) => {
                       {word}
                     </motion.span>
                   ))}
-                  {/* "blank slate" - rendered from start with opacity 0, fades in after pause */}
-                  <motion.span
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.5, delay: 8 * 0.15 + 0.4 }}
-                    className="inline-block"
-                  >
-                    blank slate?
-                  </motion.span>
                 </span>
-                <span className="sr-only">What would you do if we had a blank slate?</span>
+                <span className="sr-only">What if we started over?</span>
               </h1>
 
               {/* Button appears after question */}

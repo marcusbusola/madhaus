@@ -519,7 +519,7 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
                   transition={{ duration: 0.8 }}
                   className="text-h2 text-center"
                 >
-                  would you change:
+                  Where would you start?
                 </motion.h2>
 
                 {/* Grid */}
@@ -644,7 +644,7 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
                     className="text-body opacity-60 text-white"
                     aria-hidden={!showSocialProof}
                   >
-                    You and {issues.find((i) => i.id === selectedIssue)?.percentage}% of visitors started here.
+                    You chose {issues.find((i) => i.id === selectedIssue)?.label}. So did {issues.find((i) => i.id === selectedIssue)?.percentage}% of people.
                   </motion.p>
 
                   {/* Reframe */}
@@ -655,7 +655,7 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
                     className="text-h3 text-center"
                     aria-hidden={!showReframe}
                   >
-                    But here&apos;s the harder question...
+                    But the harder question is...
                   </motion.p>
 
                   {/* How? */}
