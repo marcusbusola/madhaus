@@ -1,296 +1,416 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef, useMemo } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import Image from "next/image";
+
+const PHASES = {
+  KNOWLEDGE_CENTER: 0,
+  KNOWLEDGE_PILLAR: 1,
+  COMMUNITY_CENTER: 2,
+  COMMUNITY_PILLAR: 3,
+  EMPOWERMENT_CENTER: 4,
+  EMPOWERMENT_PILLAR: 5,
+  AWAKENING: 6,
+  FINAL: 7,
+};
+
+const PILLARS = {
+  knowledge: {
+    label: "Knowledge",
+    description:
+      "To change systems, you need to understand them. Not in abstract language. You deserve information that is truthful, scientific, and grounded in lived reality—explained in ways that actually make sense.",
+    icon: (
+      <svg viewBox="0 0 48 48" className="w-12 h-12" fill="none" stroke="currentColor" strokeWidth="2">
+        <circle cx="24" cy="24" r="18" />
+        <path d="M24 12 L28 24 L24 36 L20 24 Z" />
+        <path d="M24 6 L24 10" />
+        <path d="M42 24 L38 24" />
+        <path d="M24 42 L24 38" />
+        <path d="M6 24 L10 24" />
+      </svg>
+    ),
+  },
+  community: {
+    label: "Community",
+    description:
+      "But understanding alone isn't enough. Change happens when people find each other—people who want to do something, not just say something.",
+    icon: (
+      <svg viewBox="0 0 48 48" className="w-12 h-12" fill="none" stroke="currentColor" strokeWidth="2">
+        <circle cx="18" cy="24" r="10" />
+        <circle cx="30" cy="24" r="10" />
+        <circle cx="24" cy="16" r="6" />
+      </svg>
+    ),
+  },
+  empowerment: {
+    label: "Empowerment",
+    description:
+      "If you want to do something, you need resources. Not just inspiration. Tools. Space. Support. A place to turn frustration into action, and ideas into something real.",
+    icon: (
+      <svg viewBox="0 0 48 48" className="w-12 h-12" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M24 10 L28 12 L32 10 L36 14 L34 18 L36 22 L32 26 L28 24 L24 26 L20 24 L16 26 L12 22 L14 18 L12 14 L16 10 L20 12 Z" />
+        <circle cx="24" cy="20" r="5" />
+      </svg>
+    ),
+  },
+};
 
 const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, onOpenDrawer }) => {
-  const [stage, setStage] = useState(0); // 0: knowledge, 1: community, 2: empowerment, 3: resolve
-  const [showKnowledgeSubtext, setShowKnowledgeSubtext] = useState(false);
-  const [showCommunitySubtext, setShowCommunitySubtext] = useState(false);
-  const [showEmpowermentSubtext, setShowEmpowermentSubtext] = useState(false);
-  const resolveTimersRef = useRef([]);
-  const hasStartedResolveRef = useRef(false);
+  const prefersReducedMotion = useReducedMotion();
+  const containerRef = useRef(null);
+  const centerTextRef = useRef(null);
+  const lastFocusedPillarRef = useRef(null);
+  const [hasStarted, setHasStarted] = useState(false);
+  const [phase, setPhase] = useState(PHASES.KNOWLEDGE_CENTER);
+  const [activePillar, setActivePillar] = useState(null);
+  const [hoveredPillar, setHoveredPillar] = useState(null);
 
-  // Drawer content with detailed pillar descriptions
-  const drawerContent = (
-    <div className="space-y-8">
-      <p className="text-h3 font-semibold">Madhaus is built on three pillars:</p>
-
-      <div className="space-y-4">
-        <h4 className="text-h4 font-semibold tracking-wider">KNOWLEDGE</h4>
-        <p className="text-body">
-          We produce research, explainers, and content that makes complex systems understandable.
-          Not academic papers — clear, visual, honest breakdowns of how things actually work.
-        </p>
-      </div>
-
-      <div className="space-y-4">
-        <h4 className="text-h4 font-semibold tracking-wider">COMMUNITY</h4>
-        <p className="text-body">
-          We connect thinkers, builders, and questioners across the continent.
-          People who are tired of complaining and ready to collaborate.
-        </p>
-      </div>
-
-      <div className="space-y-4">
-        <h4 className="text-h4 font-semibold tracking-wider">EMPOWERMENT</h4>
-        <p className="text-body">
-          We provide the resources to act — from grants and mentorship to lab space and partnerships.
-          Ideas deserve more than a tweet. They deserve a real shot.
-        </p>
-      </div>
-    </div>
+  const phaseDurations = useMemo(
+    () => ({
+      [PHASES.KNOWLEDGE_CENTER]: 3500,
+      [PHASES.KNOWLEDGE_PILLAR]: 500,
+      [PHASES.COMMUNITY_CENTER]: 3500,
+      [PHASES.COMMUNITY_PILLAR]: 500,
+      [PHASES.EMPOWERMENT_CENTER]: 3500,
+      [PHASES.EMPOWERMENT_PILLAR]: 500,
+      [PHASES.AWAKENING]: 1200,
+    }),
+    []
   );
 
   useEffect(() => {
-    // Stage 1: Knowledge (0s - 4s)
-    const knowledgeSubtextTimer = setTimeout(() => {
-      setShowKnowledgeSubtext(true);
-    }, 1500);
-
-    const communityTimer = setTimeout(() => {
-      setStage(1); // Move to Community stage
-    }, 4000);
-
-    // Stage 2: Community (4s - 8s)
-    const communitySubtextTimer = setTimeout(() => {
-      setShowCommunitySubtext(true);
-    }, 5500); // 4s + 1.5s
-
-    const empowermentTimer = setTimeout(() => {
-      setStage(2); // Move to Empowerment stage
-    }, 8000);
-
-    // Stage 3: Empowerment (8s - 12s)
-    const empowermentSubtextTimer = setTimeout(() => {
-      setShowEmpowermentSubtext(true);
-    }, 9500); // 8s + 1.5s
-
-    return () => {
-      clearTimeout(knowledgeSubtextTimer);
-      clearTimeout(communityTimer);
-      clearTimeout(communitySubtextTimer);
-      clearTimeout(empowermentTimer);
-      clearTimeout(empowermentSubtextTimer);
-    };
-  }, [onNavigate, currentSection]);
-
-  useEffect(() => {
-    if (stage !== 2 || hasStartedResolveRef.current) {
+    if (prefersReducedMotion) {
+      setHasStarted(true);
+      setPhase(PHASES.FINAL);
       return;
     }
-    hasStartedResolveRef.current = true;
-    resolveTimersRef.current.push(
-      setTimeout(() => {
-        setStage(3); // Show resolve line
-      }, 4000)
-    );
-    resolveTimersRef.current.push(
-      setTimeout(() => {
-        if (onNavigate) {
-          onNavigate(currentSection + 1);
+
+    const node = containerRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setHasStarted(true);
         }
-      }, 6000)
+      },
+      { threshold: 0.4 }
     );
-    return () => {
-      resolveTimersRef.current.forEach((timerId) => clearTimeout(timerId));
-      resolveTimersRef.current = [];
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [prefersReducedMotion]);
+
+  useEffect(() => {
+    if (!hasStarted || prefersReducedMotion) return;
+    if (phase >= PHASES.FINAL) return;
+
+    const duration = phaseDurations[phase];
+    const timer = setTimeout(() => {
+      setPhase((prev) => Math.min(prev + 1, PHASES.FINAL));
+    }, duration);
+
+    return () => clearTimeout(timer);
+  }, [hasStarted, phase, phaseDurations, prefersReducedMotion]);
+
+  useEffect(() => {
+    if (activePillar && centerTextRef.current) {
+      centerTextRef.current.focus();
+    }
+  }, [activePillar]);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape" && activePillar) {
+        setActivePillar(null);
+        if (lastFocusedPillarRef.current) {
+          lastFocusedPillarRef.current.focus();
+        }
+      }
     };
-  }, [stage, onNavigate, currentSection]);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activePillar]);
+
+  const handleAdvance = () => {
+    if (!hasStarted || prefersReducedMotion) return;
+    if (activePillar) return;
+    setPhase((prev) => Math.min(prev + 1, PHASES.FINAL));
+  };
+
+  const handleContainerClick = (event) => {
+    if (!hasStarted) return;
+
+    if (activePillar) {
+      if (centerTextRef.current && centerTextRef.current.contains(event.target)) {
+        return;
+      }
+      setActivePillar(null);
+      if (lastFocusedPillarRef.current) {
+        lastFocusedPillarRef.current.focus();
+      }
+      return;
+    }
+
+    if (phase < PHASES.FINAL) {
+      handleAdvance();
+    }
+  };
+
+  const handlePillarClick = (key, event) => {
+    event.stopPropagation();
+
+    if (phase < PHASES.FINAL) {
+      handleAdvance();
+      return;
+    }
+
+    if (activePillar === key) {
+      setActivePillar(null);
+    } else {
+      setActivePillar(key);
+      lastFocusedPillarRef.current = event.currentTarget;
+    }
+  };
+
+  const centerTextKey = (() => {
+    if (activePillar) return `active-${activePillar}`;
+    if (!hasStarted) return null;
+    if (phase === PHASES.KNOWLEDGE_CENTER) return "knowledge";
+    if (phase === PHASES.COMMUNITY_CENTER) return "community";
+    if (phase === PHASES.EMPOWERMENT_CENTER) return "empowerment";
+    return null;
+  })();
+
+  const centerText = (() => {
+    if (activePillar) return PILLARS[activePillar].description;
+    if (phase === PHASES.KNOWLEDGE_CENTER) return PILLARS.knowledge.description;
+    if (phase === PHASES.COMMUNITY_CENTER) return PILLARS.community.description;
+    if (phase === PHASES.EMPOWERMENT_CENTER) return PILLARS.empowerment.description;
+    return null;
+  })();
+
+  const showKnowledge = phase >= PHASES.KNOWLEDGE_PILLAR || phase === PHASES.FINAL;
+  const showCommunity = phase >= PHASES.COMMUNITY_PILLAR || phase === PHASES.FINAL;
+  const showEmpowerment = phase >= PHASES.EMPOWERMENT_PILLAR || phase === PHASES.FINAL;
+  const showAwakening = phase >= PHASES.AWAKENING;
+  const showFinal = phase >= PHASES.FINAL || prefersReducedMotion;
+
+  const dimmed = Boolean(activePillar);
+  const baseLogoOpacity = showAwakening ? 1 : 0.08;
+  const logoOpacity = dimmed ? 0.25 : baseLogoOpacity;
+  const taglineOpacity = dimmed ? 0.25 : 1;
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center px-6 md:px-10 bg-black text-white relative">
+    <div
+      ref={containerRef}
+      className="w-full h-full flex items-center justify-center px-6 md:px-10 bg-black text-white relative overflow-hidden"
+      onClick={handleContainerClick}
+    >
       {/* Section Indicator */}
       <div className="absolute top-8 right-8 text-caption opacity-40">
         02 / 06
       </div>
 
-      <div className="w-full max-w-6xl mx-auto">
-        {/* Triptych Container */}
-        <div className="relative flex flex-col items-center gap-10 md:gap-12">
-          <div className="w-full">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 items-start">
-              {/* Knowledge Pillar */}
-              {stage >= 0 && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                  className="flex flex-col space-y-3 w-full max-w-[260px] mx-auto"
-                >
-                  {/* Pillar Title */}
-                  <h2
-                    className="text-[clamp(1.5rem,3.5vw,2.6rem)] font-semibold"
-                    style={{ fontFamily: "var(--font-montserrat)" }}
-                  >
-                    Knowledge
-                  </h2>
+      {/* Ghosted Logo */}
+      <motion.div
+        className="absolute top-16 md:top-20 left-1/2 -translate-x-1/2 w-28 md:w-32"
+        animate={{ opacity: logoOpacity }}
+        transition={{ duration: 0.8, ease: "easeInOut" }}
+      >
+        <Image
+          src="/MH.svg"
+          alt="Madhaus Logo"
+          width={160}
+          height={80}
+          className="w-full h-auto"
+        />
+      </motion.div>
 
-                  {/* Headline */}
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.6, duration: 0.6 }}
-                    className="text-[clamp(1rem,2.2vw,1.4rem)] leading-relaxed"
-                    style={{ fontFamily: "var(--font-montserrat)" }}
-                  >
-                    To change systems, you need to understand them.
-                  </motion.p>
+      {/* Tagline */}
+      <AnimatePresence>
+        {showFinal && (
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: taglineOpacity }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6 }}
+            className="absolute top-32 md:top-40 left-1/2 -translate-x-1/2 text-body-sm text-center"
+          >
+            bold ideas in black and white
+          </motion.p>
+        )}
+      </AnimatePresence>
 
-                  {/* Subtext */}
-                  <AnimatePresence>
-                    {showKnowledgeSubtext && (
-                      <motion.p
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                        className="text-body-sm leading-relaxed"
-                        style={{ color: "#888888" }}
-                      >
-                        Not in abstract language.
-                        <br />
-                        You deserve information that is truthful, scientific,
-                        <br />
-                        and grounded in lived reality —
-                        <br />
-                        explained in ways that actually make sense.
-                      </motion.p>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
-              )}
+      {/* Center-stage text */}
+      <AnimatePresence mode="wait">
+        {centerText && (
+          <motion.div
+            key={centerTextKey}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="absolute inset-0 flex items-center justify-center px-6 md:px-16"
+          >
+            <p
+              ref={centerTextRef}
+              tabIndex={-1}
+              role="status"
+              aria-live="polite"
+              className="text-center text-[clamp(1rem,2.2vw,1.2rem)] leading-relaxed max-w-3xl"
+            >
+              {centerText}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-              {/* Community Pillar */}
-              {stage >= 1 && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                  className="flex flex-col space-y-3 w-full max-w-[260px] mx-auto"
-                >
-                  {/* Pillar Title */}
-                  <h2
-                    className="text-[clamp(1.5rem,3.5vw,2.6rem)] font-semibold"
-                    style={{ fontFamily: "var(--font-montserrat)" }}
-                  >
-                    Community
-                  </h2>
+      {/* Pillars */}
+      <div className="w-full max-w-6xl mt-20 md:mt-28">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12 items-start">
+          {showKnowledge && (
+            <button
+              type="button"
+              onClick={(event) => handlePillarClick("knowledge", event)}
+              onMouseEnter={() => setHoveredPillar("knowledge")}
+              onMouseLeave={() => setHoveredPillar(null)}
+              className="relative flex flex-col items-center gap-3 focus:outline-none focus:ring-2 focus:ring-white/60"
+              style={{ opacity: dimmed && activePillar !== "knowledge" ? 0.25 : 1 }}
+              aria-label="Knowledge pillar"
+            >
+              <motion.span
+                className="absolute -inset-2 rounded-full"
+                style={{
+                  background:
+                    "radial-gradient(circle, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 70%)",
+                  filter: "blur(8px)",
+                  opacity: 0,
+                }}
+                animate={{
+                  opacity: hoveredPillar === "knowledge" ? 1 : 0,
+                }}
+                transition={{ duration: 0.2 }}
+              />
+              <span className="relative z-10">{PILLARS.knowledge.icon}</span>
+              <span className="text-body-sm uppercase tracking-wider relative z-10">
+                {PILLARS.knowledge.label}
+              </span>
+            </button>
+          )}
 
-                  {/* Headline */}
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.6, duration: 0.6 }}
-                    className="text-[clamp(1rem,2.2vw,1.4rem)] leading-relaxed"
-                    style={{ fontFamily: "var(--font-montserrat)" }}
-                  >
-                    But understanding alone isn&apos;t enough.
-                  </motion.p>
+          {showCommunity && (
+            <button
+              type="button"
+              onClick={(event) => handlePillarClick("community", event)}
+              onMouseEnter={() => setHoveredPillar("community")}
+              onMouseLeave={() => setHoveredPillar(null)}
+              className="relative flex flex-col items-center gap-3 focus:outline-none focus:ring-2 focus:ring-white/60"
+              style={{ opacity: dimmed && activePillar !== "community" ? 0.25 : 1 }}
+              aria-label="Community pillar"
+            >
+              <motion.span
+                className="absolute -inset-2 rounded-full"
+                style={{
+                  background:
+                    "radial-gradient(circle, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 70%)",
+                  filter: "blur(8px)",
+                  opacity: 0,
+                }}
+                animate={{
+                  opacity: hoveredPillar === "community" ? 1 : 0,
+                }}
+                transition={{ duration: 0.2 }}
+              />
+              <span className="relative z-10">{PILLARS.community.icon}</span>
+              <span className="text-body-sm uppercase tracking-wider relative z-10">
+                {PILLARS.community.label}
+              </span>
+            </button>
+          )}
 
-                  {/* Subtext */}
-                  <AnimatePresence>
-                    {showCommunitySubtext && (
-                      <motion.p
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                        className="text-body-sm leading-relaxed"
-                        style={{ color: "#888888" }}
-                      >
-                        Change happens when people find each other —
-                        <br />
-                        people who want to do something,
-                        <br />
-                        not just say something.
-                      </motion.p>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
-              )}
-
-              {/* Empowerment Pillar */}
-              {stage >= 2 && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                  className="flex flex-col space-y-3 w-full max-w-[260px] mx-auto"
-                >
-                  {/* Pillar Title */}
-                  <h2
-                    className="text-[clamp(1.5rem,3.5vw,2.6rem)] font-semibold"
-                    style={{ fontFamily: "var(--font-montserrat)" }}
-                  >
-                    Empowerment
-                  </h2>
-
-                  {/* Headline */}
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.6, duration: 0.6 }}
-                    className="text-[clamp(1rem,2.2vw,1.4rem)] leading-relaxed"
-                    style={{ fontFamily: "var(--font-montserrat)" }}
-                  >
-                    If you want to do something, you need resources.
-                  </motion.p>
-
-                  {/* Subtext */}
-                  <AnimatePresence>
-                    {showEmpowermentSubtext && (
-                      <motion.p
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                        className="text-body-sm leading-relaxed"
-                        style={{ color: "#888888" }}
-                      >
-                        Not just inspiration. Tools. Space. Support.
-                        <br />
-                        A place to turn frustration into action,
-                        <br />
-                        and ideas into something real.
-                      </motion.p>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
-              )}
-            </div>
-          </div>
-
-          {/* Learn More */}
-          <AnimatePresence>
-            {stage === 3 && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5, duration: 0.8 }}
-                className="flex items-center justify-center w-full"
-              >
-                <motion.button
-                  initial={{ opacity: 0 }}
-                  animate={{
-                    opacity: [0.6, 1, 0.6],
-                    textShadow: [
-                      "0 0 0px rgba(255, 255, 255, 0)",
-                      "0 0 10px rgba(255, 255, 255, 0.8)",
-                      "0 0 0px rgba(255, 255, 255, 0)",
-                    ],
-                  }}
-                  transition={{
-                    opacity: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.5 },
-                    textShadow: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.5 },
-                  }}
-                  onClick={() => onOpenDrawer && onOpenDrawer(drawerContent)}
-                  className="light-border px-8 py-3 border border-white text-white text-body-sm uppercase tracking-wider hover:bg-white hover:text-black transition-all duration-300"
-                >
-                  Learn more
-                </motion.button>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {showEmpowerment && (
+            <button
+              type="button"
+              onClick={(event) => handlePillarClick("empowerment", event)}
+              onMouseEnter={() => setHoveredPillar("empowerment")}
+              onMouseLeave={() => setHoveredPillar(null)}
+              className="relative flex flex-col items-center gap-3 focus:outline-none focus:ring-2 focus:ring-white/60"
+              style={{ opacity: dimmed && activePillar !== "empowerment" ? 0.25 : 1 }}
+              aria-label="Empowerment pillar"
+            >
+              <motion.span
+                className="absolute -inset-2 rounded-full"
+                style={{
+                  background:
+                    "radial-gradient(circle, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 70%)",
+                  filter: "blur(8px)",
+                  opacity: 0,
+                }}
+                animate={{
+                  opacity: hoveredPillar === "empowerment" ? 1 : 0,
+                }}
+                transition={{ duration: 0.2 }}
+              />
+              <span className="relative z-10">{PILLARS.empowerment.icon}</span>
+              <span className="text-body-sm uppercase tracking-wider relative z-10">
+                {PILLARS.empowerment.label}
+              </span>
+            </button>
+          )}
         </div>
       </div>
+
+      {/* Connection Lines */}
+      <AnimatePresence>
+        {showAwakening && !prefersReducedMotion && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: dimmed ? 0.25 : 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            className="absolute inset-0 hidden md:block pointer-events-none"
+          >
+            <svg
+              viewBox="0 0 1000 600"
+              className="w-full h-full"
+              preserveAspectRatio="none"
+            >
+              <motion.path
+                d="M250 450 L500 170"
+                stroke="white"
+                strokeWidth="2"
+                fill="none"
+                style={{ filter: "drop-shadow(0 0 8px rgba(255,255,255,0.6))" }}
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 1 }}
+                transition={{ duration: 0.8, ease: "easeInOut" }}
+              />
+              <motion.path
+                d="M500 450 L500 170"
+                stroke="white"
+                strokeWidth="2"
+                fill="none"
+                style={{ filter: "drop-shadow(0 0 8px rgba(255,255,255,0.6))" }}
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 1 }}
+                transition={{ duration: 0.8, ease: "easeInOut", delay: 0.1 }}
+              />
+              <motion.path
+                d="M750 450 L500 170"
+                stroke="white"
+                strokeWidth="2"
+                fill="none"
+                style={{ filter: "drop-shadow(0 0 8px rgba(255,255,255,0.6))" }}
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 1 }}
+                transition={{ duration: 0.8, ease: "easeInOut", delay: 0.2 }}
+              />
+            </svg>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

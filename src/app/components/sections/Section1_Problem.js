@@ -556,9 +556,13 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
                         <motion.div
                           layoutId={`issue-icon-${issue.id}`}
                           className="relative flex items-center justify-center overflow-visible"
-                          animate={shouldPulse ? { scale: [1, 1.05, 1], opacity: 1 } : { scale: 1, opacity: 0.9 }}
+                          animate={
+                            shouldPulse || isSelected
+                              ? { scale: [1, 1.05, 1], opacity: 1 }
+                              : { scale: 1, opacity: 0.9 }
+                          }
                           transition={
-                            shouldPulse
+                            shouldPulse || isSelected
                               ? { duration: 2.8, repeat: Infinity, ease: "easeInOut" }
                               : { duration: 0.2 }
                           }
@@ -571,14 +575,14 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
                               filter: "blur(16px)",
                             }}
                             animate={
-                              shouldPulse
+                              shouldPulse || isSelected
                                 ? { opacity: [0.25, 0.85, 0.25], scale: [1, 1.45, 1] }
-                              : { opacity: 0, scale: 1 }
+                                : { opacity: 0, scale: 1 }
                             }
                             transition={
-                              shouldPulse
+                              shouldPulse || isSelected
                                 ? { duration: 3.6, repeat: Infinity, ease: "easeInOut" }
-                              : { duration: 0.2 }
+                                : { duration: 0.2 }
                             }
                           />
                           <span className="relative z-10">
@@ -591,7 +595,7 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
                         </motion.div>
 
                         {/* Label */}
-                        <h3 className="text-h3 mt-4 mb-2 text-white">{issue.label}</h3>
+                        <h3 className="text-body-lg font-semibold mt-4 mb-2 text-white">{issue.label}</h3>
 
                         {/* Stat (appears on hover) */}
                         <AnimatePresence>
@@ -627,11 +631,27 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
               >
                 {/* Selected Icon */}
                 {selectedIssue && (
-                  <motion.div layoutId={`issue-icon-${selectedIssue}`}>
-                    <IssueIcon
-                      type={issues.find((i) => i.id === selectedIssue)?.icon}
-                      animateDraw={false}
+                  <motion.div
+                    layoutId={`issue-icon-${selectedIssue}`}
+                    className="relative flex items-center justify-center overflow-visible"
+                    animate={{ opacity: 1 }}
+                  >
+                    <motion.span
+                      className="absolute inset-0 z-0 rounded-full pointer-events-none"
+                      style={{
+                        background:
+                          "radial-gradient(circle, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 75%)",
+                        filter: "blur(16px)",
+                      }}
+                      animate={{ opacity: [0.25, 0.85, 0.25], scale: [1, 1.45, 1] }}
+                      transition={{ duration: 3.6, repeat: Infinity, ease: "easeInOut" }}
                     />
+                    <span className="relative z-10">
+                      <IssueIcon
+                        type={issues.find((i) => i.id === selectedIssue)?.icon}
+                        animateDraw={false}
+                      />
+                    </span>
                   </motion.div>
                 )}
 

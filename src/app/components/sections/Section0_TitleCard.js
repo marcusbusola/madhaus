@@ -158,11 +158,11 @@ const Section0_TitleCard = ({ onNavigate }) => {
             >
               <h1 className="text-h2 max-w-3xl relative">
                 <span className="invisible block" aria-hidden="true">
-                  What if we started over?
+                  What if we could start over?
                 </span>
                 <span className="absolute inset-0 text-center" aria-hidden="true">
                   {/* All words rendered from start to prevent layout shift */}
-                  {["What", "if", "we", "started", "over?"].map((word, index) => (
+                  {["What", "if", "we", "could", "start", "over?"].map((word, index) => (
                     <motion.span
                       key={index}
                       initial={{ opacity: 0 }}
@@ -174,37 +174,42 @@ const Section0_TitleCard = ({ onNavigate }) => {
                     </motion.span>
                   ))}
                 </span>
-                <span className="sr-only">What if we started over?</span>
+                <span className="sr-only">What if we could start over?</span>
               </h1>
 
               {/* Button appears after question */}
-              {phase === "button" && (
+              <div className="min-h-[56px] flex items-center justify-center">
                 <motion.button
                   initial={{ opacity: 0 }}
                   animate={{
-                    opacity: 1,
-                    boxShadow: [
-                      "0 0 0px rgba(255, 255, 255, 0)",
-                      "0 0 20px rgba(255, 255, 255, 0.8)",
-                      "0 0 40px rgba(255, 255, 255, 1)",
-                      "0 0 20px rgba(255, 255, 255, 0.8)",
-                      "0 0 0px rgba(255, 255, 255, 0)",
-                    ],
+                    opacity: phase === "button" ? 1 : 0,
+                    boxShadow:
+                      phase === "button"
+                        ? [
+                            "0 0 0px rgba(255, 255, 255, 0)",
+                            "0 0 20px rgba(255, 255, 255, 0.8)",
+                            "0 0 40px rgba(255, 255, 255, 1)",
+                            "0 0 20px rgba(255, 255, 255, 0.8)",
+                            "0 0 0px rgba(255, 255, 255, 0)",
+                          ]
+                        : "none",
                   }}
                   transition={{
                     opacity: { duration: 1, ease: "easeIn" },
                     boxShadow: {
                       duration: 2,
-                      repeat: Infinity,
+                      repeat: phase === "button" ? Infinity : 0,
                       ease: "easeInOut",
                     },
                   }}
                   onClick={handleBegin}
                   className="light-border relative px-8 py-3 border border-white text-white text-body-sm uppercase tracking-wider hover:bg-white hover:text-black transition-all duration-300 overflow-hidden"
+                  style={{ pointerEvents: phase === "button" ? "auto" : "none" }}
+                  aria-hidden={phase !== "button"}
                 >
                   lets begin
                 </motion.button>
-              )}
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
