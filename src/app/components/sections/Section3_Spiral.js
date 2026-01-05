@@ -55,6 +55,12 @@ const Section3_Spiral = ({ onOpenDrawer }) => {
     </div>
   );
 
+  const steps = ["Question", "Investigate", "Translate", "Experiment", "Evaluate", "Repeat"];
+  const pulseDuration = 0.8;
+  const stepDelay = 0.7;
+  const sequenceStartDelay = 0.8;
+  const learnMoreDelay = sequenceStartDelay + steps.length * stepDelay + 0.4;
+
   return (
     <div className="w-full h-full flex flex-col items-center justify-center px-8 bg-black text-white">
       <div className="max-w-5xl w-full space-y-8">
@@ -62,9 +68,9 @@ const Section3_Spiral = ({ onOpenDrawer }) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-h1 text-center"
+          className="text-h2 text-center"
         >
-          The Madhaus Spiral
+          bold ideas in black and white
         </motion.h2>
 
         {/* Animated Spiral */}
@@ -76,9 +82,35 @@ const Section3_Spiral = ({ onOpenDrawer }) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="text-body-lg text-center opacity-80 max-w-3xl mx-auto"
+          className="text-body-sm text-center opacity-70"
         >
-          Question → Investigate → Translate → Experiment → Evaluate → Repeat
+          it starts with a
+        </motion.p>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="text-body-lg text-center opacity-90 max-w-3xl mx-auto"
+        >
+          {steps.map((step, index) => (
+            <span key={step} className="inline-flex items-center">
+              <motion.span
+                animate={{ opacity: [0.6, 1, 0.6], scale: [1, 1.06, 1] }}
+                transition={{
+                  duration: pulseDuration,
+                  ease: "easeInOut",
+                  delay: sequenceStartDelay + index * stepDelay,
+                }}
+                className="inline-block"
+              >
+                {step}
+              </motion.span>
+              {index < steps.length - 1 && (
+                <span className="mx-2 opacity-50">→</span>
+              )}
+            </span>
+          ))}
         </motion.p>
 
         {/* Expand Button */}
@@ -89,6 +121,7 @@ const Section3_Spiral = ({ onOpenDrawer }) => {
           className="text-center"
         >
           <motion.button
+            initial={{ opacity: 0 }}
             animate={{
               opacity: [0.6, 1, 0.6],
               textShadow: [
@@ -98,8 +131,8 @@ const Section3_Spiral = ({ onOpenDrawer }) => {
               ],
             }}
             transition={{
-              opacity: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: 1 },
-              textShadow: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: 1 },
+              opacity: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: learnMoreDelay },
+              textShadow: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: learnMoreDelay },
             }}
             onClick={() => onOpenDrawer(drawerContent)}
             className="mt-4 text-caption hover:opacity-100 transition-opacity"

@@ -201,7 +201,6 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
   const dimmed = Boolean(activePillar);
   const baseLogoOpacity = showAwakening ? 1 : 0.08;
   const logoOpacity = dimmed ? 0.25 : baseLogoOpacity;
-  const taglineOpacity = dimmed ? 0.25 : 1;
 
   return (
     <div
@@ -229,20 +228,15 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
         />
       </motion.div>
 
-      {/* Tagline */}
-      <AnimatePresence>
-        {showFinal && (
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: taglineOpacity }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.6 }}
-            className="absolute top-32 md:top-40 left-1/2 -translate-x-1/2 text-body-sm text-center"
-          >
-            bold ideas in black and white
-          </motion.p>
-        )}
-      </AnimatePresence>
+      {/* How Heading */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: hasStarted ? (dimmed ? 0.7 : 1) : 0 }}
+        transition={{ duration: 0.6 }}
+        className="absolute top-6 md:top-8 left-1/2 -translate-x-1/2 text-center"
+      >
+        <p className="text-h2 font-semibold">How?</p>
+      </motion.div>
 
       {/* Center-stage text */}
       <AnimatePresence mode="wait">
