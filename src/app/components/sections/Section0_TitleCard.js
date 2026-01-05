@@ -63,7 +63,7 @@ const Section0_TitleCard = ({ onNavigate }) => {
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8 }}
-        className="absolute top-8 left-8 z-10"
+        className="absolute top-12 left-12 md:top-14 md:left-14 z-10"
       >
         <Image
           src="/MH.svg"
@@ -154,9 +154,9 @@ const Section0_TitleCard = ({ onNavigate }) => {
           {(phase === "question" || phase === "button") && (
             <motion.div
               key="question"
-              className="text-center space-y-16"
+              className="text-center space-y-20"
             >
-              <h1 className="text-h2 max-w-3xl relative">
+              <h1 className="text-h3 max-w-3xl relative">
                 <span className="invisible block" aria-hidden="true">
                   What if we could start over?
                 </span>
@@ -178,7 +178,7 @@ const Section0_TitleCard = ({ onNavigate }) => {
               </h1>
 
               {/* Button appears after question */}
-              <div className="min-h-[56px] flex items-center justify-center">
+              <div className="min-h-[56px] flex items-center justify-center pt-6">
                 <motion.button
                   initial={{ opacity: 0 }}
                   animate={{
