@@ -383,34 +383,7 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
               }}
               onClick={(event) => {
                 event.stopPropagation();
-                if (onOpenDrawer) {
-                  onOpenDrawer(
-                    <div className="space-y-8">
-                      <p className="text-h3 font-semibold">Madhaus is built on three pillars:</p>
-                      <div className="space-y-4">
-                        <h4 className="text-h4 font-semibold tracking-wider">KNOWLEDGE</h4>
-                        <p className="text-body">
-                          We produce research, explainers, and content that makes complex systems understandable.
-                          Not academic papers — clear, visual, honest breakdowns of how things actually work.
-                        </p>
-                      </div>
-                      <div className="space-y-4">
-                        <h4 className="text-h4 font-semibold tracking-wider">COMMUNITY</h4>
-                        <p className="text-body">
-                          We connect thinkers, builders, and questioners across the continent.
-                          People who are tired of complaining and ready to collaborate.
-                        </p>
-                      </div>
-                      <div className="space-y-4">
-                        <h4 className="text-h4 font-semibold tracking-wider">EMPOWERMENT</h4>
-                        <p className="text-body">
-                          We provide the resources to act — from grants and mentorship to lab space and partnerships.
-                          Ideas deserve more than a tweet. They deserve a real shot.
-                        </p>
-                      </div>
-                    </div>
-                  );
-                }
+                onNavigate(3);
               }}
               className="light-border px-8 py-3 border border-white text-white text-body-sm uppercase tracking-wider hover:bg-white hover:text-black transition-all duration-300"
             >
@@ -444,16 +417,6 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
                 initial={{ pathLength: 0, opacity: 0 }}
                 animate={{ pathLength: 1, opacity: 1 }}
                 transition={{ duration: 1.4, ease: "easeInOut" }}
-              />
-              <motion.path
-                d="M500 470 L500 170"
-                stroke="white"
-                strokeWidth="1.5"
-                fill="none"
-                style={{ filter: "drop-shadow(0 0 6px rgba(255,255,255,0.5))" }}
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 1.4, ease: "easeInOut", delay: 0.1 }}
               />
               <motion.path
                 d="M750 470 L500 170"

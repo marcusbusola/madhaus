@@ -157,10 +157,10 @@ const Section0_TitleCard = ({ onNavigate }) => {
               className="text-center space-y-20"
             >
               <h1 className="text-h3 max-w-3xl relative">
-                <span className="invisible block" aria-hidden="true">
+                <span className="invisible block whitespace-nowrap" aria-hidden="true">
                   What if we could start over?
                 </span>
-                <span className="absolute inset-0 text-center" aria-hidden="true">
+                <span className="absolute inset-0 text-center whitespace-nowrap" aria-hidden="true">
                   {/* All words rendered from start to prevent layout shift */}
                   {["What", "if", "we", "could", "start", "over?"].map((word, index) => (
                     <motion.span
