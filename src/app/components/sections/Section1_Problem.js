@@ -435,35 +435,9 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
   };
 
   const handleLearnMore = () => {
-    const selectedData = issues.find((i) => i.id === selectedIssue);
-    if (selectedData) {
-      setHasOpenedDrawer(true);
-      clearAutoAdvanceTimer();
-      const handleContinue = () => {
-        if (onCloseDrawer) {
-          onCloseDrawer();
-        }
-        if (onNavigate) {
-          onNavigate(currentSection + 1);
-        }
-      };
-      const drawerContent = (
-        <div className="space-y-6">
-          {selectedData.drawer.content}
-          <div className="pt-6 border-t border-black/10 space-y-4">
-            <p className="text-body opacity-60">
-              This is one of many questions we&apos;re exploring.
-            </p>
-            <button
-              onClick={handleContinue}
-              className="text-caption hover:opacity-70 transition-opacity"
-            >
-              Continue →
-            </button>
-          </div>
-        </div>
-      );
-      onOpenDrawer(drawerContent);
+    clearAutoAdvanceTimer();
+    if (onNavigate) {
+      onNavigate(2); // Navigate to Section 2
     }
   };
 
