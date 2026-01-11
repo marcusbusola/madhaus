@@ -357,7 +357,7 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
               tabIndex={-1}
               role="status"
               aria-live="polite"
-              className="text-center text-[clamp(1rem,2.2vw,1.2rem)] leading-relaxed max-w-3xl"
+              className="text-center text-body-lg max-w-3xl"
             >
               {centerText}
             </p>
