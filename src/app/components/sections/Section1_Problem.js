@@ -486,7 +486,7 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8 }}
-                  className="text-h2 text-center"
+                  className="text-h3 text-center"
                 >
                   Where would you start?
                 </motion.h2>
@@ -658,7 +658,7 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: showHow ? 1 : 0, y: showHow ? 0 : 10 }}
                     transition={{ duration: 0.5 }}
-                    className="text-h2 font-semibold"
+                    className="text-h3 font-semibold"
                     aria-hidden={!showHow}
                   >
                     How?

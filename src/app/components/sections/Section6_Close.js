@@ -30,7 +30,7 @@ const Section6_Close = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-h2 text-center"
+          className="text-h3 text-center"
         >
           Join the madness.
         </motion.h2>

@@ -68,7 +68,7 @@ const Section3_Spiral = ({ onOpenDrawer }) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-h2 text-center"
+          className="text-h3 text-center"
         >
           bold ideas in black and white
         </motion.h2>
