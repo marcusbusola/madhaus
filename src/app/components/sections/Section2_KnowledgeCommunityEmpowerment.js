@@ -21,13 +21,43 @@ const PILLARS = {
     description:
       "To change systems, you need to understand them. Not in abstract language. You deserve information that is truthful, scientific, and grounded in lived reality—explained in ways that actually make sense.",
     icon: (
-      <svg viewBox="0 0 48 48" className="w-12 h-12" fill="none" stroke="currentColor" strokeWidth="2">
-        <circle cx="24" cy="24" r="18" />
-        <path d="M24 12 L28 24 L24 36 L20 24 Z" />
-        <path d="M24 6 L24 10" />
-        <path d="M42 24 L38 24" />
-        <path d="M24 42 L24 38" />
-        <path d="M6 24 L10 24" />
+      <svg viewBox="0 0 24 24" className="w-16 h-16" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+        <motion.circle
+          cx="12" cy="12" r="9"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ pathLength: { duration: 3, ease: "easeInOut" }, opacity: { duration: 0.5 } }}
+        />
+        <motion.path
+          d="M12 6 L14 12 L12 18 L10 12 Z"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.1 }, opacity: { duration: 0.5, delay: 0.1 } }}
+        />
+        <motion.path
+          d="M12 3 L12 5"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.2 }, opacity: { duration: 0.5, delay: 0.2 } }}
+        />
+        <motion.path
+          d="M21 12 L19 12"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.3 }, opacity: { duration: 0.5, delay: 0.3 } }}
+        />
+        <motion.path
+          d="M12 21 L12 19"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.4 }, opacity: { duration: 0.5, delay: 0.4 } }}
+        />
+        <motion.path
+          d="M3 12 L5 12"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.5 }, opacity: { duration: 0.5, delay: 0.5 } }}
+        />
       </svg>
     ),
   },
@@ -36,10 +66,25 @@ const PILLARS = {
     description:
       "But understanding alone isn't enough. Change happens when people find each other—people who want to do something, not just say something.",
     icon: (
-      <svg viewBox="0 0 48 48" className="w-12 h-12" fill="none" stroke="currentColor" strokeWidth="2">
-        <circle cx="18" cy="24" r="10" />
-        <circle cx="30" cy="24" r="10" />
-        <circle cx="24" cy="16" r="6" />
+      <svg viewBox="0 0 24 24" className="w-16 h-16" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+        <motion.circle
+          cx="9" cy="12" r="5"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ pathLength: { duration: 3, ease: "easeInOut" }, opacity: { duration: 0.5 } }}
+        />
+        <motion.circle
+          cx="15" cy="12" r="5"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.1 }, opacity: { duration: 0.5, delay: 0.1 } }}
+        />
+        <motion.circle
+          cx="12" cy="8" r="3"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.2 }, opacity: { duration: 0.5, delay: 0.2 } }}
+        />
       </svg>
     ),
   },
@@ -48,9 +93,19 @@ const PILLARS = {
     description:
       "If you want to do something, you need resources. Not just inspiration. Tools. Space. Support. A place to turn frustration into action, and ideas into something real.",
     icon: (
-      <svg viewBox="0 0 48 48" className="w-12 h-12" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M24 10 L28 12 L32 10 L36 14 L34 18 L36 22 L32 26 L28 24 L24 26 L20 24 L16 26 L12 22 L14 18 L12 14 L16 10 L20 12 Z" />
-        <circle cx="24" cy="20" r="5" />
+      <svg viewBox="0 0 24 24" className="w-16 h-16" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+        <motion.path
+          d="M12 5 L14 6 L16 5 L18 7 L17 9 L18 11 L16 13 L14 12 L12 13 L10 12 L8 13 L6 11 L7 9 L6 7 L8 5 L10 6 Z"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ pathLength: { duration: 3, ease: "easeInOut" }, opacity: { duration: 0.5 } }}
+        />
+        <motion.circle
+          cx="12" cy="10" r="2.5"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.1 }, opacity: { duration: 0.5, delay: 0.1 } }}
+        />
       </svg>
     ),
   },
@@ -226,6 +281,19 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
           height={80}
           className="w-full h-auto"
         />
+      </motion.div>
+
+      {/* Madhaus Description */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: showAwakening ? (dimmed ? 0.5 : 0.8) : 0 }}
+        transition={{ duration: 0.8, ease: "easeInOut", delay: 0.3 }}
+        className="absolute top-36 md:top-40 left-1/2 -translate-x-1/2 text-center max-w-2xl px-6"
+      >
+        <p className="text-body-sm opacity-70 leading-relaxed">
+          A collective research lab and experimental studio building tools, systems, and ideas
+          that challenge the status quo and reimagine what's possible.
+        </p>
       </motion.div>
 
       {/* How Heading */}

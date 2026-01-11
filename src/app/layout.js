@@ -1,6 +1,7 @@
 import { Montserrat, Manrope } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
+import CookieConsent from "./components/CookieConsent";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -52,6 +53,7 @@ export default function RootLayout({ children }) {
           `}
         </Script>
         {children}
+        <CookieConsent />
       </body>
     </html>
   );

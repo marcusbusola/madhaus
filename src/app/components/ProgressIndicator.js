@@ -1,24 +1,24 @@
 "use client";
 
 const ProgressIndicator = ({ currentSection, onNavigate }) => {
-  // Don't show on Section 0 (title card)
-  if (currentSection === 0) {
+  // Don't show on Section 0 (title card) or Section 6 (contact - hidden section)
+  if (currentSection === 0 || currentSection === 6) {
     return null;
   }
 
-  // Format counter: "01/06" through "06/06"
+  // Format counter: "01/05" through "05/05"
   const formattedCurrent = String(currentSection).padStart(2, "0");
 
   return (
     <div className="fixed right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center gap-6">
       {/* Counter */}
       <div className="text-white text-caption opacity-60">
-        {formattedCurrent} / 06
+        {formattedCurrent} / 05
       </div>
 
-      {/* Dots navigation */}
+      {/* Dots navigation - only show sections 0-5, hide section 6 */}
       <div className="flex flex-col gap-3">
-        {[0, 1, 2, 3, 4, 5, 6].map((index) => (
+        {[0, 1, 2, 3, 4, 5].map((index) => (
           <button
             key={index}
             onClick={() => onNavigate(index)}

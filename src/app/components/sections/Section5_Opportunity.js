@@ -1,8 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { trackLearnMoreClick } from '../../utils/analytics';
 
-const Section5_Opportunity = ({ onOpenDrawer }) => {
+const Section5_Opportunity = ({ onOpenDrawer, onNavigate }) => {
+  const handleLearnMore = () => {
+    trackLearnMoreClick('section5_why_now');
+    if (onNavigate) {
+      onNavigate(6); // Navigate to contact section
+    }
+  };
+
   const drawerContent = (
     <div className="space-y-6">
       <div>
@@ -85,7 +93,7 @@ const Section5_Opportunity = ({ onOpenDrawer }) => {
             opacity: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.25 },
             textShadow: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.25 },
           }}
-          onClick={() => onOpenDrawer(drawerContent)}
+          onClick={handleLearnMore}
           className="mt-8 text-caption hover:opacity-100 transition-opacity"
         >
           + LEARN MORE
