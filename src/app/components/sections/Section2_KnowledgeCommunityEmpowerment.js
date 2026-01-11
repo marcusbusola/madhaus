@@ -296,16 +296,6 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
         </p>
       </motion.div>
 
-      {/* How Heading */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: hasStarted ? (dimmed ? 0.7 : 1) : 0 }}
-        transition={{ duration: 0.6 }}
-        className="absolute top-6 md:top-8 left-1/2 -translate-x-1/2 text-center"
-      >
-        <p className="text-h2 font-semibold">How?</p>
-      </motion.div>
-
       {/* Center-stage text */}
       <AnimatePresence mode="wait">
         {centerText && (
