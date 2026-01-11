@@ -94,17 +94,59 @@ const PILLARS = {
       "If you want to do something, you need resources. Not just inspiration. Tools. Space. Support. A place to turn frustration into action, and ideas into something real.",
     icon: (
       <svg viewBox="0 0 24 24" className="w-16 h-16" fill="none" stroke="#EDE7DE" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-        <motion.path
-          d="M12 5 L14 6 L16 5 L18 7 L17 9 L18 11 L16 13 L14 12 L12 13 L10 12 L8 13 L6 11 L7 9 L6 7 L8 5 L10 6 Z"
+        <motion.circle
+          cx="12" cy="12" r="4"
           initial={{ pathLength: 0, opacity: 0 }}
           animate={{ pathLength: 1, opacity: 1 }}
           transition={{ pathLength: { duration: 3, ease: "easeInOut" }, opacity: { duration: 0.5 } }}
         />
-        <motion.circle
-          cx="12" cy="10" r="2.5"
+        <motion.path
+          d="M12 2 L12 5"
           initial={{ pathLength: 0, opacity: 0 }}
           animate={{ pathLength: 1, opacity: 1 }}
           transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.1 }, opacity: { duration: 0.5, delay: 0.1 } }}
+        />
+        <motion.path
+          d="M12 19 L12 22"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.2 }, opacity: { duration: 0.5, delay: 0.2 } }}
+        />
+        <motion.path
+          d="M22 12 L19 12"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.3 }, opacity: { duration: 0.5, delay: 0.3 } }}
+        />
+        <motion.path
+          d="M5 12 L2 12"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.4 }, opacity: { duration: 0.5, delay: 0.4 } }}
+        />
+        <motion.path
+          d="M19.07 4.93 L17 7"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.5 }, opacity: { duration: 0.5, delay: 0.5 } }}
+        />
+        <motion.path
+          d="M7 17 L4.93 19.07"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.6 }, opacity: { duration: 0.5, delay: 0.6 } }}
+        />
+        <motion.path
+          d="M19.07 19.07 L17 17"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.7 }, opacity: { duration: 0.5, delay: 0.7 } }}
+        />
+        <motion.path
+          d="M7 7 L4.93 4.93"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.8 }, opacity: { duration: 0.5, delay: 0.8 } }}
         />
       </svg>
     ),
