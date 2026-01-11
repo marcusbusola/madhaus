@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const Section4_PODS = ({ onOpenDrawer }) => {
   const drawerContent = (
@@ -48,6 +49,22 @@ const Section4_PODS = ({ onOpenDrawer }) => {
   return (
     <div className="w-full h-full flex flex-col items-center justify-center px-8 bg-white text-black">
       <div className="max-w-4xl text-center space-y-8">
+        {/* PODS Logo */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="flex justify-center"
+        >
+          <Image
+            src="/podlogo.svg"
+            alt="PODS Logo"
+            width={200}
+            height={80}
+            className="w-48 md:w-56 h-auto"
+          />
+        </motion.div>
+
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
