@@ -80,7 +80,7 @@ const PILLARS = {
           transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.1 }, opacity: { duration: 0.5, delay: 0.1 } }}
         />
         <motion.circle
-          cx="12" cy="8" r="3"
+          cx="12" cy="8" r="4"
           initial={{ pathLength: 0, opacity: 0 }}
           animate={{ pathLength: 1, opacity: 1 }}
           transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.2 }, opacity: { duration: 0.5, delay: 0.2 } }}
@@ -268,33 +268,36 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
         02 / 06
       </div>
 
-      {/* Ghosted Logo */}
-      <motion.div
-        className="absolute top-16 md:top-20 left-1/2 -translate-x-1/2 w-28 md:w-32"
-        animate={{ opacity: logoOpacity }}
-        transition={{ duration: 0.8, ease: "easeInOut" }}
-      >
-        <Image
-          src="/MH.svg"
-          alt="Madhaus Logo"
-          width={160}
-          height={80}
-          className="w-full h-auto"
-        />
-      </motion.div>
+      {/* Top Section: Logo and Description */}
+      <div className="w-full flex flex-col items-center pt-12 md:pt-16 gap-6">
+        {/* Ghosted Logo */}
+        <motion.div
+          className="w-28 md:w-32"
+          animate={{ opacity: logoOpacity }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
+        >
+          <Image
+            src="/MH.svg"
+            alt="Madhaus Logo"
+            width={160}
+            height={80}
+            className="w-full h-auto"
+          />
+        </motion.div>
 
-      {/* Madhaus Description */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: showAwakening ? (dimmed ? 0.5 : 0.8) : 0 }}
-        transition={{ duration: 0.8, ease: "easeInOut", delay: 0.3 }}
-        className="absolute top-36 md:top-40 left-1/2 -translate-x-1/2 text-center max-w-2xl px-6"
-      >
-        <p className="text-body-sm opacity-70 leading-relaxed">
-          A collective research lab and experimental studio building tools, systems, and ideas
-          that challenge the status quo and reimagine what's possible.
-        </p>
-      </motion.div>
+        {/* Madhaus Description */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: showAwakening ? (dimmed ? 0.5 : 0.8) : 0 }}
+          transition={{ duration: 0.8, ease: "easeInOut", delay: 0.3 }}
+          className="text-center max-w-2xl px-6"
+        >
+          <p className="text-body-sm opacity-70 leading-relaxed">
+            A collective research lab and experimental studio building tools, systems, and ideas
+            that challenge the status quo and reimagine what's possible.
+          </p>
+        </motion.div>
+      </div>
 
       {/* Center-stage text */}
       <AnimatePresence mode="wait">
