@@ -22,7 +22,7 @@ const ProgressIndicator = ({ currentSection, onNavigate }) => {
           <button
             key={index}
             onClick={() => onNavigate(index)}
-            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+            className={`w-2 h-2 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white/60 focus:ring-offset-2 focus:ring-offset-black ${
               currentSection === index
                 ? "bg-white scale-125"
                 : "bg-white/30 hover:bg-white/50"

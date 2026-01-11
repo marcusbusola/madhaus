@@ -138,7 +138,6 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
   const [showHow, setShowHow] = useState(false);
   const [showLearnMore, setShowLearnMore] = useState(false);
   const [hasOpenedDrawer, setHasOpenedDrawer] = useState(false);
-  const [isCollapsing, setIsCollapsing] = useState(false);
   const selectionTimersRef = useRef([]);
   const autoAdvanceTimerRef = useRef(null);
 
@@ -418,7 +417,6 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
     clearAutoAdvanceTimer();
     setHasOpenedDrawer(false);
     setHoveredIssue(null);
-    setIsCollapsing(true);
     setShowSocialProof(false);
     setShowReframe(false);
     setShowHow(false);
@@ -426,12 +424,11 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
     setSelectedIssue(issue);
     setStage("selected");
 
-    // Staged reveals
-    selectionTimersRef.current.push(setTimeout(() => setIsCollapsing(false), 600));
-    selectionTimersRef.current.push(setTimeout(() => setShowSocialProof(true), 1100));
-    selectionTimersRef.current.push(setTimeout(() => setShowReframe(true), 2600));
-    selectionTimersRef.current.push(setTimeout(() => setShowHow(true), 3600));
-    selectionTimersRef.current.push(setTimeout(() => setShowLearnMore(true), 4200));
+    // Staged reveals - adjusted timing for new transition
+    selectionTimersRef.current.push(setTimeout(() => setShowSocialProof(true), 700));
+    selectionTimersRef.current.push(setTimeout(() => setShowReframe(true), 2200));
+    selectionTimersRef.current.push(setTimeout(() => setShowHow(true), 3200));
+    selectionTimersRef.current.push(setTimeout(() => setShowLearnMore(true), 3800));
   };
 
   const handleLearnMore = () => {
@@ -468,8 +465,6 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
     }
   }, [stage, selectedIssue, showLearnMore, showSocialProof, showReframe, showHow]);
 
-  const showGrid = stage === "grid" || isCollapsing;
-
   return (
     <div className="w-full h-full flex flex-col items-center justify-center px-8 bg-black text-white relative">
       {/* Section Indicator */}
@@ -479,9 +474,9 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
 
       <LayoutGroup>
         <div className="max-w-6xl w-full">
-          {/* STAGE 1 & 2: Grid View */}
-          <AnimatePresence>
-            {showGrid && (
+          {/* Grid and Selected Views */}
+          <AnimatePresence mode="wait">
+            {stage === "grid" ? (
               <motion.div
                 key="grid"
                 className="space-y-12"
@@ -502,17 +497,24 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
                     const isHovered = hoveredIssue === issue.id;
                     const isDimmed = hoveredIssue && hoveredIssue !== issue.id;
                     const isSelected = selectedIssue === issue.id;
-                    const isFadingOut = stage === "selected" && !isSelected;
                     const shouldPulse = stage === "grid" && isHovered;
                     return (
                       <motion.div
                         key={issue.id}
                         initial={{ opacity: 0 }}
                         animate={{
-                          opacity: isFadingOut ? 0 : isDimmed ? 0.4 : 1,
-                          scale: isFadingOut ? 0.95 : 1,
+                          opacity: isDimmed ? 0.4 : 1,
+                          scale: 1,
                         }}
-                        transition={{ duration: 0.3 }}
+                        exit={{
+                          opacity: 0,
+                          scale: 0.92,
+                          filter: "blur(4px)"
+                        }}
+                        transition={{
+                          duration: 0.5,
+                          ease: [0.43, 0.13, 0.23, 0.96]
+                        }}
                         onMouseEnter={() => setHoveredIssue(issue.id)}
                         onMouseLeave={() => setHoveredIssue(null)}
                         onClick={() => handleSelect(issue.id)}
@@ -590,17 +592,16 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
                   })}
                 </div>
               </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* STAGE 3: Selected View with Provocation */}
-          <AnimatePresence>
-            {stage === "selected" && !showGrid && (
+            ) : (
               <motion.div
                 key="selected"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.4 }}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{
+                  duration: 0.6,
+                  ease: [0.43, 0.13, 0.23, 0.96],
+                  delay: 0.1
+                }}
                 className="flex flex-col items-center justify-center space-y-8 max-w-3xl mx-auto"
               >
                 {/* Selected Icon */}
