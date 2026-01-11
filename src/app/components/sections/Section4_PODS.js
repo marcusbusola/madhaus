@@ -5,6 +5,17 @@ import { motion } from "framer-motion";
 const Section4_PODS = ({ onOpenDrawer }) => {
   const drawerContent = (
     <div className="space-y-6">
+      <div className="w-full">
+        <div className="w-full aspect-video rounded-2xl overflow-hidden bg-black">
+          <iframe
+            className="w-full h-full"
+            src="https://www.youtube.com/embed/424cdlcWfKo?autoplay=1&mute=1&rel=0"
+            title="PODS Video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          />
+        </div>
+      </div>
       <p className="text-body-lg">
         Every year, NYSC deploys over 300,000 graduates for national service.
         Most spend 12 months underutilized — mismatched to roles, disconnected
