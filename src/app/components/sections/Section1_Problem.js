@@ -8,7 +8,7 @@ const IssueIcon = ({ type, className = "", drawDelay = 0, animateDraw = true }) 
   const iconProps = {
     viewBox: "0 0 24 24",
     fill: "none",
-    stroke: "#4F5D75",
+    stroke: "#EDE7DE",
     strokeWidth: 1,
     strokeLinecap: "round",
     strokeLinejoin: "round",
@@ -34,7 +34,7 @@ const IssueIcon = ({ type, className = "", drawDelay = 0, animateDraw = true }) 
       <svg {...iconProps}>
           <motion.path
             d="M12 3 C15 4.2 18.2 5.4 21 6.7 C21.2 9 21 11 21 13.2 C21 17.8 16.4 21.4 12 23.1 C7.6 21.4 3 17.8 3 13.1 C3 11 2.8 8.8 3.1 6.7 C6 5.4 9 4.1 12 3 Z"
-            stroke="#4F5D75"
+            stroke="#EDE7DE"
             {...drawProps}
           />
         </svg>
@@ -45,12 +45,12 @@ const IssueIcon = ({ type, className = "", drawDelay = 0, animateDraw = true }) 
             cx="12"
             cy="12"
             r="10"
-            stroke="#4F5D75"
+            stroke="#EDE7DE"
             {...drawProps}
           />
           <motion.path
             d="M3 12.2 C7.5 11.8 16.5 12.6 21 12.1"
-            stroke="#4F5D75"
+            stroke="#EDE7DE"
             {...drawProps}
           />
         </svg>
@@ -59,7 +59,7 @@ const IssueIcon = ({ type, className = "", drawDelay = 0, animateDraw = true }) 
         <svg {...iconProps}>
           <motion.path
             d="M12 20.5 C11 20 6.5 16 4.5 12.5 C3.2 10.3 4.5 6.8 7.4 6.1 C9.4 5.6 11.4 6.6 12 8.3 C12.6 6.6 14.6 5.6 16.6 6.1 C19.5 6.8 20.8 10.3 19.5 12.5 C17.5 16 13 20 12 20.5 Z"
-            stroke="#4F5D75"
+            stroke="#EDE7DE"
             {...drawProps}
           />
         </svg>
@@ -68,12 +68,12 @@ const IssueIcon = ({ type, className = "", drawDelay = 0, animateDraw = true }) 
         <svg {...iconProps}>
           <motion.path
             d="M4 8.2 C4.2 7.4 5 6.8 6 6.9 L18 7 C19.2 7.1 20 7.8 20 8.8 L20 18.2 C20 19.3 19.2 20.1 18.1 20.1 L6 20 C4.8 20 4.1 19.3 4 18.2 Z"
-            stroke="#4F5D75"
+            stroke="#EDE7DE"
             {...drawProps}
           />
           <motion.path
             d="M9 7.1 C9 5.4 9.6 4.8 10.8 4.8 L13.2 4.8 C14.4 4.8 15 5.4 15 7.1"
-            stroke="#4F5D75"
+            stroke="#EDE7DE"
             {...drawProps}
           />
         </svg>
@@ -82,12 +82,12 @@ const IssueIcon = ({ type, className = "", drawDelay = 0, animateDraw = true }) 
         <svg {...iconProps}>
           <motion.path
             d="M3.5 12.2 C6.5 9 9 6.4 12 4.2 C15 6.4 17.5 9 20.5 12.2"
-            stroke="#4F5D75"
+            stroke="#EDE7DE"
             {...drawProps}
           />
           <motion.path
             d="M6 12.2 C5.5 15.5 5.8 18 6 20 C10 20.4 14 20.4 18 20 C18.3 18 18.5 15.5 18 12.2"
-            stroke="#4F5D75"
+            stroke="#EDE7DE"
             {...drawProps}
           />
         </svg>
@@ -96,7 +96,7 @@ const IssueIcon = ({ type, className = "", drawDelay = 0, animateDraw = true }) 
         <svg {...iconProps}>
           <motion.path
             d="M13.2 2.5 C10.5 6 8.2 8.8 5 12.8 C7.8 12.6 9.8 12.7 12 12.6 C11 15.7 10.6 18.2 10 21.5 C13.5 17.5 16.2 14.5 19.5 10.5 C17 10.6 15 10.6 12.8 10.7 Z"
-            stroke="#4F5D75"
+            stroke="#EDE7DE"
             {...drawProps}
           />
         </svg>
@@ -105,12 +105,12 @@ const IssueIcon = ({ type, className = "", drawDelay = 0, animateDraw = true }) 
         <svg {...iconProps}>
           <motion.path
             d="M2.5 4.5 C5.5 4 9 5.2 12 6.6 C15 5.2 18.5 4 21.5 4.5 C21.8 8.5 21.6 12.5 21.4 19.5 C18.2 19.2 15.2 20.2 12 21.5 C8.8 20.2 5.8 19.2 2.6 19.5 C2.4 12.5 2.2 8.5 2.5 4.5"
-            stroke="#4F5D75"
+            stroke="#EDE7DE"
             {...drawProps}
           />
           <motion.path
             d="M12 6.6 C12.1 10.5 12 14.5 12 21.5"
-            stroke="#4F5D75"
+            stroke="#EDE7DE"
             {...drawProps}
           />
         </svg>
@@ -119,7 +119,7 @@ const IssueIcon = ({ type, className = "", drawDelay = 0, animateDraw = true }) 
         <svg {...iconProps}>
           <motion.path
             d="M8.5 21.5 C9.5 15 10.2 8.5 11.2 2.5 M15.5 21.5 C14.5 15 13.8 8.5 12.8 2.5 M12 9.5 C12.1 10.3 11.9 11 12 11.8 M12 14.5 C12.1 15.3 11.9 16 12 16.8 M12 19.3 C12.1 20.1 11.9 20.8 12 21.6"
-            stroke="#4F5D75"
+            stroke="#EDE7DE"
             {...drawProps}
           />
         </svg>

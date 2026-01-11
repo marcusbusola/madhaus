@@ -21,7 +21,7 @@ const PILLARS = {
     description:
       "To change systems, you need to understand them. Not in abstract language. You deserve information that is truthful, scientific, and grounded in lived reality—explained in ways that actually make sense.",
     icon: (
-      <svg viewBox="0 0 24 24" className="w-16 h-16" fill="none" stroke="#4F5D75" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+      <svg viewBox="0 0 24 24" className="w-16 h-16" fill="none" stroke="#EDE7DE" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
         <motion.circle
           cx="12" cy="12" r="9"
           initial={{ pathLength: 0, opacity: 0 }}
@@ -66,7 +66,7 @@ const PILLARS = {
     description:
       "But understanding alone isn't enough. Change happens when people find each other—people who want to do something, not just say something.",
     icon: (
-      <svg viewBox="0 0 24 24" className="w-16 h-16" fill="none" stroke="#4F5D75" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+      <svg viewBox="0 0 24 24" className="w-16 h-16" fill="none" stroke="#EDE7DE" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
         <motion.circle
           cx="9" cy="12" r="5"
           initial={{ pathLength: 0, opacity: 0 }}
@@ -93,7 +93,7 @@ const PILLARS = {
     description:
       "If you want to do something, you need resources. Not just inspiration. Tools. Space. Support. A place to turn frustration into action, and ideas into something real.",
     icon: (
-      <svg viewBox="0 0 24 24" className="w-16 h-16" fill="none" stroke="#4F5D75" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+      <svg viewBox="0 0 24 24" className="w-16 h-16" fill="none" stroke="#EDE7DE" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
         <motion.path
           d="M12 5 L14 6 L16 5 L18 7 L17 9 L18 11 L16 13 L14 12 L12 13 L10 12 L8 13 L6 11 L7 9 L6 7 L8 5 L10 6 Z"
           initial={{ pathLength: 0, opacity: 0 }}
