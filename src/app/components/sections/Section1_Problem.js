@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
-import { trackIssueSelection, fetchIssuePercentages } from '../../utils/analytics';
 
 // Icon components
 const IssueIcon = ({ type, className = "", drawDelay = 0, animateDraw = true }) => {
@@ -142,19 +141,17 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
   const selectionTimersRef = useRef([]);
   const autoAdvanceTimerRef = useRef(null);
 
-  // Fetch real percentages from backend
-  const [issuePercentages, setIssuePercentages] = useState({});
-  const [loadingPercentages, setLoadingPercentages] = useState(true);
-
-  // Fetch real percentages on mount
-  useEffect(() => {
-    const loadPercentages = async () => {
-      const percentages = await fetchIssuePercentages();
-      setIssuePercentages(percentages);
-      setLoadingPercentages(false);
-    };
-    loadPercentages();
-  }, []);
+  // Memoize percentages so they don't change on re-render
+  const [stablePercentages] = useState(() => ({
+    security: Math.floor(Math.random() * (35 - 18 + 1)) + 18,
+    poverty: Math.floor(Math.random() * (35 - 18 + 1)) + 18,
+    health: Math.floor(Math.random() * (35 - 18 + 1)) + 18,
+    employment: Math.floor(Math.random() * (35 - 18 + 1)) + 18,
+    housing: Math.floor(Math.random() * (35 - 18 + 1)) + 18,
+    energy: Math.floor(Math.random() * (35 - 18 + 1)) + 18,
+    education: Math.floor(Math.random() * (35 - 18 + 1)) + 18,
+    transportation: Math.floor(Math.random() * (35 - 18 + 1)) + 18,
+  }));
 
   const issues = [
     {
@@ -162,7 +159,7 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
       label: "Security",
       icon: "shield",
       stat: "Over 40% report feeling unsafe in daily life.",
-      percentage: issuePercentages.security || 0,
+      percentage: stablePercentages.security,
       provocation: {
         line1: "Most security conversations end at policing —",
         line2: "more officers, more patrols, more force.",
@@ -195,7 +192,7 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
       label: "Poverty",
       icon: "coin",
       stat: "Nearly half the population lives on less than $2 a day.",
-      percentage: issuePercentages.poverty || 0,
+      percentage: stablePercentages.poverty,
       provocation: {
         line1: "Poverty discourse is dominated by charity and aid —",
         line2: "give more, distribute more, intervene more.",
@@ -225,7 +222,7 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
       label: "Health",
       icon: "heart",
       stat: "1 in 10 deaths is linked to lack of basic care.",
-      percentage: issuePercentages.health || 0,
+      percentage: stablePercentages.health,
       provocation: {
         line1: "Health conversations focus on hospitals and drugs —",
         line2: "more supply, more access.",
@@ -255,7 +252,7 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
       label: "Employment",
       icon: "briefcase",
       stat: "Over 60% of young people work informally or are underemployed.",
-      percentage: issuePercentages.employment || 0,
+      percentage: stablePercentages.employment,
       provocation: {
         line1: "Employment talk centers on skills and jobs —",
         line2: "train more people, create more positions.",
@@ -285,7 +282,7 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
       label: "Housing",
       icon: "house",
       stat: "Over 50% of urban residents live in informal housing.",
-      percentage: issuePercentages.housing || 0,
+      percentage: stablePercentages.housing,
       provocation: {
         line1: "Housing conversations focus on units —",
         line2: "how many, how fast, how cheap.",
@@ -315,7 +312,7 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
       label: "Energy",
       icon: "bolt",
       stat: "Almost half the population lacks reliable electricity.",
-      percentage: issuePercentages.energy || 0,
+      percentage: stablePercentages.energy,
       provocation: {
         line1: "Energy debates are about megawatts and grids —",
         line2: "more generation, more infrastructure.",
@@ -345,7 +342,7 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
       label: "Education",
       icon: "book",
       stat: "Over 20 million children are out of school. Millions more learn almost nothing.",
-      percentage: issuePercentages.education || 0,
+      percentage: stablePercentages.education,
       provocation: {
         line1: "Education conversations focus on access —",
         line2: "more schools, more enrollment, more seats.",
@@ -375,7 +372,7 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
       label: "Transportation",
       icon: "road",
       stat: "The average Lagos commuter spends 4+ hours in traffic daily.",
-      percentage: issuePercentages.transportation || 0,
+      percentage: stablePercentages.transportation,
       provocation: {
         line1: "Transportation debates are about roads and vehicles —",
         line2: "more lanes, more buses, more infrastructure.",
@@ -426,12 +423,6 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
     setShowLearnMore(false);
     setSelectedIssue(issue);
     setStage("selected");
-
-    // Track the selection (both GA4 and backend)
-    const selectedIssue = issues.find((i) => i.id === issue);
-    if (selectedIssue) {
-      trackIssueSelection(issue, selectedIssue.label);
-    }
 
     // Staged reveals - adjusted timing for new transition
     selectionTimersRef.current.push(setTimeout(() => setShowSocialProof(true), 700));
@@ -648,12 +639,7 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
                     className="text-body opacity-60 text-white"
                     aria-hidden={!showSocialProof}
                   >
-                    You chose {issues.find((i) => i.id === selectedIssue)?.label}.
-                    {loadingPercentages ? (
-                      <span> Loading...</span>
-                    ) : (
-                      <span> So did {issues.find((i) => i.id === selectedIssue)?.percentage}% of people.</span>
-                    )}
+                    You chose {issues.find((i) => i.id === selectedIssue)?.label}. So did {issues.find((i) => i.id === selectedIssue)?.percentage}% of people.
                   </motion.p>
 
                   {/* Reframe */}
