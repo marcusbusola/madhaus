@@ -6,6 +6,7 @@ import Section from "./Section";
 import ProgressBar from "./ProgressBar";
 import ProgressIndicator from "./ProgressIndicator";
 import NoiseOverlay from "./NoiseOverlay";
+import LightBeamOverlay from "./LightBeamOverlay";
 import ExpandDrawer from "./ExpandDrawer";
 
 // Import section components
@@ -49,37 +50,13 @@ const PresentationContainer = () => {
     }
   }, [currentSection, navigateToSection]);
 
-  // Auto-advance timer using requestAnimationFrame
+  // Calculate static progress based on section position (for visual indicators)
   useEffect(() => {
-    // No auto-advance on Section 0 (title), Section 6 (end), or when drawer is open
-    if (currentSection === 0 || currentSection === 1 || currentSection === 6 || isDrawerOpen) {
-      return;
-    }
-
-    const sectionDuration = SECTION_DURATIONS[currentSection] ?? SECTION_DURATION;
-    let startTime = Date.now();
-    let animationFrameId;
-
-    const tick = () => {
-      const elapsed = Date.now() - startTime;
-      const progress = (elapsed / sectionDuration) * 100;
-      setProgressPercentage(Math.min(progress, 100));
-
-      if (elapsed >= sectionDuration) {
-        advanceSection();
-      } else {
-        animationFrameId = requestAnimationFrame(tick);
-      }
-    };
-
-    animationFrameId = requestAnimationFrame(tick);
-
-    return () => {
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
-      }
-    };
-  }, [currentSection, isDrawerOpen, advanceSection]);
+    // Map section to progress percentage: 0% to 100%
+    // Sections 0-5 visible in progress indicators
+    const sectionProgress = currentSection === 0 ? 0 : (currentSection / 5) * 100;
+    setProgressPercentage(sectionProgress);
+  }, [currentSection]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -157,6 +134,13 @@ const PresentationContainer = () => {
     <div className="w-full h-screen overflow-hidden bg-black">
       {/* Grain Overlay */}
       <NoiseOverlay />
+
+      {/* Light Beam Sweep */}
+      <LightBeamOverlay
+        progress={progressPercentage}
+        currentSection={currentSection}
+        isDrawerOpen={isDrawerOpen}
+      />
 
       {/* Progress Bar */}
       <ProgressBar

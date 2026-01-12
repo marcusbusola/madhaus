@@ -19,7 +19,7 @@ const Section4_PODS = ({ onOpenDrawer }) => {
       </div>
       <p className="text-body-lg">
         Every year, NYSC deploys over 300,000 graduates for national service.
-        Most spend 12 months underutilized — mismatched to roles, disconnected
+        mismatched to roles, disconnected
         from impact.
       </p>
       <p className="text-body">
@@ -41,8 +41,6 @@ const Section4_PODS = ({ onOpenDrawer }) => {
         If it works, PODS becomes Africa&apos;s largest talent-to-impact pipeline. If
         it doesn&apos;t, we&apos;ll learn why — and design something better.
       </p>
-
-      <p className="text-body-lg font-semibold">Proof-of-concept launching 2025.</p>
     </div>
   );
 

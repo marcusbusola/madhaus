@@ -137,9 +137,9 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
   const [showReframe, setShowReframe] = useState(false);
   const [showHow, setShowHow] = useState(false);
   const [showLearnMore, setShowLearnMore] = useState(false);
-  const [hasOpenedDrawer, setHasOpenedDrawer] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
   const selectionTimersRef = useRef([]);
-  const autoAdvanceTimerRef = useRef(null);
+  const scrollContainerRef = useRef(null);
 
   // Memoize percentages so they don't change on re-render
   const [stablePercentages] = useState(() => ({
@@ -404,18 +404,16 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
     selectionTimersRef.current = [];
   };
 
-  const clearAutoAdvanceTimer = () => {
-    if (autoAdvanceTimerRef.current) {
-      clearTimeout(autoAdvanceTimerRef.current);
-      autoAdvanceTimerRef.current = null;
-    }
+  const handleScroll = (e) => {
+    const scrollLeft = e.target.scrollLeft;
+    const pageWidth = e.target.offsetWidth;
+    const page = Math.round(scrollLeft / pageWidth);
+    setCurrentPage(page);
   };
 
   // Handle selection with staged reveals
   const handleSelect = (issue) => {
     clearSelectionTimers();
-    clearAutoAdvanceTimer();
-    setHasOpenedDrawer(false);
     setHoveredIssue(null);
     setShowSocialProof(false);
     setShowReframe(false);
@@ -432,30 +430,13 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
   };
 
   const handleLearnMore = () => {
-    clearAutoAdvanceTimer();
     if (onNavigate) {
       onNavigate(2); // Navigate to Section 2
     }
   };
 
-  useEffect(() => {
-    if (!showLearnMore || stage !== "selected" || hasOpenedDrawer) {
-      clearAutoAdvanceTimer();
-      return;
-    }
-    if (!autoAdvanceTimerRef.current) {
-      autoAdvanceTimerRef.current = setTimeout(() => {
-        if (onNavigate) {
-          onNavigate(currentSection + 1);
-        }
-      }, 6000);
-    }
-    return clearAutoAdvanceTimer;
-  }, [showLearnMore, stage, hasOpenedDrawer, onNavigate, currentSection]);
-
   useEffect(() => () => {
     clearSelectionTimers();
-    clearAutoAdvanceTimer();
   }, []);
 
   // Development logging to verify state updates
@@ -491,14 +472,26 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
                   Where would you start?
                 </motion.h2>
 
-                {/* Grid */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                  {issues.map((issue, index) => {
-                    const isHovered = hoveredIssue === issue.id;
-                    const isDimmed = hoveredIssue && hoveredIssue !== issue.id;
-                    const isSelected = selectedIssue === issue.id;
-                    const shouldPulse = stage === "grid" && isHovered;
-                    return (
+                {/* Grid - Mobile: Paginated scroll, Desktop: Standard grid */}
+                <div className="relative w-full">
+                  {/* Horizontally scrollable container on mobile */}
+                  <div
+                    ref={scrollContainerRef}
+                    onScroll={handleScroll}
+                    className="flex md:grid overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none md:grid-cols-4 gap-8 -mx-8 md:mx-0 px-8 md:px-0 scrollbar-hide"
+                  >
+                    {/* Split into 2 pages on mobile, single grid on desktop */}
+                    {[issues.slice(0, 4), issues.slice(4, 8)].map((pageIssues, pageIndex) => (
+                      <div
+                        key={`page-${pageIndex}`}
+                        className="grid grid-cols-2 gap-6 min-w-full md:min-w-0 md:contents snap-start md:snap-align-none"
+                      >
+                        {pageIssues.map((issue, index) => {
+                          const isHovered = hoveredIssue === issue.id;
+                          const isDimmed = hoveredIssue && hoveredIssue !== issue.id;
+                          const isSelected = selectedIssue === issue.id;
+                          const shouldPulse = stage === "grid" && isHovered;
+                          return (
                       <motion.div
                         key={issue.id}
                         initial={{ opacity: 0 }}
@@ -588,8 +581,28 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
                           )}
                         </AnimatePresence>
                       </motion.div>
-                    );
-                  })}
+                          );
+                        })}
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Pagination dots (mobile only) */}
+                  <div className="flex justify-center gap-2 mt-6 md:hidden">
+                    {[0, 1].map((page) => (
+                      <button
+                        key={page}
+                        onClick={() => {
+                          scrollContainerRef.current?.scrollTo({
+                            left: page * scrollContainerRef.current.offsetWidth,
+                            behavior: 'smooth'
+                          });
+                        }}
+                        className={`w-2 h-2 rounded-full transition-all ${currentPage === page ? 'bg-white/80 w-4' : 'bg-white/30'}`}
+                        aria-label={`Go to page ${page + 1}`}
+                      />
+                    ))}
+                  </div>
                 </div>
               </motion.div>
             ) : (

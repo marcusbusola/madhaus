@@ -75,7 +75,10 @@ const Section5_Opportunity = ({ onOpenDrawer, onNavigate }) => {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="text-body-lg opacity-80 max-w-2xl mx-auto"
         >
-          The systems built for 50 million won&apos;t hold 500 million.
+          That's a quarter of humanity.
+          The systems that shaped our last century
+          weren't designed here. The ones that shape the next should be.
+
         </motion.p>
 
         {/* Expand Button */}

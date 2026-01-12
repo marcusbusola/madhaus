@@ -40,9 +40,9 @@ const Section6_Close = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-body-lg text-center opacity-80 max-w-2xl"
-        >
-          If you believe Africa&apos;s future will be designed by Africans, let&apos;s
-          talk.
+        > 
+          We don&apos;t have a choice but to build better.
+          To question everything. To start now.
         </motion.p>
 
         {/* CTA Buttons */}

@@ -134,7 +134,7 @@ const Section3_Spiral = ({ onOpenDrawer }) => {
               opacity: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: learnMoreDelay },
               textShadow: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: learnMoreDelay },
             }}
-            onClick={() => onOpenDrawer(drawerContent)}
+            onClick={() => onNavigate && onNavigate(currentSection + 1)}
             className="mt-4 text-caption hover:opacity-100 transition-opacity"
           >
             + LEARN MORE
