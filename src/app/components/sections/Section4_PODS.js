@@ -3,7 +3,16 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-const Section4_PODS = ({ onOpenDrawer }) => {
+const Section4_PODS = ({ onOpenDrawer, onNavigate, onCloseDrawer }) => {
+  const handleContinue = () => {
+    if (onCloseDrawer) {
+      onCloseDrawer();
+    }
+    if (onNavigate) {
+      onNavigate(5); // Navigate to Section 5 (Opportunity)
+    }
+  };
+
   const drawerContent = (
     <div className="space-y-6">
       <div className="w-full">
@@ -41,6 +50,16 @@ const Section4_PODS = ({ onOpenDrawer }) => {
         If it works, PODS becomes Africa&apos;s largest talent-to-impact pipeline. If
         it doesn&apos;t, we&apos;ll learn why — and design something better.
       </p>
+
+      {/* Continue Button */}
+      <div className="pt-4 flex justify-center">
+        <button
+          onClick={handleContinue}
+          className="subscribe-button text-body-sm font-semibold px-8 py-3 rounded-full bg-[#EDE7DE] text-black hover:bg-[#f2ece3] transition-all"
+        >
+          Continue →
+        </button>
+      </div>
     </div>
   );
 

@@ -9,13 +9,20 @@ const ProgressBar = ({ progress, isPaused, currentSection }) => {
   // Static progress based on section position (0-5 visible sections)
   const sectionProgress = (currentSection / 5) * 100;
 
+  // Use black progress bar on Section 4 (PODS - white background)
+  const isWhiteSection = currentSection === 4;
+
   return (
     <div
-      className="fixed top-0 left-0 w-full h-[2px] bg-white/10 z-50"
+      className={`fixed top-0 left-0 w-full h-[2px] z-50 ${
+        isWhiteSection ? "bg-black/10" : "bg-white/10"
+      }`}
       style={{ pointerEvents: "none" }}
     >
       <div
-        className="h-full bg-white transition-all duration-500 ease-out"
+        className={`h-full transition-all duration-500 ease-out ${
+          isWhiteSection ? "bg-black" : "bg-white"
+        }`}
         style={{ width: `${sectionProgress}%` }}
       />
     </div>

@@ -76,6 +76,77 @@ const PresentationContainer = () => {
     return () => window.removeEventListener("keydown", handleKeyPress);
   }, [currentSection, isDrawerOpen, navigateToSection]);
 
+  // Touch/Swipe navigation for mobile
+  useEffect(() => {
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+    let touchEndY = 0;
+
+    const minSwipeDistance = 50; // Minimum distance for a swipe (in pixels)
+
+    const handleTouchStart = (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    };
+
+    const handleTouchMove = (e) => {
+      touchEndX = e.touches[0].clientX;
+      touchEndY = e.touches[0].clientY;
+    };
+
+    const handleTouchEnd = () => {
+      // Don't navigate if drawer is open or on interactive elements
+      if (isDrawerOpen) return;
+
+      const deltaX = touchStartX - touchEndX;
+      const deltaY = touchStartY - touchEndY;
+
+      // Determine if swipe is more horizontal or vertical
+      const isHorizontalSwipe = Math.abs(deltaX) > Math.abs(deltaY);
+
+      if (isHorizontalSwipe) {
+        // Horizontal swipe: left swipe = next, right swipe = previous
+        if (Math.abs(deltaX) > minSwipeDistance) {
+          if (deltaX > 0) {
+            // Swiped left (next section)
+            navigateToSection(currentSection + 1);
+          } else {
+            // Swiped right (previous section)
+            navigateToSection(currentSection - 1);
+          }
+        }
+      } else {
+        // Vertical swipe: up swipe = next, down swipe = previous
+        if (Math.abs(deltaY) > minSwipeDistance) {
+          if (deltaY > 0) {
+            // Swiped up (next section)
+            navigateToSection(currentSection + 1);
+          } else {
+            // Swiped down (previous section)
+            navigateToSection(currentSection - 1);
+          }
+        }
+      }
+
+      // Reset values
+      touchStartX = 0;
+      touchStartY = 0;
+      touchEndX = 0;
+      touchEndY = 0;
+    };
+
+    window.addEventListener("touchstart", handleTouchStart);
+    window.addEventListener("touchmove", handleTouchMove);
+    window.addEventListener("touchend", handleTouchEnd);
+
+    return () => {
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, [currentSection, isDrawerOpen, navigateToSection]);
+
   // Click-anywhere to advance (except on interactive elements)
   const handleSectionClick = (e) => {
     // Ignore clicks on buttons, links, inputs, or drawer
