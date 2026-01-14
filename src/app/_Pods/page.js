@@ -5,7 +5,31 @@ import React from "react";
 export const metadata = {
   title: "Impact Pods Hackathon",
   description:
-  "Hey NYSC members. Ready to make a real impact during your service year? The NYSC Pods Hackathon is your chance to step up, challenge yourself, and work on innovative solutions to tackle some of Nigeria’s most pressing challenges.",
+  "Hey NYSC members. Ready to make a real impact during your service year? The NYSC Pods Hackathon is your chance to step up, challenge yourself, and work on innovative solutions to tackle some of Nigeria's most pressing challenges.",
+  robots: {
+    index: false,
+    follow: false,
+  },
+
+  openGraph: {
+    title: "Impact Pods Hackathon | Madhaus Africa",
+    description: "NYSC Pods Hackathon - innovate and create solutions to tackle Nigeria's most pressing challenges.",
+    type: 'website',
+    url: 'https://madhaus.africa/_Pods',
+    images: [{
+      url: '/pods.jpeg',
+      width: 450,
+      height: 450,
+      alt: 'Impact Pods Hackathon event poster',
+    }],
+  },
+
+  twitter: {
+    card: 'summary_large_image',
+    title: "Impact Pods Hackathon | Madhaus Africa",
+    description: "NYSC Pods Hackathon - innovate and create solutions to tackle Nigeria's most pressing challenges.",
+    images: ['/pods.jpeg'],
+  },
 };
 
 const PodsPage = () => {
@@ -15,7 +39,7 @@ const PodsPage = () => {
         <header className="text-center mb-12">
           <Image
             src="/pods.jpeg"
-            alt=""
+            alt="Impact Pods Hackathon event poster"
             width={450}
             height={450}
             className="mx-auto my-[32px] "

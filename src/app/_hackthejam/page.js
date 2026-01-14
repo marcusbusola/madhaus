@@ -6,6 +6,30 @@ export const metadata = {
   title: "Hack the Jam",
   description:
     "PODS presents Hack the Jam - A hackathon bringing together innovators, developers, and creators to build solutions that matter. Join us for an intensive weekend of coding, collaboration, and creativity.",
+  robots: {
+    index: false,
+    follow: false,
+  },
+
+  openGraph: {
+    title: "Hack the Jam | Madhaus Africa",
+    description: "A hackathon bringing together innovators, developers, and creators to build solutions that matter.",
+    type: 'website',
+    url: 'https://madhaus.africa/_hackthejam',
+    images: [{
+      url: '/hackthejam-poster.jpeg',
+      width: 450,
+      height: 450,
+      alt: 'Hack the Jam hackathon poster',
+    }],
+  },
+
+  twitter: {
+    card: 'summary_large_image',
+    title: "Hack the Jam | Madhaus Africa",
+    description: "A hackathon bringing together innovators, developers, and creators to build solutions that matter.",
+    images: ['/hackthejam-poster.jpeg'],
+  },
 };
 
 export default function HackTheJamPage() {

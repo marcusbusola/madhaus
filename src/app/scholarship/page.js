@@ -6,6 +6,26 @@ export const metadata = {
   title: "HOMM Scholarship",
   description:
     "The Herbert Olufunso Marcus Memorial Scholarship supports Nigerian secondary and university students by providing financial aid and honoring a legacy of generosity, education, and belief in young potential",
+
+  openGraph: {
+    title: "HOMM Scholarship | Madhaus Africa",
+    description: "The Herbert Olufunso Marcus Memorial Scholarship supports Nigerian secondary and university students by providing financial aid.",
+    type: 'website',
+    url: 'https://madhaus.africa/scholarship',
+    images: [{
+      url: '/memorial.jpeg',
+      width: 450,
+      height: 450,
+      alt: 'Herbert Olufunso Marcus Memorial',
+    }],
+  },
+
+  twitter: {
+    card: 'summary_large_image',
+    title: "HOMM Scholarship | Madhaus Africa",
+    description: "The Herbert Olufunso Marcus Memorial Scholarship supports Nigerian secondary and university students.",
+    images: ['/memorial.jpeg'],
+  },
 };
 
 const ScholarshipPage = () => {
@@ -15,7 +35,7 @@ const ScholarshipPage = () => {
         <header className="text-center mb-12">
           <Image
             src="/memorial.jpeg"
-            alt=""
+            alt="Herbert Olufunso Marcus Memorial portrait"
             width={450}
             height={450}
             className="mx-auto my-[32px] "
