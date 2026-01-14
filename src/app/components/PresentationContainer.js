@@ -148,7 +148,13 @@ const PresentationContainer = () => {
   }, [currentSection, isDrawerOpen, navigateToSection]);
 
   // Click-anywhere to advance (except on interactive elements)
+  // Disabled on mobile/touch devices to allow button interactions
   const handleSectionClick = (e) => {
+    // Skip on touch devices (mobile) - use swipe navigation instead
+    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+      return;
+    }
+
     // Ignore clicks on buttons, links, inputs, or drawer
     if (
       e.target.closest("button, a, input, .drawer-content, .cursor-pointer, [role='button']") ||

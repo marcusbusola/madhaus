@@ -21,7 +21,7 @@ const PILLARS = {
     description:
       "To change systems, you need to understand them. Not in abstract language. You deserve information that is truthful, scientific, and grounded in lived reality—explained in ways that actually make sense.",
     icon: (
-      <svg viewBox="0 0 24 24" className="w-16 h-16" fill="none" stroke="#EDE7DE" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+      <svg viewBox="0 0 24 24" className="w-16 h-16" fill="none" stroke="#EDE7DE" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" style={{ filter: "drop-shadow(0 0 8px rgba(237, 231, 222, 0.6))" }}>
         <motion.circle
           cx="12" cy="12" r="9"
           initial={{ pathLength: 0, opacity: 0 }}
@@ -66,7 +66,7 @@ const PILLARS = {
     description:
       "But understanding alone isn't enough. Change happens when people find each other—people who want to do something, not just say something.",
     icon: (
-      <svg viewBox="0 0 24 24" className="w-16 h-16" fill="none" stroke="#EDE7DE" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+      <svg viewBox="0 0 24 24" className="w-16 h-16" fill="none" stroke="#EDE7DE" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" style={{ filter: "drop-shadow(0 0 8px rgba(237, 231, 222, 0.6))" }}>
         <motion.circle
           cx="9" cy="12" r="5"
           initial={{ pathLength: 0, opacity: 0 }}
@@ -93,7 +93,7 @@ const PILLARS = {
     description:
       "If you want to do something, you need resources. Not just inspiration. Tools. Space. Support. A place to turn frustration into action, and ideas into something real.",
     icon: (
-      <svg viewBox="0 0 24 24" className="w-16 h-16" fill="none" stroke="#EDE7DE" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+      <svg viewBox="0 0 24 24" className="w-16 h-16" fill="none" stroke="#EDE7DE" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" style={{ filter: "drop-shadow(0 0 8px rgba(237, 231, 222, 0.6))" }}>
         <motion.circle
           cx="12" cy="12" r="4"
           initial={{ pathLength: 0, opacity: 0 }}
@@ -338,6 +338,39 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
             A collective research lab and experimental studio building tools, systems, and ideas
             that challenge the status quo and reimagine what's possible.
           </p>
+        </motion.div>
+
+        {/* Learn More Button */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: showLearnMore ? 1 : 0 }}
+          transition={{ duration: 0.8, ease: "easeInOut", delay: 0.5 }}
+          className="mt-6"
+        >
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onNavigate(3);
+            }}
+            className="relative px-8 py-3 text-body-sm uppercase tracking-wider bg-transparent border border-white/40 hover:border-white/80 transition-all duration-300 group overflow-hidden"
+            style={{
+              boxShadow: "0 0 20px rgba(255, 255, 255, 0.1)",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.boxShadow = "0 0 30px rgba(255, 255, 255, 0.3)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = "0 0 20px rgba(255, 255, 255, 0.1)";
+            }}
+          >
+            <span className="relative z-10">Learn More</span>
+            <motion.span
+              className="absolute inset-0 bg-white/10"
+              initial={{ scale: 0, opacity: 0 }}
+              whileHover={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.3 }}
+            />
+          </button>
         </motion.div>
       </div>
 

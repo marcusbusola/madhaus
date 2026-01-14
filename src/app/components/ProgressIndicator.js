@@ -13,14 +13,14 @@ const ProgressIndicator = ({ currentSection, onNavigate }) => {
   const isWhiteSection = currentSection === 4;
 
   return (
-    <div className="fixed right-8 bottom-8 md:top-1/2 md:bottom-auto md:-translate-y-1/2 z-50 flex flex-col items-center gap-6">
-      {/* Counter */}
-      <div className={`text-caption opacity-60 ${isWhiteSection ? "text-black" : "text-white"}`}>
+    <div className="fixed bottom-8 left-1/2 -translate-x-1/2 md:left-auto md:right-8 md:top-1/2 md:bottom-auto md:-translate-x-0 md:-translate-y-1/2 z-50 flex flex-row md:flex-col items-center gap-4 md:gap-6">
+      {/* Counter - show on left on mobile, on top on desktop */}
+      <div className={`text-caption opacity-60 order-1 md:order-1 ${isWhiteSection ? "text-black" : "text-white"}`}>
         {formattedCurrent} / 05
       </div>
 
       {/* Dots navigation - only show sections 0-5, hide section 6 */}
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-row md:flex-col gap-3 order-2 md:order-2">
         {[0, 1, 2, 3, 4, 5].map((index) => (
           <button
             key={index}
