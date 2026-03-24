@@ -9,6 +9,7 @@ const Section3_Spiral = ({ onNavigate, currentSection }) => {
   const pulseDuration = 0.8;
   const stepDelay = 0.7;
   const sequenceStartDelay = 0.8;
+  const cycleDuration = steps.length * stepDelay;
   const learnMoreDelay = sequenceStartDelay + steps.length * stepDelay + 0.4;
 
   const scrollContainerRef = useRef(null);
@@ -59,6 +60,8 @@ const Section3_Spiral = ({ onNavigate, currentSection }) => {
                   duration: pulseDuration,
                   ease: "easeInOut",
                   delay: sequenceStartDelay + index * stepDelay,
+                  repeat: Infinity,
+                  repeatDelay: Math.max(cycleDuration - pulseDuration, 0),
                 }}
                 className="inline-block"
               >
@@ -100,6 +103,8 @@ const Section3_Spiral = ({ onNavigate, currentSection }) => {
                     duration: pulseDuration,
                     ease: "easeInOut",
                     delay: sequenceStartDelay + index * stepDelay,
+                    repeat: Infinity,
+                    repeatDelay: Math.max(cycleDuration - pulseDuration, 0),
                   }}
                   className="text-body-lg text-center opacity-90"
                 >

@@ -451,7 +451,7 @@ const Section1_Problem = ({ onNavigate, currentSection }) => {
                               animate={{ opacity: 1, height: "auto" }}
                               exit={{ opacity: 0, height: 0 }}
                               transition={{ duration: 0.3 }}
-                              className="text-body text-center opacity-80 text-white"
+                              className="text-body-sm text-center opacity-80 text-white"
                             >
                               {issue.stat}
                             </motion.p>

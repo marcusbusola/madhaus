@@ -67,24 +67,26 @@ const PILLARS = {
       "But understanding alone isn't enough. Change happens when people find each other—people who want to do something, not just say something.",
     icon: (
       <svg viewBox="0 0 24 24" className="w-16 h-16" fill="none" stroke="#EDE7DE" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" style={{ filter: "drop-shadow(0 0 8px rgba(237, 231, 222, 0.6))" }}>
-        <motion.circle
-          cx="9" cy="12" r="5"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ pathLength: { duration: 3, ease: "easeInOut" }, opacity: { duration: 0.5 } }}
-        />
-        <motion.circle
-          cx="15" cy="12" r="5"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.1 }, opacity: { duration: 0.5, delay: 0.1 } }}
-        />
-        <motion.circle
-          cx="12" cy="8" r="4"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.2 }, opacity: { duration: 0.5, delay: 0.2 } }}
-        />
+        <g transform="translate(12 12) scale(1.18) translate(-12 -12)">
+          <motion.circle
+            cx="9" cy="12" r="5"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{ pathLength: { duration: 3, ease: "easeInOut" }, opacity: { duration: 0.5 } }}
+          />
+          <motion.circle
+            cx="15" cy="12" r="5"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.1 }, opacity: { duration: 0.5, delay: 0.1 } }}
+          />
+          <motion.circle
+            cx="12" cy="8" r="4"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.2 }, opacity: { duration: 0.5, delay: 0.2 } }}
+          />
+        </g>
       </svg>
     ),
   },
@@ -94,60 +96,62 @@ const PILLARS = {
       "If you want to do something, you need resources. Not just inspiration. Tools. Space. Support. A place to turn frustration into action, and ideas into something real.",
     icon: (
       <svg viewBox="0 0 24 24" className="w-16 h-16" fill="none" stroke="#EDE7DE" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" style={{ filter: "drop-shadow(0 0 8px rgba(237, 231, 222, 0.6))" }}>
-        <motion.circle
-          cx="12" cy="12" r="4"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ pathLength: { duration: 3, ease: "easeInOut" }, opacity: { duration: 0.5 } }}
-        />
-        <motion.path
-          d="M12 2 L12 5"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.1 }, opacity: { duration: 0.5, delay: 0.1 } }}
-        />
-        <motion.path
-          d="M12 19 L12 22"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.2 }, opacity: { duration: 0.5, delay: 0.2 } }}
-        />
-        <motion.path
-          d="M22 12 L19 12"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.3 }, opacity: { duration: 0.5, delay: 0.3 } }}
-        />
-        <motion.path
-          d="M5 12 L2 12"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.4 }, opacity: { duration: 0.5, delay: 0.4 } }}
-        />
-        <motion.path
-          d="M19.07 4.93 L17 7"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.5 }, opacity: { duration: 0.5, delay: 0.5 } }}
-        />
-        <motion.path
-          d="M7 17 L4.93 19.07"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.6 }, opacity: { duration: 0.5, delay: 0.6 } }}
-        />
-        <motion.path
-          d="M19.07 19.07 L17 17"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.7 }, opacity: { duration: 0.5, delay: 0.7 } }}
-        />
-        <motion.path
-          d="M7 7 L4.93 4.93"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.8 }, opacity: { duration: 0.5, delay: 0.8 } }}
-        />
+        <g transform="translate(12 12) scale(1.08) translate(-12 -12)">
+          <motion.circle
+            cx="12" cy="12" r="4"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{ pathLength: { duration: 3, ease: "easeInOut" }, opacity: { duration: 0.5 } }}
+          />
+          <motion.path
+            d="M12 2 L12 5"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.1 }, opacity: { duration: 0.5, delay: 0.1 } }}
+          />
+          <motion.path
+            d="M12 19 L12 22"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.2 }, opacity: { duration: 0.5, delay: 0.2 } }}
+          />
+          <motion.path
+            d="M22 12 L19 12"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.3 }, opacity: { duration: 0.5, delay: 0.3 } }}
+          />
+          <motion.path
+            d="M5 12 L2 12"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.4 }, opacity: { duration: 0.5, delay: 0.4 } }}
+          />
+          <motion.path
+            d="M19.07 4.93 L17 7"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.5 }, opacity: { duration: 0.5, delay: 0.5 } }}
+          />
+          <motion.path
+            d="M7 17 L4.93 19.07"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.6 }, opacity: { duration: 0.5, delay: 0.6 } }}
+          />
+          <motion.path
+            d="M19.07 19.07 L17 17"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.7 }, opacity: { duration: 0.5, delay: 0.7 } }}
+          />
+          <motion.path
+            d="M7 7 L4.93 4.93"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{ pathLength: { duration: 3, ease: "easeInOut", delay: 0.8 }, opacity: { duration: 0.5, delay: 0.8 } }}
+          />
+        </g>
       </svg>
     ),
   },
@@ -402,7 +406,7 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection }) 
               onClick={(event) => handlePillarClick("knowledge", event)}
               onMouseEnter={() => setHoveredPillar("knowledge")}
               onMouseLeave={() => setHoveredPillar(null)}
-              className="relative flex flex-col items-center gap-3 focus:outline-none focus:ring-2 focus:ring-white/60"
+              className="relative flex flex-col items-center gap-3 focus:outline-none"
               style={{ opacity: dimmed && activePillar !== "knowledge" ? 0.25 : 1 }}
               aria-label="Knowledge pillar"
             >
@@ -432,7 +436,7 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection }) 
               onClick={(event) => handlePillarClick("community", event)}
               onMouseEnter={() => setHoveredPillar("community")}
               onMouseLeave={() => setHoveredPillar(null)}
-              className="relative flex flex-col items-center gap-3 focus:outline-none focus:ring-2 focus:ring-white/60"
+              className="relative flex flex-col items-center gap-3 focus:outline-none"
               style={{ opacity: dimmed && activePillar !== "community" ? 0.25 : 1 }}
               aria-label="Community pillar"
             >
@@ -462,7 +466,7 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection }) 
               onClick={(event) => handlePillarClick("empowerment", event)}
               onMouseEnter={() => setHoveredPillar("empowerment")}
               onMouseLeave={() => setHoveredPillar(null)}
-              className="relative flex flex-col items-center gap-3 focus:outline-none focus:ring-2 focus:ring-white/60"
+              className="relative flex flex-col items-center gap-3 focus:outline-none"
               style={{ opacity: dimmed && activePillar !== "empowerment" ? 0.25 : 1 }}
               aria-label="Empowerment pillar"
             >

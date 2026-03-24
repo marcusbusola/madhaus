@@ -23,18 +23,18 @@ const ExpandDrawer = ({ isOpen, onClose, content }) => {
 
   const drawerVariants = {
     closed: {
-      opacity: 0,
-      scale: 0.95,
+      opacity: 1,
+      y: "100%",
       transition: {
-        duration: 0.3,
+        duration: 0.35,
         ease: [0.43, 0.13, 0.23, 0.96],
       },
     },
     open: {
       opacity: 1,
-      scale: 1,
+      y: 0,
       transition: {
-        duration: 0.4,
+        duration: 0.45,
         ease: [0.43, 0.13, 0.23, 0.96],
       },
     },
@@ -54,15 +54,15 @@ const ExpandDrawer = ({ isOpen, onClose, content }) => {
             className="fixed inset-0 bg-black/90 z-[100] cursor-pointer"
           />
 
-          {/* Full Page Modal */}
+          {/* Full-height drawer rising from the bottom */}
           <motion.div
             variants={drawerVariants}
             initial="closed"
             animate="open"
             exit="closed"
-            className="drawer-content fixed inset-0 z-[101] flex items-center justify-center p-8"
+            className="drawer-content fixed inset-x-0 bottom-0 z-[101] flex items-end justify-center"
           >
-            <div className="bg-white text-black w-full h-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl relative">
+            <div className="bg-white text-black w-full h-[90vh] max-w-5xl overflow-y-auto rounded-t-2xl shadow-2xl relative">
               {/* Close Button */}
               <button
                 onClick={onClose}

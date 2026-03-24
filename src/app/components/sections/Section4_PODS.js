@@ -3,15 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-const Section4_PODS = ({ onOpenDrawer, onNavigate, onCloseDrawer }) => {
-  const handleContinue = () => {
-    if (onCloseDrawer) {
-      onCloseDrawer();
-    }
-    if (onNavigate) {
-      onNavigate(5); // Navigate to Section 5 (Opportunity)
-    }
-  };
+const Section4_PODS = ({ onOpenDrawer }) => {
 
   const drawerContent = (
     <div className="space-y-6">
@@ -51,15 +43,6 @@ const Section4_PODS = ({ onOpenDrawer, onNavigate, onCloseDrawer }) => {
         it doesn&apos;t, we&apos;ll learn why — and design something better.
       </p>
 
-      {/* Continue Button */}
-      <div className="pt-4 flex justify-center">
-        <button
-          onClick={handleContinue}
-          className="subscribe-button text-body-sm font-semibold px-8 py-3 rounded-full bg-[#EDE7DE] text-black hover:bg-[#f2ece3] transition-all"
-        >
-          Continue →
-        </button>
-      </div>
     </div>
   );
 
@@ -97,35 +80,15 @@ const Section4_PODS = ({ onOpenDrawer, onNavigate, onCloseDrawer }) => {
           Our first experiment.
         </motion.p>
 
-        <motion.p
+        <motion.button
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="text-body-lg opacity-80 max-w-2xl mx-auto"
+          onClick={() => onOpenDrawer(drawerContent)}
+          className="text-body-lg opacity-80 max-w-2xl mx-auto cursor-pointer hover:opacity-100 transition-opacity"
         >
           Redesigning how Nigeria deploys 300,000 graduates through national
           service.
-        </motion.p>
-
-        {/* Expand Button */}
-        <motion.button
-          initial={{ opacity: 0 }}
-          animate={{
-            opacity: [0.6, 1, 0.6],
-            textShadow: [
-              "0 0 0px rgba(0, 0, 0, 0)",
-              "0 0 10px rgba(0, 0, 0, 0.5)",
-              "0 0 0px rgba(0, 0, 0, 0)",
-            ],
-          }}
-          transition={{
-            opacity: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: 1.5 },
-            textShadow: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: 1.5 },
-          }}
-          onClick={() => onOpenDrawer(drawerContent)}
-          className="mt-8 text-caption hover:opacity-100 transition-opacity cursor-pointer"
-        >
-          + Learn more
         </motion.button>
       </div>
     </div>
