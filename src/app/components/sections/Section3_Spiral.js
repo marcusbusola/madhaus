@@ -1,11 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
+import { useRef } from "react";
 import SpiralSVG from "../SpiralSVG";
 
 const Section3_Spiral = ({ onNavigate, currentSection }) => {
-
   const steps = ["Question", "Investigate", "Translate", "Experiment", "Evaluate", "Repeat"];
   const pulseDuration = 0.8;
   const stepDelay = 0.7;
