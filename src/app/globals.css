@@ -107,6 +107,7 @@ html, body {
     transparent
   );
   animation: lightPass 2s linear infinite;
+  pointer-events: none;
 }
 
 /* Subscribe Button */

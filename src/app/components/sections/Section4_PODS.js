@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-const Section4_PODS = ({ onOpenDrawer }) => {
+const Section4_PODS = ({ onOpenDrawer, onNavigate }) => {
 
   const drawerContent = (
     <div className="space-y-6">
@@ -80,15 +80,47 @@ const Section4_PODS = ({ onOpenDrawer }) => {
           Our first experiment.
         </motion.p>
 
-        <motion.button
+        <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          onClick={() => onOpenDrawer(drawerContent)}
-          className="text-body-lg opacity-80 max-w-2xl mx-auto cursor-pointer hover:opacity-100 transition-opacity"
+          className="text-body-lg max-w-2xl mx-auto"
         >
-          Redesigning how Nigeria deploys 300,000 graduates through national
-          service.
+          <button 
+            onClick={() => onOpenDrawer(drawerContent)}
+            className="text-black font-bold underline decoration-1 underline-offset-4 hover:opacity-70 transition-opacity cursor-pointer inline-block"
+          >
+            Redesigning
+          </button>
+          <span className="opacity-80">
+            {" "}how Nigeria deploys 300,000 graduates through national
+            service.
+          </span>
+        </motion.p>
+
+        {/* Learn More Button */}
+        <motion.button
+          initial={{ opacity: 0 }}
+          animate={{
+            opacity: [0.6, 1, 0.6],
+            textShadow: [
+              "0 0 0px rgba(0, 0, 0, 0)",
+              "0 0 10px rgba(0, 0, 0, 0.2)",
+              "0 0 0px rgba(0, 0, 0, 0)",
+            ],
+          }}
+          transition={{
+            opacity: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: 1 },
+            textShadow: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: 1 },
+          }}
+          onClick={() => {
+            if (onNavigate) {
+              onNavigate(5); // Navigate to Section 5 (Opportunity)
+            }
+          }}
+          className="mt-12 text-caption hover:opacity-100 transition-opacity cursor-pointer text-black"
+        >
+          + Learn more
         </motion.button>
       </div>
     </div>

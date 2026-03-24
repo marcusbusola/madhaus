@@ -55,6 +55,7 @@ const Section6_Close = () => {
           <motion.a
             href="mailto:pr@madhaus.africa"
             className="light-border px-8 py-3 border border-white text-white text-body-sm uppercase tracking-wider hover:bg-white hover:text-black transition-all duration-300"
+            style={{ pointerEvents: 'auto' }}
             animate={{
               boxShadow: [
                 "0 0 0px rgba(255, 255, 255, 0)",
