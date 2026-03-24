@@ -113,21 +113,19 @@ const Section3_Spiral = ({ onNavigate, currentSection }) => {
           </div>
 
           {/* Scroll indicator dots (mobile only) */}
-          {autoScrollComplete && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              className="flex justify-center gap-2 mt-4"
-            >
-              {steps.map((_, index) => (
-                <div
-                  key={index}
-                  className="w-1.5 h-1.5 rounded-full bg-white/30"
-                />
-              ))}
-            </motion.div>
-          )}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 1 }}
+            className="flex justify-center gap-2 mt-4"
+          >
+            {steps.map((_, index) => (
+              <div
+                key={index}
+                className="w-1.5 h-1.5 rounded-full bg-white/30"
+              />
+            ))}
+          </motion.div>
         </motion.div>
 
         {/* Expand Button */}
