@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import FocusTrap from "focus-trap-react";
 
 const ExpandDrawer = ({ isOpen, onClose, content }) => {
   // Close on Escape key
@@ -61,34 +62,44 @@ const ExpandDrawer = ({ isOpen, onClose, content }) => {
             animate="open"
             exit="closed"
             className="drawer-content fixed inset-x-0 bottom-0 z-[101] flex items-end justify-center"
+            role="dialog"
+            aria-modal="true"
           >
-            <div className="bg-white text-black w-full h-[90vh] max-w-5xl overflow-y-auto rounded-t-2xl shadow-2xl relative">
-              {/* Close Button */}
-              <button
-                onClick={onClose}
-                className="sticky top-6 right-6 ml-auto mr-6 w-10 h-10 flex items-center justify-center rounded-full bg-black/5 hover:bg-black/10 transition-colors z-10"
-                aria-label="Close modal"
-              >
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+            <FocusTrap
+              active={isOpen}
+              focusTrapOptions={{
+                clickOutsideDeactivates: true,
+                onDeactivate: onClose,
+              }}
+            >
+              <div className="bg-white text-black w-full h-[90vh] max-w-5xl overflow-y-auto rounded-t-2xl shadow-2xl relative">
+                {/* Close Button */}
+                <button
+                  onClick={onClose}
+                  className="sticky top-6 right-6 ml-auto mr-6 w-10 h-10 flex items-center justify-center rounded-full bg-black/5 hover:bg-black/10 transition-colors z-10"
+                  aria-label="Close modal"
                 >
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                  <line x1="6" y1="6" x2="18" y2="18" />
-                </svg>
-              </button>
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                </button>
 
-              {/* Content */}
-              <div className="px-8 md:px-16 pb-12 max-w-4xl mx-auto">
-                {content}
+                {/* Content */}
+                <div className="px-8 md:px-16 pb-12 max-w-4xl mx-auto">
+                  {content}
+                </div>
               </div>
-            </div>
+            </FocusTrap>
           </motion.div>
         </>
       )}
