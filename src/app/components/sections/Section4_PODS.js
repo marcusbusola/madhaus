@@ -64,7 +64,12 @@ const Section4_PODS = ({ onOpenDrawer, onNavigate, onCloseDrawer }) => {
   );
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center px-8 bg-white text-black">
+    <div className="w-full h-full flex flex-col items-center justify-center px-8 bg-white text-black relative">
+      {/* Section Indicator */}
+      <div className="absolute top-8 right-8 text-caption opacity-40 text-black">
+        04 / 05
+      </div>
+
       <div className="max-w-4xl text-center space-y-8">
         {/* PODS Logo */}
         <motion.div
@@ -118,9 +123,9 @@ const Section4_PODS = ({ onOpenDrawer, onNavigate, onCloseDrawer }) => {
             textShadow: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: 1.5 },
           }}
           onClick={() => onOpenDrawer(drawerContent)}
-          className="mt-8 text-caption hover:opacity-100 transition-opacity"
+          className="mt-8 text-caption hover:opacity-100 transition-opacity cursor-pointer"
         >
-          + LEARN MORE
+          + Learn more
         </motion.button>
       </div>
     </div>

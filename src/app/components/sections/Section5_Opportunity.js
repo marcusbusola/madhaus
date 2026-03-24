@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { trackLearnMoreClick } from '../../utils/analytics';
 
-const Section5_Opportunity = ({ onOpenDrawer, onNavigate }) => {
+const Section5_Opportunity = ({ onNavigate }) => {
   const handleLearnMore = () => {
     trackLearnMoreClick('section5_why_now');
     if (onNavigate) {
@@ -11,44 +11,13 @@ const Section5_Opportunity = ({ onOpenDrawer, onNavigate }) => {
     }
   };
 
-  const drawerContent = (
-    <div className="space-y-6">
-      <div>
-        <h4 className="text-h3 font-semibold mb-3">AFRICA&apos;S YOUTH EXPLOSION</h4>
-        <p className="text-body">
-          The continent&apos;s median age is 19. By 2050, Africa will have the
-          world&apos;s largest workforce. But current institutions — education,
-          healthcare, governance, infrastructure — are already failing at
-          current scale.
-        </p>
-      </div>
-
-      <div>
-        <h4 className="text-h3 font-semibold mb-3">THE MEDIA GAP</h4>
-        <p className="text-body">
-          African media is 90% reactive news cycles, 10% solutions. There&apos;s no
-          African equivalent of Vox, Bloomberg, or IDEO — institutions that
-          translate complexity into understanding and action.
-        </p>
-      </div>
-
-      <div>
-        <h4 className="text-h3 font-semibold mb-3">THE TALENT SURPLUS</h4>
-        <p className="text-body">
-          Africa doesn&apos;t lack ideas or builders. It lacks infrastructure to
-          connect talent to problems worth solving, and content that equips
-          citizens to understand the systems shaping their lives.
-        </p>
-      </div>
-
-      <p className="text-body-lg font-semibold mt-8">
-        Madhaus is building that infrastructure.
-      </p>
-    </div>
-  );
-
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center px-8 bg-black text-white">
+    <div className="w-full h-full flex flex-col items-center justify-center px-8 bg-black text-white relative">
+      {/* Section Indicator */}
+      <div className="absolute top-8 right-8 text-caption opacity-40">
+        05 / 05
+      </div>
+
       <div className="max-w-4xl text-center space-y-8">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -99,7 +68,7 @@ const Section5_Opportunity = ({ onOpenDrawer, onNavigate }) => {
           onClick={handleLearnMore}
           className="mt-8 text-caption hover:opacity-100 transition-opacity"
         >
-          + LEARN MORE
+          + Learn more
         </motion.button>
       </div>
     </div>

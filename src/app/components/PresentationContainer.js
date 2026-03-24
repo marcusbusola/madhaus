@@ -18,11 +18,6 @@ import Section4_PODS from "./sections/Section4_PODS";
 import Section5_Opportunity from "./sections/Section5_Opportunity";
 import Section6_Close from "./sections/Section6_Close";
 
-const SECTION_DURATION = 15000; // 15 seconds
-const SECTION_DURATIONS = {
-  2: 22000,
-};
-
 const PresentationContainer = () => {
   const [currentSection, setCurrentSection] = useState(0);
   const [previousSection, setPreviousSection] = useState(0);
@@ -30,7 +25,6 @@ const PresentationContainer = () => {
   const [progressPercentage, setProgressPercentage] = useState(0);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [drawerContent, setDrawerContent] = useState(null);
-  const timerRef = useRef(null);
 
   // Navigation function
   const navigateToSection = useCallback((targetSection) => {
@@ -43,18 +37,21 @@ const PresentationContainer = () => {
     }
   }, [currentSection]);
 
-  // Advance to next section
-  const advanceSection = useCallback(() => {
-    if (currentSection < 6) {
-      navigateToSection(currentSection + 1);
-    }
-  }, [currentSection, navigateToSection]);
 
   // Calculate static progress based on section position (for visual indicators)
   useEffect(() => {
     // Map section to progress percentage: 0% to 100%
-    // Sections 0-5 visible in progress indicators
-    const sectionProgress = currentSection === 0 ? 0 : (currentSection / 5) * 100;
+    // Section 0 (title): 0%
+    // Sections 1-5: 20%, 40%, 60%, 80%, 100%
+    // Section 6 (hidden): stays at 100%
+    let sectionProgress = 0;
+    if (currentSection === 0) {
+      sectionProgress = 0;
+    } else if (currentSection >= 1 && currentSection <= 5) {
+      sectionProgress = (currentSection / 5) * 100;
+    } else if (currentSection === 6) {
+      sectionProgress = 100; // Section 6 is hidden, keep at 100%
+    }
     setProgressPercentage(sectionProgress);
   }, [currentSection]);
 
@@ -147,27 +144,6 @@ const PresentationContainer = () => {
     };
   }, [currentSection, isDrawerOpen, navigateToSection]);
 
-  // Click-anywhere to advance (except on interactive elements)
-  // Disabled on mobile/touch devices to allow button interactions
-  const handleSectionClick = (e) => {
-    // Skip on touch devices (mobile) - use swipe navigation instead
-    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
-      return;
-    }
-
-    // Ignore clicks on buttons, links, inputs, or drawer
-    if (
-      e.target.closest("button, a, input, .drawer-content, .cursor-pointer, [role='button']") ||
-      isDrawerOpen
-    ) {
-      return;
-    }
-
-    // Don't advance on Section 0 or 6
-    if (currentSection !== 0 && currentSection < 6) {
-      advanceSection();
-    }
-  };
 
   // Open drawer with content
   const handleOpenDrawer = (content) => {
@@ -180,28 +156,33 @@ const PresentationContainer = () => {
 
   // Render current section
   const renderCurrentSection = () => {
-    const sectionProps = {
+    const baseSectionProps = {
       onNavigate: navigateToSection,
+      currentSection,
+    };
+
+    // Only Section4 (PODS) uses the drawer
+    const podsProps = {
+      ...baseSectionProps,
       onOpenDrawer: handleOpenDrawer,
       onCloseDrawer: handleCloseDrawer,
-      currentSection,
     };
 
     switch (currentSection) {
       case 0:
-        return <Section0_TitleCard {...sectionProps} />;
+        return <Section0_TitleCard {...baseSectionProps} />;
       case 1:
-        return <Section1_Problem {...sectionProps} />;
+        return <Section1_Problem {...baseSectionProps} />;
       case 2:
-        return <Section2_KnowledgeCommunityEmpowerment {...sectionProps} />;
+        return <Section2_KnowledgeCommunityEmpowerment {...baseSectionProps} />;
       case 3:
-        return <Section3_Spiral {...sectionProps} />;
+        return <Section3_Spiral {...baseSectionProps} />;
       case 4:
-        return <Section4_PODS {...sectionProps} />;
+        return <Section4_PODS {...podsProps} />;
       case 5:
-        return <Section5_Opportunity {...sectionProps} />;
+        return <Section5_Opportunity {...baseSectionProps} />;
       case 6:
-        return <Section6_Close {...sectionProps} />;
+        return <Section6_Close {...baseSectionProps} />;
       default:
         return null;
     }
@@ -238,7 +219,6 @@ const PresentationContainer = () => {
           key={currentSection}
           currentSection={currentSection}
           direction={direction}
-          onClick={handleSectionClick}
         >
           {renderCurrentSection()}
         </Section>

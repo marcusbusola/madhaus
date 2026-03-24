@@ -23,18 +23,18 @@ const ExpandDrawer = ({ isOpen, onClose, content }) => {
 
   const drawerVariants = {
     closed: {
-      y: "100%",
       opacity: 0,
+      scale: 0.95,
       transition: {
-        duration: 0.4,
+        duration: 0.3,
         ease: [0.43, 0.13, 0.23, 0.96],
       },
     },
     open: {
-      y: 0,
       opacity: 1,
+      scale: 1,
       transition: {
-        duration: 0.5,
+        duration: 0.4,
         ease: [0.43, 0.13, 0.23, 0.96],
       },
     },
@@ -51,41 +51,43 @@ const ExpandDrawer = ({ isOpen, onClose, content }) => {
             animate="open"
             exit="closed"
             onClick={onClose}
-            className="fixed inset-0 bg-black/80 z-[100] cursor-pointer"
+            className="fixed inset-0 bg-black/90 z-[100] cursor-pointer"
           />
 
-          {/* Drawer */}
+          {/* Full Page Modal */}
           <motion.div
             variants={drawerVariants}
             initial="closed"
             animate="open"
             exit="closed"
-            className="drawer-content fixed bottom-0 left-0 right-0 bg-white text-black z-[101] max-h-[80vh] overflow-y-auto rounded-t-2xl shadow-2xl"
+            className="drawer-content fixed inset-0 z-[101] flex items-center justify-center p-8"
           >
-            {/* Close Button */}
-            <button
-              onClick={onClose}
-              className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors"
-              aria-label="Close drawer"
-            >
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+            <div className="bg-white text-black w-full h-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl relative">
+              {/* Close Button */}
+              <button
+                onClick={onClose}
+                className="sticky top-6 right-6 ml-auto mr-6 w-10 h-10 flex items-center justify-center rounded-full bg-black/5 hover:bg-black/10 transition-colors z-10"
+                aria-label="Close modal"
               >
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-            </button>
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
 
-            {/* Content */}
-            <div className="px-8 md:px-16 py-12 max-w-4xl mx-auto">
-              {content}
+              {/* Content */}
+              <div className="px-8 md:px-16 pb-12 max-w-4xl mx-auto">
+                {content}
+              </div>
             </div>
           </motion.div>
         </>

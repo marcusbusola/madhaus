@@ -153,7 +153,7 @@ const PILLARS = {
   },
 };
 
-const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, onOpenDrawer }) => {
+const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection }) => {
   const prefersReducedMotion = useReducedMotion();
   const containerRef = useRef(null);
   const centerTextRef = useRef(null);
@@ -307,7 +307,7 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
     >
       {/* Section Indicator */}
       <div className="absolute top-8 right-8 text-caption opacity-40">
-        02 / 06
+        02 / 05
       </div>
 
       {/* Top Section: Logo and Description */}
@@ -341,37 +341,32 @@ const Section2_KnowledgeCommunityEmpowerment = ({ onNavigate, currentSection, on
         </motion.div>
 
         {/* Learn More Button */}
-        <motion.div
+        <motion.button
           initial={{ opacity: 0 }}
-          animate={{ opacity: showLearnMore ? 1 : 0 }}
-          transition={{ duration: 0.8, ease: "easeInOut", delay: 0.5 }}
-          className="mt-6"
+          animate={
+            showLearnMore
+              ? {
+                  opacity: [0.6, 1, 0.6],
+                  textShadow: [
+                    "0 0 0px rgba(255, 255, 255, 0)",
+                    "0 0 10px rgba(255, 255, 255, 0.8)",
+                    "0 0 0px rgba(255, 255, 255, 0)",
+                  ],
+                }
+              : { opacity: 0 }
+          }
+          transition={{
+            opacity: { duration: 2, repeat: showLearnMore ? Infinity : 0, ease: "easeInOut" },
+            textShadow: { duration: 2, repeat: showLearnMore ? Infinity : 0, ease: "easeInOut" },
+          }}
+          onClick={(e) => {
+            e.stopPropagation();
+            onNavigate(3);
+          }}
+          className="mt-8 text-caption hover:opacity-100 transition-opacity cursor-pointer"
         >
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              onNavigate(3);
-            }}
-            className="relative px-8 py-3 text-body-sm uppercase tracking-wider bg-transparent border border-white/40 hover:border-white/80 transition-all duration-300 group overflow-hidden"
-            style={{
-              boxShadow: "0 0 20px rgba(255, 255, 255, 0.1)",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = "0 0 30px rgba(255, 255, 255, 0.3)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = "0 0 20px rgba(255, 255, 255, 0.1)";
-            }}
-          >
-            <span className="relative z-10">Learn More</span>
-            <motion.span
-              className="absolute inset-0 bg-white/10"
-              initial={{ scale: 0, opacity: 0 }}
-              whileHover={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.3 }}
-            />
-          </button>
-        </motion.div>
+          + Learn more
+        </motion.button>
       </div>
 
       {/* Center-stage text */}

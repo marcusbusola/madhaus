@@ -129,8 +129,8 @@ const IssueIcon = ({ type, className = "", drawDelay = 0, animateDraw = true }) 
   return icons[type] || null;
 };
 
-const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSection }) => {
-  const [stage, setStage] = useState("grid"); // grid, selected, drawer
+const Section1_Problem = ({ onNavigate, currentSection }) => {
+  const [stage, setStage] = useState("grid"); // grid, selected
   const [hoveredIssue, setHoveredIssue] = useState(null);
   const [selectedIssue, setSelectedIssue] = useState(null);
   const [showSocialProof, setShowSocialProof] = useState(false);
@@ -168,24 +168,6 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
         line5: "unemployment, inequality, broken trust,",
         line6: "or why some neighborhoods are protected and others aren't.",
       },
-      drawer: {
-        content: (
-          <div className="space-y-6">
-            <p className="text-body-lg">
-              Security isn&apos;t just a policing problem. It&apos;s a systems problem — shaped by urban design, economic opportunity, historical neglect, and who gets to feel protected.
-            </p>
-            <p className="text-body">
-              We have plenty of opinions on crime. Fewer spaces to understand why it concentrates where it does, or to design interventions that address root causes instead of symptoms.
-            </p>
-            <p className="text-body font-semibold">
-              Madhaus exists to be that space.
-            </p>
-            <p className="text-body">
-              A living room for the questions no one&apos;s asking — and the ideas that might actually change something.
-            </p>
-          </div>
-        ),
-      },
     },
     {
       id: "poverty",
@@ -200,21 +182,6 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
         line4: "Fewer ask why wealth concentrates where it does,",
         line5: "how policy creates scarcity,",
         line6: "or why the same communities stay poor across generations.",
-      },
-      drawer: {
-        content: (
-          <div className="space-y-6">
-            <p className="text-body-lg">
-              Poverty isn&apos;t a lack of resources. It&apos;s a system that allocates resources unevenly — through land policy, credit access, taxation, and who gets to accumulate wealth.
-            </p>
-            <p className="text-body">
-              We&apos;re not short on sympathy for the poor. We&apos;re short on understanding of the mechanisms that keep people poor.
-            </p>
-            <p className="text-body font-semibold">
-              Madhaus exists to map those mechanisms — and to find the leverage points where things could actually shift.
-            </p>
-          </div>
-        ),
       },
     },
     {
@@ -231,21 +198,6 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
         line5: "why prevention is underfunded,",
         line6: "or how food, housing, and pollution shape who gets sick.",
       },
-      drawer: {
-        content: (
-          <div className="space-y-6">
-            <p className="text-body-lg">
-              Health isn&apos;t made in hospitals. It&apos;s made in homes, neighborhoods, and policy rooms — by decisions about water, sanitation, food, and whether your community is seen as worth investing in.
-            </p>
-            <p className="text-body">
-              We have health ministries. We don&apos;t have enough people asking why the system keeps producing the same outcomes.
-            </p>
-            <p className="text-body font-semibold">
-              That&apos;s the work. Madhaus is the room where that work can happen.
-            </p>
-          </div>
-        ),
-      },
     },
     {
       id: "employment",
@@ -260,21 +212,6 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
         line4: "Fewer ask why formal work keeps shrinking,",
         line5: "who the informal economy actually serves,",
         line6: "or why a degree doesn't guarantee dignity.",
-      },
-      drawer: {
-        content: (
-          <div className="space-y-6">
-            <p className="text-body-lg">
-              The future of work in Africa won&apos;t look like the past — and that&apos;s not necessarily bad. But we&apos;re not designing for what&apos;s coming.
-            </p>
-            <p className="text-body">
-              We have job programs. We don&apos;t have enough spaces to reimagine what work could look like in economies where the old playbook doesn&apos;t apply.
-            </p>
-            <p className="text-body font-semibold">
-              Madhaus is that space. A room for ideas that don&apos;t fit the template.
-            </p>
-          </div>
-        ),
       },
     },
     {
@@ -291,21 +228,6 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
         line5: "how land, finance, and policy interact,",
         line6: "or why informal solutions keep filling the gap.",
       },
-      drawer: {
-        content: (
-          <div className="space-y-6">
-            <p className="text-body-lg">
-              The housing crisis isn&apos;t a shortage of buildings. It&apos;s a system where land is speculation, finance excludes most people, and policy serves developers over residents.
-            </p>
-            <p className="text-body">
-              We have housing ministries. We don&apos;t have enough young people asking why the system keeps failing — or designing alternatives.
-            </p>
-            <p className="text-body font-semibold">
-              That&apos;s why Madhaus exists. A living room for the ideas that could actually change how we build.
-            </p>
-          </div>
-        ),
-      },
     },
     {
       id: "energy",
@@ -320,21 +242,6 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
         line4: "Fewer ask who energy systems are designed for,",
         line5: "why off-grid innovations stay marginal,",
         line6: "or how energy access shapes every other opportunity.",
-      },
-      drawer: {
-        content: (
-          <div className="space-y-6">
-            <p className="text-body-lg">
-              Electricity isn&apos;t just power — it&apos;s possibility. Education, healthcare, business, safety — all depend on it. And the current system decides who gets access.
-            </p>
-            <p className="text-body">
-              We talk about renewable transitions. We don&apos;t talk enough about energy justice — who&apos;s included in the future we&apos;re building.
-            </p>
-            <p className="text-body font-semibold">
-              Madhaus is where those conversations can happen. A space for bold ideas about who the grid should serve.
-            </p>
-          </div>
-        ),
       },
     },
     {
@@ -351,21 +258,6 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
         line5: "why graduates can't find work,",
         line6: "or whether the system prepares anyone for the world that exists.",
       },
-      drawer: {
-        content: (
-          <div className="space-y-6">
-            <p className="text-body-lg">
-              Education isn't just about classrooms. It's a system — shaped by curriculum politics, teacher economics, colonial inheritance, and what society decides is worth knowing.
-            </p>
-            <p className="text-body">
-              We have enrollment targets. We don't have enough people asking what education is actually for, or why the current model keeps producing the same outcomes.
-            </p>
-            <p className="text-body font-semibold">
-              Madhaus exists to ask those questions. A space where we can reimagine what learning could look like — not just more of what isn't working.
-            </p>
-          </div>
-        ),
-      },
     },
     {
       id: "transportation",
@@ -380,21 +272,6 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
         line4: "Fewer ask why cities are designed this way,",
         line5: "who benefits from the current layout,",
         line6: "or why public systems keep losing to private alternatives.",
-      },
-      drawer: {
-        content: (
-          <div className="space-y-6">
-            <p className="text-body-lg">
-              Transportation isn't a traffic problem. It's an urban design problem — shaped by where housing is built, where jobs are located, who owns land, and decades of decisions that prioritized cars over people.
-            </p>
-            <p className="text-body">
-              We have road projects. We don't have enough spaces to ask why the city moves the way it does, or to imagine alternatives that don't require everyone to own a vehicle.
-            </p>
-            <p className="text-body font-semibold">
-              Madhaus is that space. Where we can think about mobility as a system — and design for cities that actually work for the people living in them.
-            </p>
-          </div>
-        ),
       },
     },
   ];
@@ -450,7 +327,7 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
     <div className="w-full h-full flex flex-col items-center justify-center px-8 bg-black text-white relative">
       {/* Section Indicator */}
       <div className="absolute top-8 right-8 text-caption opacity-40">
-        02 / 06
+        01 / 05
       </div>
 
       <LayoutGroup>
@@ -683,31 +560,25 @@ const Section1_Problem = ({ onOpenDrawer, onNavigate, onCloseDrawer, currentSect
                     animate={
                       showLearnMore
                         ? {
-                            opacity: [0.7, 1, 0.7],
+                            opacity: [0.6, 1, 0.6],
                             textShadow: [
                               "0 0 0px rgba(255, 255, 255, 0)",
-                              "0 0 12px rgba(255, 255, 255, 0.9)",
+                              "0 0 10px rgba(255, 255, 255, 0.8)",
                               "0 0 0px rgba(255, 255, 255, 0)",
-                            ],
-                            filter: [
-                              "drop-shadow(0 0 0px rgba(255, 255, 255, 0))",
-                              "drop-shadow(0 0 16px rgba(255, 255, 255, 0.7))",
-                              "drop-shadow(0 0 0px rgba(255, 255, 255, 0))",
                             ],
                           }
                         : { opacity: 0 }
                     }
                     transition={{
-                      opacity: { duration: 2.4, repeat: showLearnMore ? Infinity : 0, ease: "easeInOut" },
-                      textShadow: { duration: 2.4, repeat: showLearnMore ? Infinity : 0, ease: "easeInOut" },
-                      filter: { duration: 2.4, repeat: showLearnMore ? Infinity : 0, ease: "easeInOut" },
+                      opacity: { duration: 2, repeat: showLearnMore ? Infinity : 0, ease: "easeInOut" },
+                      textShadow: { duration: 2, repeat: showLearnMore ? Infinity : 0, ease: "easeInOut" },
                     }}
                     onClick={handleLearnMore}
-                    className="mt-2 text-caption hover:opacity-100 transition-opacity cursor-pointer relative z-10"
+                    className="mt-8 text-caption hover:opacity-100 transition-opacity cursor-pointer"
                     style={{ pointerEvents: showLearnMore ? "auto" : "none" }}
                     aria-hidden={!showLearnMore}
                   >
-                    + LEARN MORE
+                    + Learn more
                   </motion.button>
                 </div>
               </motion.div>
